@@ -40,6 +40,10 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(226, 232, 240, 0.8);
         }
+        
+        /* Hide default details marker */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-medical-100 selection:text-medical-900">
@@ -65,14 +69,16 @@
 
     <!-- Sticky Navigation -->
     <nav class="glass-nav sticky top-0 z-50 px-4 py-3 shadow-sm">
-        <div class="max-w-6xl mx-auto flex overflow-x-auto hide-scrollbar gap-2 md:gap-4 md:justify-center snap-x">
+        <div class="max-w-6xl mx-auto flex overflow-x-auto hide-scrollbar gap-2 md:gap-4 md:justify-center snap-x items-center">
             <a href="#overview" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">ภาพรวม</a>
             <a href="#tb" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">วัณโรคปอด</a>
             <a href="#cystitis" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">Acute Cystitis</a>
             <a href="#hpylori" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">H. pylori</a>
             <a href="#gout" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">โรคเกาต์</a>
             <a href="#graves" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">Graves Disease</a>
+            <div class="w-px h-6 bg-slate-300 mx-1"></div>
             <a href="#nursing-summary" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold text-medical-600 bg-medical-50 hover:bg-medical-100 transition-colors border border-medical-200">สรุปการพยาบาล</a>
+            <a href="#qa-section" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold text-white bg-slate-800 hover:bg-slate-900 transition-colors shadow-sm flex items-center gap-1"><i class="ph-bold ph-chats"></i> Q&A เตรียมตอบคำถาม</a>
         </div>
     </nav>
 
@@ -764,24 +770,317 @@
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Consult Quote Box -->
-                    <div class="bg-gradient-to-r from-medical-50 to-white p-6 rounded-xl border border-medical-100 flex gap-4 items-start shadow-sm">
-                        <i class="ph-fill ph-quotes text-4xl text-medical-300"></i>
-                        <div>
-                            <h3 class="font-bold text-medical-900 mb-2 text-lg">คีย์เวิร์ดสรุปแบบพูดกับอาจารย์แพทย์:</h3>
-                            <p class="text-slate-700 italic font-medium leading-relaxed">
-                                "บทบาทพยาบาลของทั้ง 5 โรค จะเน้นการประเมินอาการสำคัญ เฝ้าระวังภาวะแทรกซ้อน สนับสนุนการกินยาครบตามแผน ดูแลการป้องกันการแพร่เชื้อในโรคติดเชื้อ และให้ความรู้ผู้ป่วยเพื่อป้องกันการกลับเป็นซ้ำหรืออาการรุนแรงครับ"
-                            </p>
+        <!-- Q&A Section -->
+        <section id="qa-section" class="scroll-mt-24">
+            <div class="bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
+                <div class="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">
+                    <div class="w-12 h-12 rounded-full bg-slate-700 text-white flex items-center justify-center text-2xl">
+                        <i class="ph-bold ph-chats"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-2xl font-bold text-white">Q&A เตรียมพร้อมสำหรับตอบคำถามอาจารย์แพทย์</h2>
+                        <p class="text-slate-400 text-sm mt-1">คลิกที่คำถามเพื่อดูแนวคำตอบ</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    
+                    <!-- หมวด: ภาพรวม -->
+                    <div>
+                        <h3 class="text-medical-300 font-semibold mb-3 flex items-center gap-2"><i class="ph-fill ph-lightbulb"></i> ชุดคำถามภาพรวม</h3>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start">
+                                    <i class="ph-bold ph-question text-medical-500 mt-1"></i>
+                                    <span>ทำไมถึงเลือก 5 โรคนี้?</span>
+                                </span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                เพราะทั้ง 5 โรคเป็นโรคที่พบบ่อยพอสมควร มีสาเหตุหรือกลไกโรคที่ชัดเจน อธิบายพยาธิกำเนิดได้เป็นลำดับ และมีแนวทางวินิจฉัยค่อนข้างชัดเจน จึงเหมาะกับการนำเสนอเชิงวิชาการ โดย 3 โรคแรกมีเชื้อก่อโรคจำเพาะ ส่วน gout และ Graves disease มีกลไกโรคจำเพาะ คือผลึก urate และ antibody ต่อ TSH receptor
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start">
+                                    <i class="ph-bold ph-question text-medical-500 mt-1"></i>
+                                    <span>ถ้าให้เลือกโรคที่ “กลไกชัดที่สุด” จะเลือกโรคไหน?</span>
+                                </span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ถ้าเน้นกลไกระดับพยาธิกำเนิด ผมเลือก Graves disease หรือ gout เพราะ Graves disease มี antibody มากระตุ้น TSH receptor โดยตรง ส่วน gout เกิดจาก monosodium urate crystal ไปกระตุ้นการอักเสบในข้อผ่าน innate immune response
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start">
+                                    <i class="ph-bold ph-question text-medical-500 mt-1"></i>
+                                    <span>ถ้าให้เลือกโรคที่ “เหมาะกับบริบทไทย” มากที่สุด จะเลือกโรคไหน?</span>
+                                </span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ผมเลือก วัณโรคปอด เพราะยังเป็นโรคที่มี burden สำคัญในไทยและภูมิภาค อีกทั้งมีประเด็นทั้งด้านโรคติดเชื้อ การแพร่กระจายเชื้อ การวินิจฉัยจากเสมหะ และการกินยาระยะยาว
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start">
+                                    <i class="ph-bold ph-question text-medical-500 mt-1"></i>
+                                    <span>โรคไหนที่พยาบาลมีบทบาทเด่นที่สุด?</span>
+                                </span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ทุกโรคมีบทบาทพยาบาล แต่ถ้าเด่นมากคือ วัณโรคปอด เพราะพยาบาลต้องดูแลเรื่อง airborne precautions, การใส่หน้ากาก, การเก็บเสมหะ, การติดตามกินยาครบ และการป้องกันการแพร่เชื้อสู่ผู้อื่น
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- หมวด: วัณโรคปอด -->
+                    <div>
+                        <h3 class="text-red-400 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-fill ph-lungs"></i> 1. วัณโรคปอด</h3>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-red-500 mt-1"></i><span>พยาธิกำเนิดของวัณโรคปอดเป็นอย่างไร และต่างกับ Latent TB อย่างไร?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                <ul class="list-disc pl-4 space-y-1">
+                                    <li><strong>พยาธิกำเนิด:</strong> เชื้อถูกสูดเข้าทางละอองฝอย → เข้าสู่ถุงลมปอด → ถูก macrophage กลืน → กระตุ้น cell-mediated immunity → เกิด granuloma → อาจกลายเป็น latent TB หรือถ้าภูมิควบคุมไม่ได้จะเกิด active TB disease</li>
+                                    <li><strong>ความต่าง:</strong> Latent TB คือมีเชื้ออยู่ในร่างกายแต่ยังไม่แสดงอาการและยังไม่แพร่เชื้อ ส่วน Active TB คือเชื้อเพิ่มจำนวนจนเกิดโรค มีอาการ (ไอเรื้อรัง ไข้ น้ำหนักลด) และแพร่เชื้อได้</li>
+                                </ul>
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-red-500 mt-1"></i><span>TST หรือ IGRA ยืนยัน active TB ได้ไหม? การตรวจอะไรที่ยืนยันได้ดีที่สุด?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ไม่ได้ครับ TST และ IGRA ใช้บอกแค่ว่า "มีการติดเชื้อ (Latent)" แต่ไม่สามารถยืนยัน "การป่วย (Active)" ได้ การตรวจที่ยืนยัน (Gold standard) คือการเพาะเชื้อ (Culture) แต่ในทางปฏิบัติจะใช้ร่วมกับ AFB smear และ Xpert MTB/RIF (ช่วยตรวจพบเชื้อและดูการดื้อยาได้รวดเร็ว)
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-red-500 mt-1"></i><span>ผลข้างเคียงยาที่พยาบาลต้องระวัง และถ้าผู้ป่วยอยากหยุดยาควรทำอย่างไร?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                <strong>ผลข้างเคียง:</strong> ตัวเหลืองตาเหลือง คลื่นไส้อาเจียนรุนแรง เบื่ออาหารมาก ปัสสาวะเข้ม ผื่น ชาปลายมือปลายเท้า หรือการมองเห็นผิดปกติ ต้องรีบรายงานแพทย์<br>
+                                <strong>หากอยากหยุดยา:</strong> อธิบายว่าห้ามหยุดยาเองเด็ดขาด เชื้ออาจยังไม่หมด ทำให้โรคกลับมาเป็นซ้ำและเสี่ยงต่อ "วัณโรคดื้อยา" ต้องกินให้ครบตามแผน
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- หมวด: Cystitis -->
+                    <div>
+                        <h3 class="text-amber-400 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-fill ph-drop"></i> 2. Acute uncomplicated cystitis</h3>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-amber-500 mt-1"></i><span>ทำไมผู้หญิงเป็นบ่อยกว่าผู้ชาย และพยาธิกำเนิดเป็นอย่างไร?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ท่อปัสสาวะของผู้หญิงสั้นกว่า และอยู่ใกล้บริเวณทวารหนัก ทำให้เชื้อแบคทีเรีย (ส่วนใหญ่ E. coli) จากบริเวณรอบทวารหนัก (periurethral area) เข้าสู่ท่อปัสสาวะได้ง่ายกว่า จากนั้นไต่ขึ้นสู่กระเพาะปัสสาวะ เกาะและบุกรุกเยื่อบุ จนเกิดการอักเสบ
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-amber-500 mt-1"></i><span>ถ้ามีไข้ ปวดสีข้าง คลื่นไส้อาเจียน ต้องคิดถึงอะไร?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ต้องคิดถึง Pyelonephritis (กรวยไตอักเสบ) เพราะ Cystitis ธรรมดามักไม่มี Systemic symptoms ชัดเจนแบบนี้
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-amber-500 mt-1"></i><span>ให้คำแนะนำป้องกันการเป็นซ้ำอย่างไร?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ไม่กลั้นปัสสาวะ ดื่มน้ำเพียงพอ ปัสสาวะหลังมีเพศสัมพันธ์ เช็ดทำความสะอาดจากหน้าไปหลัง และหลีกเลี่ยงการสวนล้างช่องคลอด หรือใช้สารระคายเคือง (สเปรย์/แป้ง) บริเวณอวัยวะเพศ
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- หมวด: H.pylori -->
+                    <div>
+                        <h3 class="text-emerald-400 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-fill ph-stomach"></i> 3. H. pylori-related peptic disease</h3>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-emerald-500 mt-1"></i><span>ทำไม H. pylori อยู่ในกระเพาะที่เป็นกรดได้ และก่อโรคอย่างไร?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                เชื้อสร้างเอนไซม์ urease ช่วยเปลี่ยน urea เป็น ammonia ทำให้สภาพแวดล้อมรอบตัวเป็นด่างทนกรดได้ จากนั้นแทรกผ่าน mucus ไปเกาะเยื่อบุ ก่อให้เกิด chronic active gastritis ทำให้เยื่อบุอ่อนแอ จนเกิดแผล (Peptic ulcer) หรือเสี่ยงมะเร็งกระเพาะอาหาร
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-emerald-500 mt-1"></i><span>ทำไม Serology ไม่ใช่วิธีหลักในการวินิจฉัย และทำไมต้องหยุด PPI ก่อนตรวจ?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                <strong>Serology (ตรวจเลือด):</strong> บอกได้แค่เคยสัมผัสเชื้อหรือมีภูมิ แต่บอกไม่ได้ว่ากำลังเป็น (Active infection) หรือรักษาหายหรือยัง <br>
+                                <strong>การหยุด PPI:</strong> ต้องหยุดอย่างน้อย 2 สัปดาห์ เพราะ PPI อาจทำให้ปริมาณเชื้อลดลงชั่วคราว ทำให้ผลตรวจ UBT หรือ Stool antigen เป็น "ลบเทียม (False negative)" ได้
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-emerald-500 mt-1"></i><span>บทบาทพยาบาลถ้าผู้ป่วยมาด้วยถ่ายดำหรืออาเจียนเป็นเลือด?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ต้องรีบรายงานแพทย์ทันที เพราะเป็นอาการของ Upper GI Bleeding ต้องประเมินสัญญาณชีพ เฝ้าระวังภาวะช็อก (ซีด หน้ามืด ความดันตก ชีพจรเร็ว) และเตรียมการดูแลฉุกเฉินตามแผนแพทย์
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- หมวด: Gout -->
+                    <div>
+                        <h3 class="text-blue-400 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-fill ph-bone"></i> 4. โรคเกาต์</h3>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-blue-500 mt-1"></i><span>พยาธิกำเนิดของ Gout flare เป็นอย่างไร?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ระดับ urate สูงในเลือด (ส่วนใหญ่มักเกิดจากการขับออกทางไตลดลง มากกว่าสร้างเยอะไป) → ตกผลึก MSU (Monosodium urate) ในข้อ → ผลึกกระตุ้น Innate immune response (ผ่าน inflammasome โดยเฉพาะ NLRP3) → เกิดการอักเสบเฉียบพลัน ปวด บวม แดง ร้อน
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-blue-500 mt-1"></i><span>การวินิจฉัย Definitive Dx คืออะไร ยืนยันจากผลเลือด Uric acid สูงได้ไหม?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                <strong>Definitive Dx:</strong> คือการเจาะน้ำไขข้อพบผลึก MSU crystals<br>
+                                <strong>ผลเลือด:</strong> ยืนยันไม่ได้เสมอไป เพราะบางคน Uric สูงแต่ไม่เป็นเกาต์ และบางคนช่วงกำเริบ (Acute flare) ค่า Uric อาจไม่สูงมาก ต้องอาศัยประวัติ อาการ (ข้อโคนนิ้วโป้งเท้าอักเสบ) หรือ Imaging (US/DECT) ประกอบ
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-blue-500 mt-1"></i><span>ถ้าผู้ป่วยกิน Allopurinol อาการดีขึ้นแล้วหยุดยาเอง จะแนะนำอย่างไร?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ไม่ควรหยุดยาเอง เพราะ Allopurinol เป็นยาลดกรดยูริกที่ใช้ "ควบคุมระยะยาว" ไม่ใช่ยาแก้ปวดเฉียบพลัน การหยุดยาจะทำให้ระดับ Urate แกว่งและกลับมาสูง ซึ่งเป็นตัวกระตุ้นให้เกาต์กำเริบ (Flare) ซ้ำได้
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- หมวด: Graves -->
+                    <div>
+                        <h3 class="text-purple-400 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-fill ph-butterfly"></i> 5. Graves disease</h3>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-purple-500 mt-1"></i><span>พยาธิกำเนิดของโรค และต่างจาก Thyroiditis อย่างไร?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                <strong>พยาธิกำเนิด:</strong> เป็น Autoimmune มีแอนติบอดี (TRAb/TSI) ไปจับและกระตุ้น TSH receptor บนต่อมไทรอยด์ให้สร้างฮอร์โมน (T3/T4) ออกมามากเกินไปอย่างต่อเนื่อง<br>
+                                <strong>ต่างจาก Thyroiditis:</strong> Thyroiditis เกิดจาก "การอักเสบ" ทำให้ฮอร์โมนที่สะสมไว้ "รั่ว" ออกมา แต่ไม่ได้สร้างเพิ่ม การดูดจับไอโอดีน (RAIU) ของ Graves จะสูง แต่ Thyroiditis จะต่ำ
+                            </div>
+                        </details>
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-purple-500 mt-1"></i><span>ถ้าผู้ป่วยกินยา Antithyroid (เช่น MMI/PTU) แล้วมีไข้ เจ็บคอ ต้องทำอย่างไร?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                ต้องรีบรายงานแพทย์หรือให้ผู้ป่วยมาโรงพยาบาลทันที เพราะอาจเป็นสัญญาณของ <strong>Agranulocytosis</strong> (เม็ดเลือดขาวต่ำรุนแรง) ซึ่งเป็นผลข้างเคียงอันตรายของยา ต้องหยุดยาและเจาะเลือดตรวจ CBC
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- หมวด: เปรียบเทียบ และ พยาบาล -->
+                    <div>
+                        <h3 class="text-medical-200 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-bold ph-scales"></i> คำถามเปรียบเทียบ & คำถามแนวพยาบาล</h3>
+                        
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-slate-500 mt-1"></i><span>เปรียบเทียบความเหมือน/ต่าง: TB vs Cystitis / H.pylori vs Cystitis / Gout vs Graves</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                <ul class="list-disc pl-4 space-y-2">
+                                    <li><strong>TB vs Cystitis:</strong> TB แพร่ทางอากาศ (Airborne) ส่วน Cystitis เชื้อไต่ขึ้นมาจากรอบทวารหนัก ไม่แพร่กระจายทางอากาศ</li>
+                                    <li><strong>H. pylori vs Cystitis:</strong> เป็นโรคติดเชื้อแบคทีเรียที่รักษาด้วยยาฆ่าเชื้อเหมือนกัน แต่เกิดคนละระบบ (GI vs GU)</li>
+                                    <li><strong>Gout vs Graves:</strong> ทั้งคู่ไม่ใช่โรคติดเชื้อ แต่มีกลไกจำเพาะ (ผลึก Urate vs แอนติบอดี) และเน้นการรักษาควบคุมระยะยาว</li>
+                                </ul>
+                            </div>
+                        </details>
+                        
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-slate-500 mt-1"></i><span>โรคไหนต้องระวังเรื่อง Adherence (ความร่วมมือในการกินยา) มากที่สุด?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                TB และ H. pylori เพราะต้องกินยาหลายตัวพร้อมกันให้ครบตามระยะเวลา หากไม่ครบจะเสี่ยงดื้อยาและกำจัดเชื้อไม่สำเร็จ (ส่วน Gout/Graves ก็ต้องการ Adherence เพื่อคุมอาการระยะยาวเช่นกัน)
+                            </div>
+                        </details>
+
+                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
+                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
+                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-red-500 mt-1"></i><span>โรคไหนมีอันตรายเฉียบพลันที่ต้องรีบรายงานแพทย์ (Red Flags)?</span></span>
+                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
+                            </summary>
+                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
+                                <table class="w-full text-left border-collapse mt-2 bg-white rounded shadow-sm">
+                                    <thead class="bg-slate-100">
+                                        <tr><th class="p-2 border">โรค</th><th class="p-2 border">อาการอันตรายฉุกเฉิน</th></tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td class="p-2 border font-medium">TB</td><td class="p-2 border text-red-600">หอบมาก, SpO₂ ต่ำ, ไอเป็นเลือดมาก</td></tr>
+                                        <tr><td class="p-2 border font-medium">Cystitis</td><td class="p-2 border text-red-600">ไข้สูง, ปวดสีข้าง, คลื่นไส้อาเจียน (สงสัย Pyelonephritis)</td></tr>
+                                        <tr><td class="p-2 border font-medium">H. pylori/PUD</td><td class="p-2 border text-red-600">ถ่ายดำ, อาเจียนเป็นเลือด, ภาวะช็อก</td></tr>
+                                        <tr><td class="p-2 border font-medium">Gout</td><td class="p-2 border text-red-600">ข้อบวมแดงร่วมไข้สูง (ต้องแยก Septic arthritis)</td></tr>
+                                        <tr><td class="p-2 border font-medium">Graves</td><td class="p-2 border text-red-600">ไข้สูง ใจสั่นมาก สับสน (สงสัย Thyroid storm)</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </details>
+                    </div>
+
+                    <!-- Highlighted Action Boxes -->
+                    <div class="grid md:grid-cols-2 gap-4 mt-8 pt-4">
+                        <div class="bg-slate-700/50 rounded-xl p-5 border border-slate-600">
+                            <h3 class="text-medical-300 font-bold mb-3 flex items-center gap-2"><i class="ph-fill ph-chat-circle-dots"></i> คำถามที่ควรถามอาจารย์กลับ (เพื่อแสดงความพร้อม)</h3>
+                            <ul class="text-sm text-slate-300 space-y-2 list-disc pl-4 italic">
+                                <li>"ใน 5 โรคนี้ อาจารย์คิดว่าโรคไหนเหมาะที่สุดสำหรับนำเสนอในแง่ pathogenesis ที่ชัดเจนครับ?"</li>
+                                <li>"ถ้าต้องเลือกโรคที่เหมาะกับบทบาทพยาบาลมากที่สุด อาจารย์แนะนำโรคไหน ระหว่าง TB กับ Graves?"</li>
+                                <li>"สำหรับโรคติดเชื้อ อาจารย์อยากให้เน้นวินิจฉัยจาก Clinical หรือ Lab confirmation มากกว่ากันครับ?"</li>
+                                <li>"ถ้าจะทำ Case presentation ควรเลือกโรคที่มีภาวะแทรกซ้อนชัด (เช่น TB, PUD Bleed, Thyroid storm) ดีไหมครับ?"</li>
+                                <li>"ในมุมพยาบาล อาจารย์อยากให้ลงลึกเรื่อง Nursing diagnosis, Intervention หรือ Patient education มากที่สุดครับ?"</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-gradient-to-br from-medical-600 to-medical-800 rounded-xl p-5 border border-medical-500 shadow-lg">
+                            <h3 class="text-white font-bold mb-3 flex items-center gap-2"><i class="ph-fill ph-megaphone"></i> สรุปคำตอบเตรียมพูดสั้น ๆ (Elevator Pitch)</h3>
+                            <p class="text-sm text-medical-100 mb-2">ถ้าอาจารย์ถามว่า <em>“สรุปแล้วกลุ่มนี้ต้องการนำเสนออะไร?”</em> ให้ตอบด้วยความมั่นใจว่า:</p>
+                            <div class="bg-white/10 p-4 rounded-lg border border-white/20">
+                                <p class="text-white italic leading-relaxed text-sm">
+                                    "กลุ่มเราเลือก 5 โรคที่พบบ่อยและมี Causal pathway ชัดเจน ได้แก่ วัณโรคปอด, Acute uncomplicated cystitis, H. pylori-related peptic disease, Gout และ Graves disease โดยจะนำเสนอเป็นลำดับจากสาเหตุ พยาธิกำเนิด อาการ การวินิจฉัย และบทบาทพยาบาล จุดเด่นคือแต่ละโรคสามารถเชื่อมจากกลไกโรคไปสู่ Clinical manifestation และการดูแลผู้ป่วยได้ค่อนข้างชัดเจนครับ/ค่ะ"
+                                </p>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
 
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 text-center py-8 mt-12 text-sm">
+    <footer class="bg-slate-900 text-slate-400 text-center py-8 mt-12 text-sm border-t border-slate-800">
         <p>จัดทำข้อมูลอิงจาก: WHO, CDC, สมาคมโรคติดเชื้อแห่งประเทศไทย, EAU, ATA, ETA และแนวทางการพยาบาลคลินิก</p>
         <p class="mt-2 text-slate-500">Visual Web UI with Tailwind CSS</p>
     </footer>
