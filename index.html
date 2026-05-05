@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บทสรุป 5 โรคสำหรับการนำเสนออาจารย์แพทย์</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    },
+                    colors: {
+                        medical: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+        
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-medical-100 selection:text-medical-900">
+
+    <!-- Hero Section -->
+    <header class="bg-medical-900 text-white pt-16 pb-12 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="currentColor"></path>
+            </svg>
+        </div>
+        <div class="max-w-6xl mx-auto relative z-10 text-center">
+            <div class="inline-flex items-center justify-center p-3 bg-white/10 rounded-2xl mb-6 backdrop-blur-sm">
+                <i class="ph-fill ph-stethoscope text-4xl text-medical-100"></i>
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight">บทสรุปสำหรับผู้บริหาร / นำเสนออาจารย์แพทย์</h1>
+            <p class="text-lg md:text-xl text-medical-100 max-w-3xl mx-auto font-light">
+                คัดเลือก 5 โรคที่เหมาะที่สุดสำหรับการ Consult เชิงวิชาการ 
+                <br class="hidden md:block">อิงตามความพบบ่อย, สาเหตุชัดเจน, พยาธิกำเนิดเป็นลำดับ และกรอบการวินิจฉัยมาตรฐาน
+            </p>
+        </div>
+    </header>
+
+    <!-- Sticky Navigation -->
+    <nav class="glass-nav sticky top-0 z-50 px-4 py-3 shadow-sm">
+        <div class="max-w-6xl mx-auto flex overflow-x-auto hide-scrollbar gap-2 md:gap-4 md:justify-center snap-x">
+            <a href="#overview" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">ภาพรวม</a>
+            <a href="#tb" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">วัณโรคปอด</a>
+            <a href="#cystitis" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">Acute Cystitis</a>
+            <a href="#hpylori" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">H. pylori</a>
+            <a href="#gout" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">โรคเกาต์</a>
+            <a href="#graves" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">Graves Disease</a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
+
+        <!-- Executive Summary & Rationale -->
+        <section id="overview" class="scroll-mt-24">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
+                <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
+                    <i class="ph-fill ph-lightbulb text-yellow-500"></i> ทำไมถึงเลือก 5 โรคนี้?
+                </h2>
+                <div class="prose max-w-none text-slate-600 leading-relaxed mb-6">
+                    <p>หากคัดเลือกโรคตามเกณฑ์ว่า <strong>พบบ่อย สาเหตุจำเพาะชัด พยาธิกำเนิดอธิบายได้เป็นลำดับ และการวินิจฉัยมีกรอบมาตรฐานชัดเจน</strong> โรคที่เหมาะที่สุดสำหรับการคุยเชิงวิชาการกับอาจารย์แพทย์มี 5 โรค โดยแบ่งความโดดเด่นออกเป็น 2 กลุ่ม:</p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-4 mb-8">
+                    <div class="bg-red-50 border border-red-100 rounded-xl p-5">
+                        <h3 class="font-bold text-red-800 flex items-center gap-2 mb-3">
+                            <i class="ph-fill ph-virus"></i> เด่นเรื่อง "เชื้อก่อโรคจำเพาะ"
+                        </h3>
+                        <ul class="space-y-2 text-red-900/80 list-disc list-inside font-medium">
+                            <li>วัณโรคปอด (M. tuberculosis)</li>
+                            <li>Acute uncomplicated cystitis (E. coli)</li>
+                            <li>H. pylori-related peptic disease</li>
+                        </ul>
+                    </div>
+                    <div class="bg-purple-50 border border-purple-100 rounded-xl p-5">
+                        <h3 class="font-bold text-purple-800 flex items-center gap-2 mb-3">
+                            <i class="ph-fill ph-dna"></i> เด่นเรื่อง "กลไกโรคจำเพาะ"
+                        </h3>
+                        <ul class="space-y-2 text-purple-900/80 list-disc list-inside font-medium">
+                            <li>โรคเกาต์ (การตกผลึกของ Monosodium urate)</li>
+                            <li>Graves disease (การกระตุ้นตัวรับ TSH โดยแอนติบอดี)</li>
+                        </ul>
+                        <p class="text-sm mt-3 text-purple-700">อธิบายกลไกเป็นระบบได้ดีกว่ากลุ่ม Metabolic หรือ Functional disorders</p>
+                    </div>
+                </div>
+
+                <!-- Reference Table -->
+                <div class="overflow-x-auto rounded-xl border border-slate-200">
+                    <table class="w-full text-left text-sm border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 text-slate-700">
+                                <th class="p-4 font-semibold border-b border-slate-200">โรค</th>
+                                <th class="p-4 font-semibold border-b border-slate-200">ความถี่ / ภาระโรค</th>
+                                <th class="p-4 font-semibold border-b border-slate-200">ความชัดของสาเหตุ</th>
+                                <th class="p-4 font-semibold border-b border-slate-200">กลไกการเกิดโรค</th>
+                                <th class="p-4 font-semibold border-b border-slate-200">การวินิจฉัย</th>
+                                <th class="p-4 font-semibold border-b border-slate-200">บริบท Consult</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 bg-white">
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-medical-800">วัณโรคปอด</td>
+                                <td class="p-4 text-slate-600">สูงในบริบทไทยและภูมิภาค</td>
+                                <td class="p-4 text-slate-600">เชื้อ M. tuberculosis</td>
+                                <td class="p-4 text-slate-600">granuloma → latent / reactivation</td>
+                                <td class="p-4 text-slate-600 font-mono text-xs">CXR + NAAT + culture</td>
+                                <td class="p-4 text-slate-500">อายุรกรรม / โรคติดเชื้อ / ปอด</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-medical-800">Acute cystitis</td>
+                                <td class="p-4 text-slate-600">พบบ่อยมากในผู้หญิง</td>
+                                <td class="p-4 text-slate-600">แบคทีเรียขึ้นทาง ascending, มักเป็น E. coli</td>
+                                <td class="p-4 text-slate-600">periurethral colonization → bladder invasion</td>
+                                <td class="p-4 text-slate-600 font-mono text-xs">typical symptoms ± urinalysis/culture</td>
+                                <td class="p-4 text-slate-500">OPD อายุรกรรม / เวชปฏิบัติ</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-medical-800">H. pylori peptic disease</td>
+                                <td class="p-4 text-slate-600">พบมากและเป็นสาเหตุแผลชัด</td>
+                                <td class="p-4 text-slate-600">เชื้อ H. pylori</td>
+                                <td class="p-4 text-slate-600">colonization + urease + chronic active gastritis</td>
+                                <td class="p-4 text-slate-600 font-mono text-xs">UBT / SAT / biopsy</td>
+                                <td class="p-4 text-slate-500">GI / อายุรกรรม</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-medical-800">Gout</td>
+                                <td class="p-4 text-slate-600">common inflammatory arthritis</td>
+                                <td class="p-4 text-slate-600">MSU crystal deposition</td>
+                                <td class="p-4 text-slate-600">hyperuricemia → deposition → inflammasome</td>
+                                <td class="p-4 text-slate-600 font-mono text-xs">crystal proof ± US/DECT</td>
+                                <td class="p-4 text-slate-500">อายุรกรรม / รูมาโต</td>
+                            </tr>
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-4 font-semibold text-medical-800">Graves disease</td>
+                                <td class="p-4 text-slate-600">cause พบบ่อยของ hyperthyroid</td>
+                                <td class="p-4 text-slate-600">TRAb/TSI-mediated autoimmunity</td>
+                                <td class="p-4 text-slate-600">antibody-driven thyroid stimulation</td>
+                                <td class="p-4 text-slate-600 font-mono text-xs">TSH ต่ำ + FT4/T3 สูง + TRAb</td>
+                                <td class="p-4 text-slate-500">อายุรกรรม / ต่อมไร้ท่อ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Divider -->
+        <div class="flex items-center justify-center space-x-2 text-slate-300">
+            <i class="ph-fill ph-circle text-xs"></i>
+            <i class="ph-fill ph-circle text-[10px]"></i>
+            <i class="ph-fill ph-circle text-xs"></i>
+        </div>
+
+        <!-- 1. วัณโรคปอด -->
+        <section id="tb" class="scroll-mt-24">
+            <div class="bg-white rounded-2xl shadow-sm border border-l-8 border-l-red-500 overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-2xl">
+                            <i class="ph-fill ph-lungs"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-800">1. วัณโรคปอด (Pulmonary TB)</h2>
+                            <p class="text-slate-500">Incidence สูงในไทย | CDC & WHO Guidelines</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2"><i class="ph ph-activity text-red-500"></i> สาเหตุและพยาธิกำเนิด</h3>
+                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                                ติดต่อทางอากาศ เชื้อเข้าสู่ถุงลม ถูก macrophage กลืน แล้วกระตุ้น cell-mediated immunity เกิด granuloma หากภูมิคุ้มกันควบคุมไม่ได้ เชื้อจะเพิ่มจำนวนและเกิด active disease (เสี่ยงสูง 2 ปีแรก หรือผู้มีภูมิคุ้มกันบกพร่อง)
+                            </p>
+                            
+                            <!-- Flowchart TB -->
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100 mb-4">
+                                <p class="text-xs font-semibold text-slate-400 mb-3 uppercase tracking-wider">Pathogenesis Flow</p>
+                                <div class="flex flex-col gap-2 relative">
+                                    <div class="flex items-center gap-3 z-10"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold">1</span><span class="text-sm font-medium">สูดละอองฝอย M. tuberculosis</span></div>
+                                    <div class="ml-3 w-0.5 h-4 bg-slate-300"></div>
+                                    <div class="flex items-center gap-3 z-10"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold">2</span><span class="text-sm font-medium">เชื้อถึง Alveoli & Macrophage กลืน</span></div>
+                                    <div class="ml-3 w-0.5 h-4 bg-slate-300"></div>
+                                    <div class="flex items-center gap-3 z-10"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold">3</span><span class="text-sm font-medium">กระตุ้นภูมิคุ้มกันแบบ Cell-mediated & เกิด Granuloma <span class="text-xs bg-slate-200 px-2 py-0.5 rounded ml-2 text-slate-600">Latent TB</span></span></div>
+                                    <div class="ml-3 w-0.5 h-4 bg-red-300 border-l-2 border-dashed border-red-400"></div>
+                                    <div class="flex items-center gap-3 z-10"><span class="w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-bold">!</span><span class="text-sm font-bold text-red-600">ภูมิคุ้มกันอ่อนแอ → Active TB Disease</span></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-thermometer text-red-500"></i> อาการสำคัญ</h3>
+                                <div class="bg-red-50/50 p-3 rounded-lg text-sm text-slate-700">
+                                    ไอเรื้อรังนาน > 3 สัปดาห์, เจ็บหน้าอก, ไอมีเลือด/เสมหะ, <strong>Constitutional symptoms:</strong> น้ำหนักลด, เบื่ออาหาร, อ่อนเพลีย, ไข้, หนาวสั่น, เหงื่อออกกลางคืน
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-magnifying-glass text-red-500"></i> การวินิจฉัยและแยกโรค</h3>
+                                <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                                    <li><strong>แยกติดเชื้อ (Latent) กับป่วย (Active):</strong> TST/IGRA บอกแค่ติดเชื้อ ไม่ยืนยันป่วย</li>
+                                    <li><strong>CXR:</strong> ช่วยเห็น infiltrates/cavities แต่ไม่ definitive</li>
+                                    <li><strong>Gold Standard:</strong> เก็บเสมหะ 3 ครั้ง (เช้า 1 ครั้ง) ตรวจ AFB, NAAT (Xpert MTB/RIF รูผล < 2 ชม.), และ Culture</li>
+                                    <li><strong>DDx:</strong> ปอดอักเสบอื่น, มะเร็งปอด (ต้องใช้ microbiologic confirmation)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. Cystitis -->
+        <section id="cystitis" class="scroll-mt-24">
+            <div class="bg-white rounded-2xl shadow-sm border border-l-8 border-l-amber-500 overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-2xl">
+                            <i class="ph-fill ph-drop"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-800">2. Acute Uncomplicated Cystitis</h2>
+                            <p class="text-slate-500">กระเพาะปัสสาวะอักเสบเฉียบพลัน | EAU & Thai ID Guidelines</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2"><i class="ph ph-activity text-amber-500"></i> สาเหตุและพยาธิกำเนิด</h3>
+                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                                พบเกือบ 50% ของผู้หญิง เกิดจากแบคทีเรีย (ส่วนใหญ่ E. coli) จากผิวหนัง/รอบทวารหนัก เข้าท่อปัสสาวะไต่ขึ้นสู่กระเพาะปัสสาวะ (Ascending infection)
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded">เพศหญิง</span>
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded">การมีเพศสัมพันธ์</span>
+                                <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded">ประวัติมารดาเคยเป็น</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-sm font-medium text-amber-700 bg-amber-50 p-3 rounded-xl">
+                                <i class="ph ph-arrow-circle-up text-xl"></i> 
+                                Periurethral colonization → Bladder mucosal invasion
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-thermometer text-amber-500"></i> อาการสำคัญ</h3>
+                                <div class="bg-amber-50/50 p-3 rounded-lg text-sm text-slate-700">
+                                    Dysuria (ปัสสาวะแสบขัด), Frequency (บ่อย), Urgency (รีบเร่ง), ปวดหน่วง Suprapubic, อาจมีเลือดปน (Gross hematuria)<br>
+                                    <span class="text-red-500 mt-2 block text-xs"><i class="ph-fill ph-warning"></i> หากมีไข้ หนาวสั่น ปวดสีข้าง อาเจียน ให้นึกถึง Pyelonephritis</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-magnifying-glass text-amber-500"></i> การวินิจฉัยและแยกโรค</h3>
+                                <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                                    <li><strong>การวินิจฉัย:</strong> อาศัยประวัติ+ตรวจร่างกายเป็นหลัก (Typical symptoms) Urinalysis ช่วยเพิ่มความแม่นยำเล็กน้อย</li>
+                                    <li><strong>Urine Culture:</strong> ส่งเมื่ออาการไม่จำเพาะ, เป็นซ้ำเร็ว, หรือรักษาไม่หาย</li>
+                                    <li><strong>DDx:</strong> แยกจากโรคติดต่อทางเพศสัมพันธ์ (Urethritis, Chlamydia, Gonorrhea) หากมีความเสี่ยงหรือตกขาวผิดปกติ</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. H. pylori -->
+        <section id="hpylori" class="scroll-mt-24">
+            <div class="bg-white rounded-2xl shadow-sm border border-l-8 border-l-emerald-500 overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl">
+                            <i class="ph-fill ph-stomach"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-800">3. H. pylori-related Peptic Disease</h2>
+                            <p class="text-slate-500">แผลเปปติกจากการติดเชื้อ | Maastricht & ACG Guidelines</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2"><i class="ph ph-activity text-emerald-500"></i> สาเหตุและพยาธิกำเนิด</h3>
+                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                                สาเหตุหลักของแผลในกระเพาะ (>90% ของ duodenal ulcer, 80% ของ gastric ulcer) ความชุกในไทยสูงถึง 45.9% เชื้อรูปร่างเกลียวสร้าง Urease เพื่ออยู่รอดในกรด
+                            </p>
+                            
+                            <!-- Flowchart H.Pylori -->
+                            <div class="bg-emerald-50/50 p-4 rounded-xl border border-emerald-100">
+                                <div class="flex flex-col gap-1 text-sm font-medium">
+                                    <div class="flex items-center gap-2 text-emerald-800"><i class="ph-fill ph-bug"></i> H. pylori colonizes gastric mucus</div>
+                                    <i class="ph ph-arrow-down text-emerald-300 ml-2"></i>
+                                    <div class="flex items-center gap-2 text-emerald-800"><i class="ph-fill ph-shield-check"></i> ใช้ Urease ช่วยทนกรด แทรกตัวเกาะเยื่อบุ</div>
+                                    <i class="ph ph-arrow-down text-emerald-300 ml-2"></i>
+                                    <div class="flex items-center gap-2 text-emerald-800"><i class="ph-fill ph-fire"></i> Chronic active gastritis</div>
+                                    <div class="flex gap-4 ml-6 mt-1 border-l-2 border-emerald-200 pl-4 py-2">
+                                        <div class="flex-1 bg-white p-2 text-xs rounded border border-emerald-100">เยื่อบุอ่อนแอ → <strong class="text-red-500">Peptic Ulcer</strong></div>
+                                        <div class="flex-1 bg-white p-2 text-xs rounded border border-emerald-100">Atrophy → <strong class="text-red-500">เสี่ยง Gastric Cancer</strong></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-thermometer text-emerald-500"></i> อาการสำคัญ</h3>
+                                <div class="bg-emerald-50/50 p-3 rounded-lg text-sm text-slate-700">
+                                    อาจไม่มีอาการ หรือมาด้วย Dyspepsia, ปวดลิ้นปี่ (Epigastric pain), อึดอัดหลังอาหาร, คลื่นไส้ หรือมีเลือดออกทางเดินอาหารส่วนบน<br>
+                                    <span class="text-slate-500 mt-2 block text-xs"><i>จุด Consult:</i> เมื่อใดควรคิดว่าเป็นเชื้อ แทนที่จะเป็น Functional หรือจาก NSAID</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-magnifying-glass text-emerald-500"></i> การวินิจฉัยและแยกโรค</h3>
+                                <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                                    <li><strong>การทดสอบ:</strong> UBT (แม่นยำสูง/ยืนยันการกำจัด), SAT, หรือ Biopsy (Endoscopy)</li>
+                                    <li><strong>ข้อควรระวัง (Pre-test):</strong> ต้องหยุด PPI > 2 สัปดาห์, หยุด Antibiotics/Bismuth > 4 สัปดาห์ เพื่อป้องกันผลลบเทียม</li>
+                                    <li><strong>การตรวจเลือด (Serology):</strong> <em>ไม่แนะนำ</em> เพราะบอก active infection ไม่ได้</li>
+                                    <li><strong>DDx:</strong> Functional dyspepsia, NSAID ulcer, Gastric malignancy</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Gout -->
+        <section id="gout" class="scroll-mt-24">
+            <div class="bg-white rounded-2xl shadow-sm border border-l-8 border-l-blue-500 overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-2xl">
+                            <i class="ph-fill ph-bone"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-800">4. โรคเกาต์ (Gout)</h2>
+                            <p class="text-slate-500">ข้ออักเสบจากผลึก | EULAR Guidelines</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2"><i class="ph ph-activity text-blue-500"></i> สาเหตุและพยาธิกำเนิด</h3>
+                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                                โรคข้ออักเสบที่พบบ่อยสุดในผู้ใหญ่ เกิดจาก Hyperuricemia ทำให้เกิดการตกผลึก Monosodium Urate (MSU) ในข้อ (มักมาจากการขับออกทางไต/ลำไส้ลดลง)
+                            </p>
+                            
+                            <div class="bg-blue-50 flex items-center justify-between p-4 rounded-xl border border-blue-100 text-sm font-medium text-center">
+                                <div class="flex-1">
+                                    <span class="block text-blue-800 mb-1"><i class="ph-fill ph-trend-up"></i> Hyperuricemia</span>
+                                    <span class="text-[10px] text-blue-600">กรดยูริกสูง</span>
+                                </div>
+                                <i class="ph ph-arrow-right text-blue-400"></i>
+                                <div class="flex-1">
+                                    <span class="block text-blue-800 mb-1"><i class="ph-fill ph-diamonds-four"></i> MSU Crystal</span>
+                                    <span class="text-[10px] text-blue-600">ตกผลึกในข้อ</span>
+                                </div>
+                                <i class="ph ph-arrow-right text-blue-400"></i>
+                                <div class="flex-1">
+                                    <span class="block text-red-600 mb-1"><i class="ph-fill ph-flame"></i> Inflammasome</span>
+                                    <span class="text-[10px] text-red-500">NLRP3 กระตุ้นอักเสบเฉียบพลัน</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-thermometer text-blue-500"></i> อาการสำคัญ</h3>
+                                <div class="bg-blue-50/50 p-3 rounded-lg text-sm text-slate-700">
+                                    <strong>Acute monoarthritis:</strong> ปวด บวม แดง ร้อน เริ่มเร็วมาก มักเป็นข้อบริเวณรยางค์ล่าง (Lower extremity)<br>
+                                    <span class="font-semibold text-blue-700">Classic feature:</span> ข้อโคนนิ้วหัวแม่เท้า (First MTP joint)
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-magnifying-glass text-blue-500"></i> การวินิจฉัยและแยกโรค</h3>
+                                <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                                    <li><strong>Definitive Dx:</strong> พบผลึก MSU จากน้ำไขข้อ (Synovial fluid) หรือ Tophus aspirate</li>
+                                    <li><strong>Imaging:</strong> Ultrasound (Double contour sign) หรือ DECT ช่วยยืนยันได้หากเจาะน้ำไขข้อไม่ได้</li>
+                                    <li><strong>DDx ที่สำคัญ:</strong> CPPD (Pseudogout) หรือ Septic arthritis (ไม่ควรวินิจฉัยเกาต์เพียงเพราะอาการเดี่ยวโดยไม่มีหลักฐาน)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. Graves Disease -->
+        <section id="graves" class="scroll-mt-24">
+            <div class="bg-white rounded-2xl shadow-sm border border-l-8 border-l-purple-500 overflow-hidden">
+                <div class="p-6 md:p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-2xl">
+                            <i class="ph-fill ph-butterfly"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-800">5. Graves Disease</h2>
+                            <p class="text-slate-500">ไทรอยด์เป็นพิษ | ATA & ETA Guidelines</p>
+                        </div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2"><i class="ph ph-activity text-purple-500"></i> สาเหตุและพยาธิกำเนิด</h3>
+                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
+                                สาเหตุพบบ่อยที่สุดของ Hyperthyroidism พบในหญิงมากกว่าชาย 7-8 เท่า เกิดจาก Autoimmune มี <strong>TRAb/TSI (Antibodies)</strong> ไปจับ TSH receptor กระตุ้นให้สร้างฮอร์โมนมากเกิน
+                            </p>
+
+                            <!-- Flowchart Graves -->
+                            <div class="bg-purple-50 p-4 rounded-xl border border-purple-100 text-sm">
+                                <p class="text-xs font-semibold text-purple-400 mb-2 uppercase tracking-wider">Diagnostic Algorithm</p>
+                                <div class="border-l-2 border-purple-300 ml-2 pl-4 py-1 space-y-3 relative">
+                                    <div><i class="ph-fill ph-magnifying-glass absolute -left-[9px] bg-purple-50 text-purple-500"></i> สงสัย Thyrotoxicosis</div>
+                                    <div><i class="ph-fill ph-drop absolute -left-[9px] bg-purple-50 text-purple-500"></i> เจาะเลือด: <strong class="text-purple-700">TSH ต่ำ</strong> → <strong class="text-purple-700">FT4/T3 สูง</strong></div>
+                                    <div class="bg-white p-2 rounded border border-purple-200">
+                                        <i class="ph-fill ph-test-tube absolute -left-[9px] bg-purple-50 text-purple-500"></i> ตรวจ <strong>TRAb</strong> หรือ <strong>TSI</strong>
+                                        <div class="grid grid-cols-2 gap-2 mt-2">
+                                            <div class="text-xs bg-green-50 text-green-700 p-1 rounded"><strong>(+) บวก:</strong> ยืนยัน Graves</div>
+                                            <div class="text-xs bg-orange-50 text-orange-700 p-1 rounded"><strong>(-) ลบ:</strong> ทำ RAIU/US เพื่อแยกโรค</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-thermometer text-purple-500"></i> อาการสำคัญ</h3>
+                                <div class="bg-purple-50/50 p-3 rounded-lg text-sm text-slate-700">
+                                    ใจสั่น มือสั่น นอนไม่หลับ น้ำหนักลด กล้ามเนื้ออ่อนแรง ทนร้อนไม่ได้ (Thyrotoxicosis)<br>
+                                    <span class="font-semibold text-purple-700 mt-2 block">ลักษณะจำเพาะ:</span> คอพอก (Diffuse goiter), ตาโปน (Orbitopathy ~1/3), อาการทางผิวหนัง (Dermopathy)
+                                </div>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph ph-magnifying-glass text-purple-500"></i> การวินิจฉัยและแยกโรค</h3>
+                                <ul class="text-sm text-slate-600 space-y-2 list-disc list-inside">
+                                    <li><strong>โจทย์หลัก:</strong> ยืนยันว่าเป็น Graves หรือไม่ (เพราะมีผลต่อแผนการรักษา)</li>
+                                    <li><strong>การตรวจ:</strong> การตรวจแอนติบอดี (TRAb/TSI) คุ้มค่าและยืนยันได้เลย</li>
+                                    <li><strong>DDx:</strong> Toxic multinodular goiter, Toxic adenoma, Thyroiditis (เจาะเลือด TSH ต่ำเหมือนกัน แต่ etiology ต่างกัน)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-slate-400 text-center py-8 mt-12 text-sm">
+        <p>จัดทำข้อมูลอิงจาก: WHO, CDC, สมาคมโรคติดเชื้อแห่งประเทศไทย, EAU, ATA, และ ETA</p>
+        <p class="mt-2 text-slate-500">Visual Web UI with Tailwind CSS</p>
+    </footer>
+
+</body>
+</html>
