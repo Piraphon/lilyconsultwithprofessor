@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="th" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Bank - Lily Consult</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'Prompt', 'sans-serif'] },
+                    colors: {
+                        primary: { 50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 500: '#0ea5e9', 600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e' },
+                        accent: {
+                            tb: '#dc2626', cystitis: '#ea580c', hpylori: '#10b981', 
+                            gout: '#3b82f6', graves: '#a855f7', dengue: '#ef4444',
+                            flu: '#f97316', gas: '#8b5cf6', append: '#f59e0b', ida: '#0d9488'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #f8fafc; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.4); }
+        .qa-card { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid #e2e8f0; }
+        .qa-card:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); border-color: #0ea5e9; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .prof-answer { border-left: 4px solid #0ea5e9; background: linear-gradient(to right, #f0f9ff, transparent); }
+        .patient-answer { border-left: 4px solid #10b981; background: linear-gradient(to right, #f0fdf4, transparent); }
+        .global-card { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+    </style>
+</head>
+<body class="text-slate-800 antialiased font-sans">
+
+    <!-- Sidebar -->
+    <aside class="hidden lg:flex flex-col w-80 h-screen fixed left-0 top-0 bg-white border-r border-slate-200 z-50 p-8 overflow-y-auto hide-scrollbar">
+        <div class="flex items-center gap-3 mb-10">
+            <div class="w-10 h-10 rounded-xl bg-primary-600 flex items-center justify-center text-white shadow-lg">
+                <i class="ph-fill ph-chat-circle-dots text-2xl"></i>
+            </div>
+            <div>
+                <h1 class="text-lg font-black text-slate-900 leading-tight">Lily QA Bank</h1>
+                <p class="text-[9px] text-primary-600 font-bold uppercase tracking-widest">Complete Case Prep</p>
+            </div>
+        </div>
+
+        <nav class="space-y-6">
+            <a href="index.html" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-primary-600 bg-primary-50 transition-all border border-primary-100">
+                <i class="ph-bold ph-arrow-left text-xl"></i> กลับหน้าข้อมูลหลัก
+            </a>
+
+            <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-4 mb-4">รายชื่อโรค 1-10</p>
+                <div class="space-y-1">
+                    <a href="#tb" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-lungs text-accent-tb"></i> 1. วัณโรคปอด</a>
+                    <a href="#cystitis" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-drop text-accent-cystitis"></i> 2. ปัสสาวะอักเสบ</a>
+                    <a href="#hpylori" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-stomach text-accent-hpylori"></i> 3. H. pylori Disease</a>
+                    <a href="#gout" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-bone text-accent-gout"></i> 4. โรคเกาต์</a>
+                    <a href="#graves" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-butterfly text-accent-graves"></i> 5. Graves Disease</a>
+                    <a href="#dengue" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-virus text-accent-dengue"></i> 6. ไข้เลือดออก</a>
+                    <a href="#flu" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-thermometer text-accent-flu"></i> 7. ไข้หวัดใหญ่</a>
+                    <a href="#gas" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-microphone-stage text-accent-gas"></i> 8. คออักเสบ GAS</a>
+                    <a href="#append" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-activity text-accent-append"></i> 9. ไส้ติ่งอักเสบ</a>
+                    <a href="#ida" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-drop-half-bottom text-accent-ida"></i> 10. โลหิตจาง IDA</a>
+                </div>
+            </div>
+
+            <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-4 mb-4">สรุป & แนวทางตอบ</p>
+                <div class="space-y-1">
+                    <a href="#global-prof" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-bold ph-chalkboard-teacher text-lg"></i> คำถามอาจารย์ยอดฮิต</a>
+                    <a href="#global-patient" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-bold ph-users text-lg"></i> แนวทางตอบคนไข้</a>
+                    <a href="#red-flag-table" class="flex items-center gap-3 px-4 py-2 rounded-xl text-xs font-medium text-slate-600 hover:bg-slate-50"><i class="ph-bold ph-warning-octagon text-lg"></i> ตาราง Red Flags</a>
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Mobile Bottom Nav -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-200 z-[100] px-4 py-3 shadow-2xl">
+        <div class="max-w-md mx-auto flex justify-around items-center">
+            <a href="index.html" class="flex flex-col items-center gap-1 text-slate-400">
+                <i class="ph-bold ph-house text-2xl"></i>
+                <span class="text-[10px] font-bold">Main</span>
+            </a>
+            <button onclick="document.getElementById('mobile-drawer').classList.remove('translate-y-full')" class="flex flex-col items-center gap-1 text-primary-600">
+                <div class="bg-primary-600 w-12 h-12 rounded-full flex items-center justify-center -mt-8 border-4 border-white shadow-xl text-white">
+                    <i class="ph-fill ph-list-bullets text-xl"></i>
+                </div>
+                <span class="text-[10px] font-bold">QA List</span>
+            </button>
+            <a href="#global-prof" class="flex flex-col items-center gap-1 text-slate-400">
+                <i class="ph-bold ph-chats-circle text-2xl"></i>
+                <span class="text-[10px] font-bold">Summary</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-drawer" class="lg:hidden fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm transition-opacity translate-y-full transform" style="transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);">
+        <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-[40px] p-8 max-h-[80vh] overflow-y-auto">
+            <div class="w-12 h-1 bg-slate-200 rounded-full mx-auto mb-8" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')"></div>
+            <h3 class="text-xl font-black text-slate-900 mb-6 px-2">QA Menu</h3>
+            <div class="grid grid-cols-1 gap-2">
+                <a href="#tb" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-lungs text-accent-tb text-xl"></i> 1. วัณโรคปอด</a>
+                <a href="#cystitis" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-drop text-accent-cystitis text-xl"></i> 2. ปัสสาวะอักเสบ</a>
+                <a href="#hpylori" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-stomach text-accent-hpylori text-xl"></i> 3. H. pylori</a>
+                <a href="#gout" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-bone text-accent-gout text-xl"></i> 4. โรคเกาต์</a>
+                <a href="#graves" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-butterfly text-accent-graves text-xl"></i> 5. Graves Disease</a>
+                <a href="#dengue" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-virus text-accent-dengue text-xl"></i> 6. ไข้เลือดออก</a>
+                <a href="#flu" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-thermometer text-accent-flu text-xl"></i> 7. ไข้หวัดใหญ่</a>
+                <a href="#gas" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-microphone-stage text-accent-gas text-xl"></i> 8. คออักเสบ GAS</a>
+                <a href="#append" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-activity text-accent-append text-xl"></i> 9. ไส้ติ่งอักเสบ</a>
+                <a href="#ida" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-4 bg-slate-50 rounded-2xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-drop-half-bottom text-accent-ida text-xl"></i> 10. โลหิตจาง IDA</a>
+            </div>
+            <button onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="w-full mt-8 py-4 bg-slate-900 text-white rounded-[20px] font-bold">ปิดเมนู</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="lg:ml-80 min-h-screen pb-40 px-6 lg:px-12 pt-16">
+        
+        <header class="max-w-5xl mx-auto mb-20" data-aos="fade-down">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-full text-[10px] font-black tracking-widest mb-6 uppercase">
+                <i class="ph-fill ph-seal-check"></i> Complete QA Collection
+            </div>
+            <h2 class="text-4xl md:text-6xl font-black text-slate-900 leading-[1.1] mb-6">
+                Clinical Q&A <br><span class="text-primary-600 underline decoration-primary-100 underline-offset-4">Bank</span>
+            </h2>
+            <p class="text-lg text-slate-500 max-w-2xl font-medium leading-relaxed">
+                รวบรวมคำถามที่อาจารย์พยาบาลและคนไข้มักถามบ่อย ครบถ้วนทั้ง 10 โรค พร้อมแนวทางการตอบอย่างเป็นระบบ
+            </p>
+        </header>
+
+        <div class="max-w-5xl mx-auto space-y-32">
+
+            <!-- 1. TB -->
+            <section id="tb" class="scroll-mt-32" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-tb/10 text-accent-tb flex items-center justify-center text-3xl shadow-sm"><i class="ph-fill ph-lungs"></i></div>
+                    <h3 class="text-3xl font-black text-slate-900">1. วัณโรคปอด (Pulmonary TB)</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Prof Qs -->
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่อาจารย์พยาบาลอาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q1: โรคนี้ติดต่อทางไหน และพยาบาลต้องป้องกันแบบใด?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">วัณโรคปอดติดต่อทางอากาศจากละอองฝอยขนาดเล็กที่มีเชื้อ Mycobacterium tuberculosis ดังนั้นพยาบาลต้องใช้ airborne precautions เช่น แยกผู้ป่วย ให้ผู้ป่วยใส่หน้ากากเมื่อต้องเคลื่อนย้าย และบุคลากรใช้ N95 หรือ respirator ที่เหมาะสม รายงานเดิมระบุว่า TB ติดต่อทางอากาศและเกี่ยวข้องกับ pulmonary/laryngeal TB โดยตรง</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q2: ทำไม TST/IGRA ถึงยังไม่พอในการวินิจฉัย active TB?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เพราะ TST/IGRA บอกได้ว่าร่างกายเคยติดเชื้อ TB หรือมี immune response ต่อ TB แต่ไม่สามารถแยกได้ว่าเป็น latent infection หรือ active TB disease ดังนั้นถ้าสงสัย active TB ต้องตรวจ CXR และ bacteriologic testing เช่น AFB smear, NAAT/Xpert MTB/RIF และ culture เพิ่ม</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q3: อาการไหนของ TB ที่พยาบาลต้องถามให้ครบ?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ต้องถามเรื่องไอเรื้อรังเกิน 3 สัปดาห์ ไอมีเลือด เจ็บหน้าอก ไข้ เหงื่อออกกลางคืน เบื่ออาหาร น้ำหนักลด และอ่อนเพลีย เพราะเป็นกลุ่มอาการสำคัญของ pulmonary TB</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q4: จุดสำคัญที่สุดของ nursing care ใน TB คืออะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">มี 3 เรื่องหลัก คือ (1) ป้องกันการแพร่เชื้อ (2) ส่งเสริมให้กินยาครบ (3) เฝ้าระวังผลข้างเคียงจากยาวัณโรค โดย CDC ระบุว่า DOT หรือการสังเกตการกินยาโดยตรงเป็นมาตรฐานหนึ่งในการดูแลผู้ป่วย TB disease เพื่อช่วยให้การรักษาครบถ้วนและลดปัญหาดื้อยา</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q5: ถ้าผู้ป่วยกินยาวัณโรคแล้วตัวเหลือง ตาเหลือง พยาบาลควรทำอย่างไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ต้องรีบรายงานแพทย์ เพราะอาจเป็นสัญญาณของ drug-induced hepatitis จากยาวัณโรคบางชนิด เช่น isoniazid, rifampicin หรือ pyrazinamide ควรประเมินอาการร่วม เช่น คลื่นไส้ อาเจียน ปัสสาวะเข้ม เบื่ออาหาร และรอคำสั่งแพทย์เรื่องการตรวจ liver function</p>
+                        </div>
+                    </div>
+                    <!-- Patient Qs -->
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่คนไข้อาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q1: “เป็นวัณโรคแล้วจะหายไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">หายได้ครับ/ค่ะ ถ้ากินยาครบตามแพทย์สั่งและมาตรวจตามนัด แต่ต้องไม่หยุดยาเองแม้อาการดีขึ้น เพราะอาจทำให้โรคกลับมาเป็นซ้ำหรือเกิดเชื้อดื้อยา</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q2: “ทำไมต้องกินยานาน?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">เพราะเชื้อวัณโรคโตช้าและซ่อนอยู่ในร่างกายได้นาน การกินยานานช่วยกำจัดเชื้อให้หมด ลดการกลับเป็นซ้ำ และลดโอกาสดื้อยา</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q3: “อยู่กับครอบครัวได้ไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">อยู่ได้แต่ต้องป้องกันช่วงที่ยังแพร่เชื้อ เช่น ใส่หน้ากาก ปิดปากเวลาไอ แยกห้องนอนถ้าทำได้ เปิดให้อากาศถ่ายเท และให้คนใกล้ชิดไปตรวจคัดกรอง</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 2. Cystitis -->
+            <section id="cystitis" class="scroll-mt-32" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-cystitis/10 text-accent-cystitis flex items-center justify-center text-3xl shadow-sm"><i class="ph-fill ph-drop"></i></div>
+                    <h3 class="text-3xl font-black text-slate-900">2. ปัสสาวะอักเสบ (Acute Uncomplicated Cystitis)</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่อาจารย์พยาบาลอาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q1: Cystitis ต่างจาก pyelonephritis อย่างไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">Cystitis คือการติดเชื้อที่กระเพาะปัสสาวะ อาการหลักคือปัสสาวะแสบขัด ปัสสาวะบ่อย ปวดหน่วงท้องน้อย ส่วน pyelonephritis คือการติดเชื้อขึ้นถึงไต จะมี systemic symptoms เช่น ไข้ หนาวสั่น ปวดสีข้าง คลื่นไส้อาเจียน CDC แยกว่า bladder infection เป็นชนิดที่พบบ่อย ส่วน kidney infection รุนแรงกว่าและมีอาการไข้ หนาวสั่น ปวดหลัง/สีข้าง คลื่นไส้อาเจียน</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q2: เชื้อที่พบบ่อยที่สุดคืออะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ส่วนใหญ่คือ E. coli จากบริเวณรอบทวารหนักหรือผิวหนัง เข้าสู่ท่อปัสสาวะแล้วไต่ขึ้นไปที่กระเพาะปัสสาวะ รายงานเดิมระบุว่าโรคนี้เกิดจาก ascending infection และส่วนใหญ่เกิดจาก E. coli</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q3: ทำไมผู้หญิงเป็น cystitis ได้บ่อยกว่าผู้ชาย?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เพราะท่อปัสสาวะของผู้หญิงสั้นกว่าและอยู่ใกล้ทวารหนัก ทำให้แบคทีเรียเข้าสู่ทางเดินปัสสาวะได้ง่ายกว่า CDC ระบุว่า UTI พบในผู้หญิงบ่อยกว่า เพราะ urethra สั้นและใกล้ rectum มากกว่า</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q4: พยาบาลต้องสอนผู้ป่วยเรื่องอะไรเพื่อลดการเป็นซ้ำ?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ควรสอนให้ดื่มน้ำเพียงพอ ไม่กลั้นปัสสาวะ ปัสสาวะหลังมีเพศสัมพันธ์ เช็ดจากหน้าไปหลัง หลีกเลี่ยงการสวนล้างหรือใช้สารระคายเคืองบริเวณอวัยวะเพศ และกินยาปฏิชีวนะให้ครบตามแพทย์สั่ง</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q5: ถ้าผู้ป่วย UTI มีไข้สูงและปวดสีข้าง ควรทำอย่างไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ต้องรีบรายงานแพทย์ เพราะอาจเป็น pyelonephritis หรือ infection ลุกลาม ต้องประเมิน vital signs, pain score, hydration status, urine output และเตรียมส่งตรวจ urine/culture หรือให้ยาตามแผนแพทย์</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่คนไข้อาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q1: “ปัสสาวะแสบ ๆ หายแล้ว หยุดยาได้ไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ไม่ควรหยุดเองครับ/ค่ะ ต้องกินยาให้ครบตามแพทย์สั่ง เพราะถ้าหยุดเร็ว เชื้ออาจไม่หมดและกลับมาเป็นซ้ำได้</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q2: “ดื่มน้ำเยอะช่วยหายไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ช่วยให้ปัสสาวะออกดีขึ้นและลดการระคายเคืองได้ แต่ถ้าติดเชื้อจริงยังต้องกินยาตามแพทย์สั่ง น้ำอย่างเดียวไม่พอรักษาเชื้อ</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q3: “อาการแบบไหนต้องรีบกลับมาโรงพยาบาล?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ถ้ามีไข้ หนาวสั่น ปวดหลังหรือปวดสีข้าง คลื่นไส้อาเจียน ปัสสาวะเป็นเลือดมาก หรืออาการไม่ดีขึ้นหลังได้ยา ควรรีบกลับมาพบแพทย์</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. H. pylori -->
+            <section id="hpylori" class="scroll-mt-32" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-hpylori/10 text-accent-hpylori flex items-center justify-center text-3xl shadow-sm"><i class="ph-fill ph-stomach"></i></div>
+                    <h3 class="text-3xl font-black text-slate-900">3. H. pylori Peptic Disease</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่อาจารย์พยาบาลอาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q1: H. pylori ทำให้เกิดแผลในกระเพาะได้อย่างไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เชื้อ H. pylori อยู่ในชั้น mucus ของกระเพาะ ใช้เอนไซม์ urease ช่วยให้อยู่รอดในสภาพกรด เกาะเยื่อบุกระเพาะ ทำให้เกิด chronic active gastritis เยื่อบุป้องกันกรดลดลง จึงเกิด peptic ulcer ได้ รายงานเดิมสรุปกลไกเป็น colonization → inflammation → mucosal injury → ulcer/cancer risk</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q2: ทำไมต้องถามประวัติการใช้ NSAIDs?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เพราะ NSAIDs และ aspirin เป็นอีกสาเหตุสำคัญของแผลและเลือดออกทางเดินอาหาร ถ้าผู้ป่วยมีแผลหรือ dyspepsia ต้องแยกระหว่าง H. pylori-related ulcer กับ NSAID-related ulcer</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q3: ตรวจเลือดหา antibody ใช้ยืนยัน active infection ได้ดีไหม?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ไม่ดีเท่า urea breath test หรือ stool antigen test เพราะ serology บอกได้ว่าเคยสัมผัสเชื้อ แต่อาจไม่บอก active infection หรือการกำจัดเชื้อสำเร็จได้ชัด รายงานเดิมระบุว่า serology ไม่แนะนำเป็นวิธีหลักในการวินิจฉัยหรือยืนยัน eradication</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q4: ทำไมต้องหยุด PPI ก่อนตรวจ H. pylori?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เพราะ PPI อาจทำให้ปริมาณเชื้อลดลงชั่วคราวและเกิด false negative ได้ รายงานเดิมระบุว่าควรหยุด PPI อย่างน้อย 2 สัปดาห์ และหยุด antibiotics/bismuth อย่างน้อย 4 สัปดาห์ก่อนตรวจ</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q5: บทบาทพยาบาลที่สำคัญที่สุดในโรคนี้คืออะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">คือช่วยให้ผู้ป่วยกินยาให้ครบ เพราะสูตรกำจัดเชื้อมักมียาหลายตัวและกินหลายวัน รวมถึงเฝ้าระวังอาการเลือดออกทางเดินอาหาร เช่น ถ่ายดำ อาเจียนเป็นเลือด หน้ามืด หรือความดันตก</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่คนไข้อาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q1: “เชื้อนี้รักษาหายไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">รักษาได้ครับ/ค่ะ แต่ต้องกินยาฆ่าเชื้อร่วมกับยาลดกรดให้ครบตามแพทย์สั่ง และควรมาตรวจยืนยันหลังรักษาว่าเชื้อหมดจริง</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q2: “ทำไมยามีหลายตัวมาก?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">เพราะเชื้อ H. pylori ต้องใช้ยาหลายชนิดร่วมกันเพื่อเพิ่มโอกาสกำจัดเชื้อให้สำเร็จ ถ้ากินไม่ครบ เชื้ออาจไม่หมดและกลับมาเป็นซ้ำได้</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q3: “ถ่ายดำต้องตกใจไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ถ้าได้รับ bismuth อุจจาระอาจดำได้ แต่ถ้าถ่ายดำเหนียวเหมือนยางมะตอย มีกลิ่นเหม็นมาก หน้ามืด ใจสั่น หรืออาเจียนเป็นเลือด ต้องรีบมาโรงพยาบาล เพราะอาจเป็นเลือดออกทางเดินอาหาร</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Gout -->
+            <section id="gout" class="scroll-mt-32" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-gout/10 text-accent-gout flex items-center justify-center text-3xl shadow-sm"><i class="ph-fill ph-bone"></i></div>
+                    <h3 class="text-3xl font-black text-slate-900">4. โรคเกาต์ (Gout)</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่อาจารย์พยาบาลอาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q1: Gout เกิดจากอะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เกิดจากการตกผลึกของ monosodium urate crystal ในข้อและเนื้อเยื่อ โดย hyperuricemia เป็นปัจจัยสำคัญ เมื่อ crystal กระตุ้น innate immune response จะเกิดข้ออักเสบเฉียบพลัน รายงานเดิมระบุว่า gout เป็น crystal arthropathy ที่มี MSU crystal deposition เป็นกลไกหลัก</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q2: Uric acid สูงพอจะวินิจฉัย gout ได้เลยไหม?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ยังไม่พอ เพราะบางคน uric acid สูงแต่ไม่มี gout และบางช่วงที่ gout flare ค่า uric acid อาจไม่สูงมาก Definitive diagnosis คือพบ MSU crystal ในน้ำไขข้อหรือ tophus aspirate</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q3: อาการ classic ของ gout คืออะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ปวดข้อเฉียบพลันแบบ monoarthritis ข้อบวม แดง ร้อน ปวดมาก มักเกิดที่ lower extremity โดยเฉพาะข้อโคนนิ้วหัวแม่เท้า หรือ first MTP joint</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q4: เวลาข้อบวมแดงร้อน พยาบาลต้องระวังโรคอะไรที่ห้ามพลาด?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ต้องระวัง septic arthritis เพราะเป็นภาวะติดเชื้อในข้อที่รุนแรง ถ้าผู้ป่วยมีไข้สูง ปวดมาก ขยับข้อไม่ได้ หรือดู toxic ต้องรีบรายงานแพทย์</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q5: ทำไมผู้ป่วยไม่ควรหยุด allopurinol เอง?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เพราะ allopurinol เป็นยาควบคุม urate ระยะยาว ไม่ใช่ยาแก้ปวดเฉียบพลัน ถ้าหยุดเองระดับ urate อาจกลับมาสูง ทำให้เกิด flare ซ้ำและสะสม crystal เพิ่ม</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่คนไข้อาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q1: “เป็นเกาต์เพราะกินไก่ใช่ไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">อาหารมีส่วนกระตุ้นได้ แต่เกาต์ไม่ได้เกิดจากอาหารอย่างเดียว สาเหตุหลักคือมี urate สูงและเกิดผลึก urate ในข้อ อาหาร แอลกอฮอล์ โรคไต ยาบางชนิด และพันธุกรรมมีส่วนร่วมได้</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q2: “ตอนหายปวดแล้วต้องกินยาต่อไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ถ้าแพทย์ให้ยาลดกรดยูริกระยะยาว เช่น allopurinol ควรกินต่อเนื่องตามแผน เพราะยานี้ป้องกันการกลับเป็นซ้ำ ไม่ใช่ยากินเฉพาะตอนปวด</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q3: “ปวดข้อแบบไหนต้องรีบมาโรงพยาบาล?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ถ้าปวดข้อร่วมกับไข้สูง ข้อบวมแดงมาก ขยับไม่ได้ หรืออาการรุนแรงผิดปกติ ต้องรีบมา เพราะอาจไม่ใช่เกาต์ธรรมดา แต่อาจเป็นข้ออักเสบติดเชื้อ</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. Graves -->
+            <section id="graves" class="scroll-mt-32" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-graves/10 text-accent-graves flex items-center justify-center text-3xl shadow-sm"><i class="ph-fill ph-butterfly"></i></div>
+                    <h3 class="text-3xl font-black text-slate-900">5. Graves Disease</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่อาจารย์พยาบาลอาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q1: Graves disease เกิดจากกลไกอะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เป็น autoimmune disease ที่มี TRAb หรือ TSI ไปกระตุ้น TSH receptor บน thyroid follicular cells ทำให้ต่อมไทรอยด์สร้าง T3/T4 มากเกิน เกิด hyperthyroidism รายงานเดิมระบุว่า antibody-driven thyroid stimulation เป็นกลไกหลักของโรคนี้</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q2: Lab pattern ของ Graves disease เป็นอย่างไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">โดยทั่วไปคือ TSH ต่ำ และ FT4/T3 สูง จากนั้นตรวจ TRAb/TSI เพื่อช่วยยืนยันว่า hyperthyroidism เกิดจาก Graves disease</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q3: อาการที่พยาบาลควรประเมินมีอะไรบ้าง?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ใจสั่น มือสั่น เหงื่อออก ทนร้อนไม่ได้ น้ำหนักลด นอนไม่หลับ กระวนกระวาย ถ่ายบ่อย กล้ามเนื้ออ่อนแรง คอโต และอาการตา เช่น ตาโปน ปวดตา เห็นภาพซ้อน</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q4: อาการแบบไหนต้องสงสัย thyroid storm?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ไข้สูง ใจสั่นรุนแรง ชีพจรเร็วมาก สับสน กระสับกระส่าย อาเจียน ท้องเสีย หรือความดันผิดปกติ ต้องรีบรายงานแพทย์ เพราะเป็นภาวะฉุกเฉิน</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q5: ถ้าผู้ป่วยใช้ methimazole แล้วมีไข้เจ็บคอ ต้องทำอย่างไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ต้องรีบรายงานแพทย์ เพราะอาจเป็น agranulocytosis ซึ่งเป็นผลข้างเคียงรุนแรงของ antithyroid drugs American Thyroid Association ระบุว่า antithyroid drugs อาจทำให้เม็ดเลือดขาวลดลงรุนแรงได้ แม้พบไม่บ่อย</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่คนไข้อาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q1: “ทำไมกินเยอะแต่ผอมลง?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">เพราะฮอร์โมนไทรอยด์สูงทำให้ระบบเผาผลาญของร่างกายทำงานมากกว่าปกติ ร่างกายใช้พลังงานมากขึ้น จึงน้ำหนักลดแม้กินได้</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q2: “ใจสั่น มือสั่น อันตรายไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">อาจเกิดจากไทรอยด์ทำงานเกิน ควรมาตรวจและกินยาตามแพทย์สั่ง ถ้าใจสั่นมาก เจ็บหน้าอก หอบ หรือหน้ามืด ต้องรีบมาโรงพยาบาล</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q3: “กินยาแล้วมีไข้เจ็บคอ ต้องทำยังไง?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ต้องรีบติดต่อโรงพยาบาล ไม่ควรรอดูอาการเอง เพราะอาจเป็นผลข้างเคียงสำคัญของยาไทรอยด์ที่ทำให้เม็ดเลือดขาวต่ำ</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. Dengue -->
+            <section id="dengue" class="scroll-mt-32" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-dengue/10 text-accent-dengue flex items-center justify-center text-3xl shadow-sm"><i class="ph-fill ph-virus"></i></div>
+                    <h3 class="text-3xl font-black text-slate-900">6. ไข้เลือดออก (Severe Dengue)</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่อาจารย์พยาบาลอาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q1: จุดอันตรายของ dengue คือช่วงไหน?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ช่วงอันตรายคือ critical phase ซึ่งมักเกิดตอนไข้เริ่มลดลง ผู้ป่วยอาจดูเหมือนดีขึ้น แต่จริง ๆ อาจเริ่มเกิด plasma leakage จนนำไปสู่ shock ได้ CDC ระบุว่า critical phase มักเกิดช่วง 3–8 วันหลังเริ่มไข้ และต้องสอนผู้ป่วยให้กลับมาทันทีหากมี warning signs</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q2: Warning signs ของ dengue มีอะไรบ้าง?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ได้แก่ ปวดท้องรุนแรงหรือกดเจ็บ อาเจียนต่อเนื่อง มีน้ำคั่ง เลือดออกที่เยื่อบุ ซึมหรือกระสับกระส่าย ตับโต และ hematocrit เพิ่มขึ้น CDC ระบุ warning signs เหล่านี้เป็นตัวบ่งชี้ความเสี่ยงต่อ severe dengue</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q3: ทำไม dengue ต้องดู hematocrit ร่วมกับ platelet?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เพราะ platelet ต่ำบอกความเสี่ยงเลือดออก ส่วน hematocrit สูงขึ้นบอก hemoconcentration จาก plasma leakage ถ้า Hct เพิ่มและผู้ป่วยชีพจรเร็ว pulse pressure แคบ ปัสสาวะน้อย ต้องระวัง shock</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q4: ทำไม dengue ห้ามใช้ ibuprofen หรือ aspirin?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เพราะยาเหล่านี้เพิ่มความเสี่ยงเลือดออก CDC แนะนำให้ใช้ acetaminophen/paracetamol เพื่อลดไข้ และหลีกเลี่ยง aspirin กับ NSAIDs เช่น ibuprofen ในผู้ป่วย dengue</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q5: Nursing care สำคัญที่สุดใน dengue คืออะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">คือการเฝ้าระวัง shock และ fluid balance ต้องติดตาม vital signs, pulse pressure, capillary refill, urine output, intake-output, CBC, hematocrit และอาการ warning signs อย่างใกล้ชิด</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่คนไข้อาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q1: “ไข้ลดแล้วแปลว่าหายไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ยังไม่แน่ครับ/ค่ะ ไข้ลดเป็นช่วงที่ต้องระวัง เพราะบางคนอาจเข้าสู่ระยะอันตรายของไข้เลือดออก ถ้ามีปวดท้อง อาเจียนมาก ซึม เลือดออก หรือปัสสาวะน้อย ต้องรีบกลับมาโรงพยาบาล</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q2: “กินยาแก้ปวดกลุ่ม ibuprofen ได้ไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ไม่ควรกิน เพราะเพิ่มความเสี่ยงเลือดออก ควรใช้ paracetamol ตามขนาดที่แพทย์หรือพยาบาลแนะนำ</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q3: “ต้องนอนโรงพยาบาลทุกคนไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ไม่ทุกคนครับ/ค่ะ ถ้าอาการไม่รุนแรง ดื่มน้ำได้ ปัสสาวะปกติ ไม่มี warning signs อาจดูแลที่บ้านได้ แต่ต้องมาติดตามตามนัดและกลับมาทันทีถ้ามีอาการเตือน</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Influenza -->
+            <section id="flu" class="scroll-mt-32" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-flu/10 text-accent-flu flex items-center justify-center text-3xl shadow-sm"><i class="ph-fill ph-thermometer"></i></div>
+                    <h3 class="text-3xl font-black text-slate-900">7. ไข้หวัดใหญ่ (Influenza)</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่อาจารย์พยาบาลอาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q1: Influenza ต่างจากหวัดธรรมดาอย่างไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">Influenza มักเริ่มเฉียบพลันกว่า มีไข้สูง ปวดเมื่อยมาก อ่อนเพลียมาก และอาจเกิดภาวะแทรกซ้อน เช่น pneumonia ได้ โดยเฉพาะในกลุ่มเสี่ยง</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q2: Antiviral ควรเริ่มเมื่อไหร่?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ควรเริ่มเร็วที่สุด โดยเฉพาะภายใน 1–2 วันแรกหลังเริ่มอาการ เพราะ CDC ระบุว่ายาต้านไวรัสไข้หวัดใหญ่ได้ผลดีที่สุดเมื่อเริ่มภายใน 1–2 วัน และควรให้ prompt treatment ในผู้ป่วยที่เสี่ยงต่อภาวะแทรกซ้อน เช่น หญิงตั้งครรภ์ ผู้ป่วยโรคปอด เบาหวาน หรือโรคหัวใจ</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q3: Antibiotic ใช้รักษา influenza ได้ไหม?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ไม่ได้ เพราะ influenza เกิดจากไวรัส Antibiotic ใช้รักษาเชื้อแบคทีเรีย ไม่ใช่ไวรัส CDC ระบุว่า antibiotic ไม่รักษา flu และไม่ควรใช้ถ้าไม่มีหลักฐานติดเชื้อแบคทีเรีย</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q4: Nursing care สำคัญใน influenza คืออะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เน้น droplet precautions, ให้ผู้ป่วยใส่หน้ากาก, hand hygiene, ประเมินไข้ อัตราหายใจ SpO₂ ภาวะขาดน้ำ และเฝ้าระวัง pneumonia หรือ respiratory distress</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q5: ใครเป็นกลุ่มเสี่ยงที่ต้องระวังมาก?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เด็กเล็ก ผู้สูงอายุ หญิงตั้งครรภ์ ผู้ป่วยโรคปอดเรื้อรัง หอบหืด เบาหวาน โรคหัวใจ หรือภูมิคุ้มกันต่ำ เพราะเสี่ยงต่ออาการรุนแรงและภาวะแทรกซ้อน CDC ระบุว่ากลุ่มเสี่ยงควรได้รับการรักษาด้วย antiviral อย่างรวดเร็วเมื่อสงสัย flu</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่คนไข้อาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q1: “เป็นไข้หวัดใหญ่ต้องกินยาฆ่าเชื้อไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">โดยทั่วไปไม่ใช่ยาฆ่าเชื้อแบคทีเรียครับ/ค่ะ เพราะไข้หวัดใหญ่เกิดจากไวรัส ถ้าจำเป็นแพทย์อาจให้ยาต้านไวรัส เช่น oseltamivir โดยเฉพาะถ้ามาเร็วหรือเป็นกลุ่มเสี่ยง</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q2: “ยาต้านไวรัสช่วยอะไร?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ช่วยให้อาการดีขึ้นเร็วขึ้น ลดระยะเวลาป่วย และอาจลดความเสี่ยงภาวะแทรกซ้อน โดยจะได้ผลดีที่สุดถ้าเริ่มเร็วภายใน 1–2 วันแรก</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q3: “อาการแบบไหนต้องรีบมาโรงพยาบาล?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">หอบเหนื่อย เจ็บหน้าอก ซึม กินไม่ได้ ปัสสาวะน้อย ไข้สูงไม่ลด หรืออาการดีขึ้นแล้วกลับมาแย่ลง ควรรีบพบแพทย์</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. GAS -->
+            <section id="gas" class="scroll-mt-32" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-gas/10 text-accent-gas flex items-center justify-center text-3xl shadow-sm"><i class="ph-fill ph-microphone-stage"></i></div>
+                    <h3 class="text-3xl font-black text-slate-900">8. คออักเสบ GAS</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่อาจารย์พยาบาลอาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q1: Strep throat เกิดจากเชื้ออะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เกิดจาก Streptococcus pyogenes หรือ Group A Streptococcus ซึ่งเป็นสาเหตุแบคทีเรียสำคัญของ pharyngitis CDC ระบุว่า GAS เป็นสาเหตุประมาณ 20–30% ของ pharyngitis ในเด็ก และ 5–15% ในผู้ใหญ่</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q2: อาการแบบไหนสนับสนุนว่าเป็น viral pharyngitis มากกว่า strep throat?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ถ้ามีไอ น้ำมูก เสียงแหบ ตาแดง หรือแผลในปาก จะสนับสนุน viral pharyngitis มากกว่า GAS pharyngitis CDC ระบุว่าผู้ที่มี viral symptoms ชัดเจนไม่จำเป็นต้องตรวจหา Group A strep</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q3: ถ้าไม่มีอาการ viral ชัด ตรวจร่างกายอย่างเดียวแยก viral กับ GAS ได้ไหม?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ไม่ได้ครับ/ค่ะ CDC ระบุว่าถ้าไม่มี viral symptoms ชัด การตรวจร่างกายอย่างเดียวไม่สามารถแยก viral กับ GAS pharyngitis ได้ ต้องใช้ rapid antigen detection test หรือ throat culture</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q4: ทำไมเด็กที่ rapid test ลบต้อง culture ซ้ำ?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ในเด็กอายุมากกว่า 3 ปี ถ้า RADT ลบ ควร confirm ด้วย throat culture เพราะการรักษา GAS ที่ยืนยันแล้วช่วยลดความเสี่ยง acute rheumatic fever ได้ CDC ระบุเรื่องนี้ไว้ชัดเจน</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q5: ยา first-line คืออะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">Penicillin หรือ amoxicillin เป็น antibiotic of choice สำหรับ Group A strep pharyngitis และไม่ควรให้ antibiotic ใน viral pharyngitis</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่คนไข้อาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q1: “เจ็บคอทุกครั้งต้องกิน antibiotic ไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ไม่จำเป็นครับ/ค่ะ เพราะเจ็บคอส่วนใหญ่เกิดจากไวรัส ถ้าสงสัย strep throat แพทย์อาจตรวจ rapid test หรือ throat culture ก่อน แล้วค่อยให้ antibiotic ถ้าผลยืนยัน</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q2: “กินยาแล้วดีขึ้น หยุดได้ไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ไม่ควรหยุดเอง ต้องกิน antibiotic ให้ครบตามแพทย์สั่ง เพื่อให้เชื้อหมด ลดการแพร่เชื้อ และลดภาวะแทรกซ้อน</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q3: “อาการแบบไหนต้องรีบมาโรงพยาบาล?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ถ้าหายใจลำบาก กลืนไม่ได้ น้ำลายไหล อ้าปากลำบาก คอบวมมาก ไข้สูงมาก หรือเสียงเปลี่ยน ต้องรีบมาพบแพทย์</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Appendicitis -->
+            <section id="append" class="scroll-mt-32" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-append/10 text-accent-append flex items-center justify-center text-3xl shadow-sm"><i class="ph-fill ph-activity"></i></div>
+                    <h3 class="text-3xl font-black text-slate-900">9. ไส้ติ่งอักเสบเฉียบพลัน</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่อาจารย์พยาบาลอาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q1: Appendicitis เกิดจากอะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">มักเกิดจากการอุดตันของรูเปิดหรือ lumen ของ appendix ทำให้ mucus คั่ง ความดันในไส้ติ่งเพิ่ม เลือดมาเลี้ยงลดลง แบคทีเรียเพิ่มจำนวน เกิด inflammation และถ้าไม่รักษาอาจ perforation ได้ NIDDK ระบุว่า appendicitis เป็นสาเหตุพบบ่อยที่สุดของ acute abdominal pain ที่ต้องผ่าตัด และถ้าไม่รักษาอาจเกิด peritonitis หรือ abscess</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q2: อาการ classic ของ appendicitis คืออะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ปวดท้องเริ่มรอบสะดือ แล้วค่อยย้ายไปปวดท้องน้อยขวา อาจมีเบื่ออาหาร คลื่นไส้ อาเจียน ไข้ และปวดมากขึ้นเมื่อขยับ ไอ หรือหายใจลึก NIDDK ระบุ pattern อาการปวดแบบนี้ชัดเจน</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q3: การวินิจฉัยใช้ข้อมูลอะไรบ้าง?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ใช้ประวัติ ตรวจร่างกาย lab และ imaging เช่น CBC, CRP, urinalysis, pregnancy test ในผู้หญิงวัยเจริญพันธุ์ และ ultrasound/CT/MRI เพื่อช่วยยืนยันหรือแยกโรคอื่น NIDDK ระบุว่าการวินิจฉัย appendicitis ใช้ประวัติ ตรวจร่างกาย lab และ imaging ร่วมกัน</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q4: ทำไมผู้ป่วยสงสัย appendicitis ต้อง NPO?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เพราะอาจต้องผ่าตัดฉุกเฉิน การงดน้ำงดอาหารช่วยลดความเสี่ยง aspiration ระหว่าง anesthesia และเตรียมพร้อมสำหรับการผ่าตัด</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q5: ทำไมไม่ควรให้ยาระบายหรือสวนอุจจาระ?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เพราะอาจกระตุ้นการบีบตัวและเพิ่มความเสี่ยงต่อการแตกของไส้ติ่งในผู้ป่วยที่ไส้ติ่งอักเสบ ควรหลีกเลี่ยงและรอการประเมินจากแพทย์</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่คนไข้อาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q1: “ปวดท้องขวาล่างต้องผ่าตัดไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ต้องให้แพทย์ประเมินก่อนครับ/ค่ะ ถ้าเป็นไส้ติ่งอักเสบจริง ส่วนใหญ่รักษาด้วยยาปฏิชีวนะและผ่าตัดเอาไส้ติ่งออก เพราะการรักษาเร็วช่วยลดโอกาสไส้ติ่งแตก NIDDK ระบุว่า appendectomy ยังเป็นการรักษาหลัก แม้บางรายที่ mild อาจพิจารณายาปฏิชีวนะอย่างเดียวได้ในบางบริบท</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q2: “ถ้าทนปวดอยู่บ้านได้ไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ไม่ควรครับ/ค่ะ ถ้าสงสัยไส้ติ่งอักเสบควรรีบมาตรวจ เพราะถ้าปล่อยไว้อาจแตกและเกิดเยื่อบุช่องท้องอักเสบหรือฝีในช่องท้องได้</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q3: “หลังผ่าตัดต้องระวังอะไร?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ต้องดูแลแผลให้สะอาด หลีกเลี่ยงยกของหนักตามคำสั่งแพทย์ สังเกตไข้ แผลแดง บวม หนอง หรือปวดท้องมากขึ้น ถ้ามีควรกลับมาพบแพทย์</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. IDA -->
+            <section id="ida" class="scroll-mt-32" data-aos="fade-up">
+                <div class="flex items-center gap-4 mb-10">
+                    <div class="w-14 h-14 rounded-2xl bg-accent-ida/10 text-accent-ida flex items-center justify-center text-3xl shadow-sm"><i class="ph-fill ph-drop-half-bottom"></i></div>
+                    <h3 class="text-3xl font-black text-slate-900">10. โลหิตจาง (Iron Deficiency Anemia)</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่อาจารย์พยาบาลอาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q1: Iron deficiency anemia เกิดจากอะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เกิดจาก iron ไม่พอสำหรับการสร้าง hemoglobin อาจเกิดจากเสียเลือดเรื้อรัง ได้รับธาตุเหล็กไม่พอ ต้องการธาตุเหล็กเพิ่ม หรือดูดซึมลดลง ทำให้เกิด microcytic hypochromic anemia</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q2: Lab ที่ช่วยวินิจฉัยมีอะไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">CBC มักพบ Hb/Hct ต่ำ, MCV ต่ำ, MCH ต่ำ และ iron study พบ ferritin ต่ำ, serum iron ต่ำ, TIBC สูง และ transferrin saturation ต่ำ</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q3: ทำไมต้องหาสาเหตุของการขาดธาตุเหล็ก ไม่ใช่ให้ iron อย่างเดียว?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">เพราะการขาดธาตุเหล็กอาจเกิดจากเลือดออกเรื้อรัง เช่น ประจำเดือนมากหรือเลือดออกทางเดินอาหาร ถ้าไม่หาสาเหตุ โรคอาจกลับมาเป็นซ้ำหรือพลาดโรคร้ายแรง เช่น แผลเลือดออกหรือมะเร็งทางเดินอาหาร</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q4: พยาบาลควรสอนการกิน iron อย่างไร?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ควรกินตามแพทย์สั่ง อาจกินร่วมกับวิตามินซีเพื่อช่วยดูดซึม หลีกเลี่ยงกินพร้อมชา กาแฟ นม หรือแคลเซียม เพราะลดการดูดซึม และบอกผู้ป่วยว่าอุจจาระดำหรือท้องผูกอาจเกิดจากยา iron ได้</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-primary-600 text-sm">Q5: ถ้าผู้ป่วยซีดมาก พยาบาลต้องประเมินอะไรเป็นพิเศษ?</p>
+                            <p class="prof-answer p-4 text-xs leading-relaxed text-slate-600">ต้องประเมินอาการเหนื่อย ใจสั่น เจ็บหน้าอก เวียนศีรษะ เป็นลม vital signs, oxygen saturation, ความสามารถในการทำกิจวัตร และความเสี่ยงหกล้ม</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-4">คำถามที่คนไข้อาจถาม</p>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q1: “กินยาธาตุเหล็กแล้วอุจจาระดำ อันตรายไหม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">อุจจาระดำจากยาธาตุเหล็กพบได้และมักไม่อันตราย แต่ถ้าดำเหนียวเหมือนยางมะตอย มีกลิ่นเหม็นมาก หน้ามืด ใจสั่น หรืออ่อนเพลียมาก ต้องรีบพบแพทย์ เพราะอาจเป็นเลือดออกทางเดินอาหาร</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q2: “ทำไมกินยาแล้วต้องกินต่อ ทั้งที่ดีขึ้นแล้ว?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">เพราะแม้อาการดีขึ้น แต่คลังธาตุเหล็กในร่างกายอาจยังไม่เต็ม ต้องกินต่อเนื่องตามแพทย์สั่งเพื่อเติม iron store และป้องกันกลับมาเป็นซ้ำ</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-3xl qa-card space-y-4">
+                            <p class="font-bold text-emerald-600 text-sm">Q3: “ควรกินอะไรเพิ่ม?”</p>
+                            <p class="patient-answer p-4 text-xs leading-relaxed text-slate-600 italic">ควรกินอาหารที่มีธาตุเหล็ก เช่น เนื้อแดง ตับ ไข่ ถั่ว ผักใบเขียว และกินร่วมกับอาหารที่มีวิตามินซี เช่น ส้ม ฝรั่ง มะนาว เพื่อช่วยดูดซึมธาตุเหล็ก</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Global Prof QA -->
+            <section id="global-prof" class="scroll-mt-32" data-aos="fade-up">
+                <div class="global-card rounded-[40px] p-10 text-white shadow-2xl">
+                    <h3 class="text-2xl font-black mb-8 flex items-center gap-3"><i class="ph ph-chalkboard-teacher text-primary-400"></i> คำถามรวมที่อาจารย์พยาบาลชอบถาม</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <p class="text-primary-400 font-bold text-xs">Q1: ใน 10 โรคนี้ โรคไหนต้องเน้น infection control มากที่สุด?</p>
+                            <p class="text-xs text-slate-300 leading-relaxed">วัณโรคปอด (Airborne), ไข้หวัดใหญ่ และ strep throat (Droplet/Contact) ครับ</p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-primary-400 font-bold text-xs">Q2: โรคไหนที่ต้องเฝ้าระวัง shock มากที่สุด?</p>
+                            <p class="text-xs text-slate-300 leading-relaxed">Dengue, appendicitis (แตก), GI bleeding จาก peptic ulcer ครับ</p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-primary-400 font-bold text-xs">Q3: โรคไหนที่คนไข้ชอบหยุดยาเอง?</p>
+                            <p class="text-xs text-slate-300 leading-relaxed">TB, H. pylori, strep throat, gout, Graves (ต้องเน้น Adherence เคร่งครัด)</p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-primary-400 font-bold text-xs">Q4: โรคไหนต้องระวังการใช้ NSAIDs?</p>
+                            <p class="text-xs text-slate-300 leading-relaxed">Dengue (เสี่ยงเลือดออก), Peptic ulcer (แผลแย่ลง), Gout (ระวังโรคไต)</p>
+                        </div>
+                        <div class="space-y-2">
+                            <p class="text-primary-400 font-bold text-xs">Q5: ถ้าคนไข้ถามว่า “โรคนี้หายไหม” ควรตอบอย่างไร?</p>
+                            <p class="text-xs text-slate-300 leading-relaxed">“รักษาหรือควบคุมได้ดีถ้ารักษาถูกต้อง” เช่น TB/H.pylori ต้องกินยาครบ, Gout/Graves ต้องติดตามยาวครับ</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Global Patient QA -->
+            <section id="global-patient" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-emerald-900 rounded-[40px] p-10 text-white shadow-2xl">
+                    <h3 class="text-2xl font-black mb-8 flex items-center gap-3"><i class="ph ph-users text-emerald-400"></i> แนวทางตอบเวลาคนไข้ถามแบบง่ายๆ</h3>
+                    <div class="grid md:grid-cols-3 gap-8 text-xs leading-relaxed">
+                        <div class="space-y-3">
+                            <p class="font-bold text-emerald-400 uppercase tracking-widest">เรื่องยา</p>
+                            <p>“ควรกินให้ครบตามสั่งค่ะ ถึงดีขึ้นแล้วก็ห้ามหยุดเอง เพราะเชื้ออาจยังไม่หมดและอาจกลับมาเป็นซ้ำรักษายากขึ้น”</p>
+                        </div>
+                        <div class="space-y-3">
+                            <p class="font-bold text-emerald-400 uppercase tracking-widest">เมื่อไหร่ต้องกลับมา?</p>
+                            <p>“ถ้ามีไข้สูง หอบ ซึม เจ็บหน้าอก เลือดออก ปัสสาวะน้อย ปวดท้องรุนแรง หรือมีผื่น/ตัวเหลือง ให้รีบกลับมาทันทีครับ”</p>
+                        </div>
+                        <div class="space-y-3">
+                            <p class="font-bold text-emerald-400 uppercase tracking-widest">การป้องกัน</p>
+                            <p>“ล้างมือ ใส่หน้ากาก กำจัดยุงลาย ไม่ใช้ยา NSAIDs เอง ดื่มน้ำพอ ไม่กลั้นปัสสาวะ และมาตรวจตามนัดสม่ำเสมอครับ”</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Red Flag Table -->
+            <section id="red-flag-table" class="scroll-mt-32" data-aos="fade-up">
+                <h3 class="text-2xl font-black text-slate-900 mb-8 text-center">Red Flags ที่พยาบาลต้องรีบรายงานแพทย์</h3>
+                <div class="overflow-hidden rounded-3xl border border-slate-200 shadow-sm bg-white text-xs">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 font-bold text-slate-900 border-b border-slate-200">
+                            <tr>
+                                <th class="px-6 py-4">โรค</th>
+                                <th class="px-6 py-4">Red Flag ที่ควรจำ</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100">
+                            <tr><td class="px-6 py-4 font-bold text-accent-tb">TB</td><td class="px-6 py-4">ไอเป็นเลือดมาก, หอบ, SpO₂ ต่ำ, ตัวเหลืองตาเหลือง</td></tr>
+                            <tr><td class="px-6 py-4 font-bold text-accent-cystitis">Cystitis</td><td class="px-6 py-4">ไข้สูง, ปวดสีข้าง, อาเจียน, สงสัย pyelonephritis</td></tr>
+                            <tr><td class="px-6 py-4 font-bold text-accent-hpylori">H. pylori/PUD</td><td class="px-6 py-4">ถ่ายดำ, อาเจียนเป็นเลือด, ความดันตก</td></tr>
+                            <tr><td class="px-6 py-4 font-bold text-accent-gout">Gout</td><td class="px-6 py-4">ข้อบวมแดงร่วมไข้สูง, สงสัย septic arthritis</td></tr>
+                            <tr><td class="px-6 py-4 font-bold text-accent-graves">Graves</td><td class="px-6 py-4">ไข้สูง ใจสั่นมาก สับสน, เจ็บคอขณะใช้ ATD</td></tr>
+                            <tr><td class="px-6 py-4 font-bold text-accent-dengue">Dengue</td><td class="px-6 py-4">ปวดท้องมาก, อาเจียนต่อเนื่อง, ซึม, pulse pressure แคบ</td></tr>
+                            <tr><td class="px-6 py-4 font-bold text-accent-flu">Influenza</td><td class="px-6 py-4">หอบ, SpO₂ ต่ำ, เจ็บหน้าอก, ซึม</td></tr>
+                            <tr><td class="px-6 py-4 font-bold text-accent-gas">Strep throat</td><td class="px-6 py-4">หายใจลำบาก, กลืนไม่ได้, น้ำลายไหล, คอบวมมาก</td></tr>
+                            <tr><td class="px-6 py-4 font-bold text-accent-append">Appendicitis</td><td class="px-6 py-4">ท้องแข็ง, ปวดทั่วท้อง, ไข้สูง, shock</td></tr>
+                            <tr><td class="px-6 py-4 font-bold text-accent-ida">Iron deficiency anemia</td><td class="px-6 py-4">เจ็บหน้าอก, เป็นลม, ถ่ายดำ, อาเจียนเป็นเลือด</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Final Closing Statement -->
+            <section class="text-center py-20" data-aos="zoom-in">
+                <div class="max-w-3xl mx-auto p-12 bg-primary-600 rounded-[50px] text-white shadow-2xl relative overflow-hidden">
+                    <div class="absolute -top-10 -left-10 opacity-10"><i class="ph ph-quotes text-[180px]"></i></div>
+                    <h4 class="text-2xl font-black mb-6 italic">บทสรุปปิดท้าย (Closing Statement)</h4>
+                    <p class="text-lg leading-relaxed font-medium">“พยาบาลต้องประเมินอาการสำคัญของโรค เฝ้าระวัง red flags และภาวะแทรกซ้อน ให้ยาตามแผนการรักษาอย่างปลอดภัย ส่งเสริมให้ผู้ป่วยกินยาครบ ป้องกันการแพร่เชื้อในโรคติดเชื้อ และให้ความรู้ผู้ป่วยว่าควรกลับมาโรงพยาบาลเมื่อมีอาการอันตรายค่ะ/ครับ”</p>
+                </div>
+                <p class="mt-12 text-slate-400 text-[10px] font-bold uppercase tracking-[0.5em]">Professional QA Bank • 2024</p>
+            </section>
+
+        </div>
+    </main>
+
+    <script>
+        AOS.init({ duration: 1200, once: true });
+        window.onclick = function(event) {
+            let drawer = document.getElementById('mobile-drawer');
+            if (event.target == drawer) { drawer.classList.add('translate-y-full'); }
+        }
+    </script>
+</body>
+</html>
