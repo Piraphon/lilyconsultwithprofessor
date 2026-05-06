@@ -3,25 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>บทสรุป 5 โรคสำหรับการนำเสนอทางคลินิก (Nursing Case Presentation)</title>
+    <title>Lily Consult - Ultimate Nursing Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Prompt', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Outfit', 'Prompt', 'sans-serif'] },
                     colors: {
-                        medical: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            800: '#075985',
-                            900: '#0c4a6e',
+                        primary: { 
+                            50: '#f0f9ff', 100: '#e0f2fe', 200: '#bae6fd', 500: '#0ea5e9', 
+                            600: '#0284c7', 700: '#0369a1', 900: '#0c4a6e',
+                        },
+                        accent: {
+                            tb: '#dc2626', cystitis: '#ea580c', hpylori: '#10b981', 
+                            gout: '#3b82f6', graves: '#a855f7', dengue: '#ef4444',
+                            flu: '#f97316', gas: '#8b5cf6', append: '#f59e0b', ida: '#0d9488'
                         }
                     }
                 }
@@ -29,1020 +30,579 @@
         }
     </script>
     <style>
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        body {
+            background-color: #f8fafc;
+            background-image: radial-gradient(at 0% 0%, rgba(14, 165, 233, 0.03) 0px, transparent 50%);
         }
-        
-        /* Hide default details marker */
-        details > summary { list-style: none; }
-        details > summary::-webkit-details-marker { display: none; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.4); }
+        .disease-card { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .disease-card:hover { transform: translateY(-8px); box-shadow: 0 30px 50px -12px rgba(0, 0, 0, 0.08); }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .red-flag-zone { background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-left: 5px solid #ef4444; }
+        .pathway-item { position: relative; padding-left: 1.5rem; margin-bottom: 0.5rem; }
+        .pathway-item::before { content: '→'; position: absolute; left: 0; color: #0ea5e9; font-weight: bold; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-medical-100 selection:text-medical-900">
+<body class="text-slate-800 antialiased font-sans">
 
-    <!-- Hero Section -->
-    <header class="bg-medical-900 text-white pt-16 pb-12 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="currentColor"></path>
-            </svg>
-        </div>
-        <div class="max-w-6xl mx-auto relative z-10 text-center">
-            <div class="inline-flex items-center justify-center p-3 bg-white/10 rounded-2xl mb-6 backdrop-blur-sm">
-                <i class="ph-fill ph-student text-4xl text-medical-100"></i>
+    <!-- Desktop Sidebar (Fixed Left) -->
+    <aside class="hidden lg:flex flex-col w-80 h-screen fixed left-0 top-0 bg-white border-r border-slate-200 z-50 p-8 overflow-y-auto hide-scrollbar">
+        <div class="flex items-center gap-3 mb-10">
+            <div class="w-12 h-12 rounded-2xl bg-primary-600 flex items-center justify-center text-white shadow-xl shadow-primary-200">
+                <i class="ph-fill ph-stethoscope text-3xl"></i>
             </div>
-            <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight">บทสรุป: 5 กลุ่มโรคสำหรับการนำเสนออาจารย์พยาบาล</h1>
-            <p class="text-lg md:text-xl text-medical-100 max-w-3xl mx-auto font-light">
-                (Nursing Case Presentation Preparation)<br>
-                คัดเลือกกลุ่มโรคโดยอ้างอิงจากอุบัติการณ์ สาเหตุการเกิดโรค พยาธิกำเนิดที่อธิบายได้เป็นระบบ<br class="hidden md:block"> มาตรฐานการวินิจฉัย และความโดดเด่นของบทบาททางการพยาบาล
-            </p>
+            <div>
+                <h1 class="text-xl font-black text-slate-900 leading-tight">LilyConsult</h1>
+                <p class="text-[10px] text-primary-600 font-bold uppercase tracking-widest">Ultimate Clinical Resource</p>
+            </div>
         </div>
-    </header>
 
-    <!-- Sticky Navigation -->
-    <nav class="glass-nav sticky top-0 z-50 px-4 py-3 shadow-sm">
-        <div class="max-w-6xl mx-auto flex overflow-x-auto hide-scrollbar gap-2 md:gap-4 md:justify-center snap-x items-center">
-            <a href="#overview" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">หลักการและเหตุผล</a>
-            <a href="#tb" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">วัณโรคปอด</a>
-            <a href="#cystitis" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">Acute Cystitis</a>
-            <a href="#hpylori" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">H. pylori</a>
-            <a href="#gout" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">โรคเกาต์</a>
-            <a href="#graves" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium text-slate-600 hover:bg-medical-50 hover:text-medical-600 transition-colors">Graves Disease</a>
-            <div class="w-px h-6 bg-slate-300 mx-1"></div>
-            <a href="#nursing-summary" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold text-medical-600 bg-medical-50 hover:bg-medical-100 transition-colors border border-medical-200">สรุปการพยาบาล</a>
-            <a href="#qa-section" class="snap-start whitespace-nowrap px-4 py-2 rounded-full text-sm font-bold text-white bg-slate-800 hover:bg-slate-900 transition-colors shadow-sm flex items-center gap-1"><i class="ph-bold ph-chats"></i> Q&A สำหรับตอบอาจารย์</a>
+        <nav class="space-y-8">
+            <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-4 mb-4">หลักการ & ภาพรวม</p>
+                <a href="#overview" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                    <i class="ph-bold ph-house text-xl"></i> หลักการนำเสนอ
+                </a>
+                <a href="#summary-table" class="flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition-all">
+                    <i class="ph-bold ph-table text-xl"></i> ตารางสรุป 10 โรค
+                </a>
+            </div>
+
+            <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-4 mb-4">Infectious & Respiratory</p>
+                <div class="space-y-1">
+                    <a href="#tb" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-lungs text-accent-tb"></i> 1. วัณโรคปอด</a>
+                    <a href="#flu" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-thermometer text-accent-flu"></i> 2. ไข้หวัดใหญ่</a>
+                    <a href="#gas" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-microphone-stage text-accent-gas"></i> 3. คออักเสบ GAS</a>
+                    <a href="#dengue" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-virus text-accent-dengue"></i> 4. ไข้เลือดออก</a>
+                </div>
+            </div>
+
+            <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-4 mb-4">Abdominal & Urogenital</p>
+                <div class="space-y-1">
+                    <a href="#cystitis" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-drop text-accent-cystitis"></i> 5. ปัสสาวะอักเสบ</a>
+                    <a href="#hpylori" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-stomach text-accent-hpylori"></i> 6. H. pylori Disease</a>
+                    <a href="#append" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-activity text-accent-append"></i> 7. ไส้ติ่งอักเสบ</a>
+                </div>
+            </div>
+
+            <div>
+                <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest px-4 mb-4">Endocrine & Metabolic</p>
+                <div class="space-y-1">
+                    <a href="#gout" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-bone text-accent-gout"></i> 8. โรคเกาต์</a>
+                    <a href="#graves" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-butterfly text-accent-graves"></i> 9. Graves Disease</a>
+                    <a href="#ida" class="flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50"><i class="ph-fill ph-drop-half-bottom text-accent-ida"></i> 10. โลหิตจาง IDA</a>
+                </div>
+            </div>
+
+            <div class="pt-6">
+                <a href="#qa-section" class="flex items-center gap-3 px-6 py-4 rounded-3xl text-sm font-bold bg-slate-900 text-white shadow-xl hover:scale-[1.02] transition-all">
+                    <i class="ph-bold ph-chats-circle text-2xl"></i> บทพูดสรุป & Q&A
+                </a>
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Mobile Navigation (Bottom Bar) -->
+    <nav class="lg:hidden fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-xl border-t border-slate-200 z-[100] px-4 py-3 shadow-2xl">
+        <div class="max-w-md mx-auto flex justify-around items-center">
+            <a href="#overview" class="flex flex-col items-center gap-1 text-slate-400">
+                <i class="ph-bold ph-house text-2xl"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest">หน้าแรก</span>
+            </a>
+            <button onclick="document.getElementById('mobile-drawer').classList.remove('translate-y-full')" class="flex flex-col items-center gap-1 text-primary-600">
+                <div class="bg-primary-600 w-14 h-14 rounded-full flex items-center justify-center -mt-10 border-4 border-white shadow-xl">
+                    <i class="ph-fill ph-list-bullets text-2xl text-white"></i>
+                </div>
+                <span class="text-[10px] font-bold uppercase tracking-widest">10 กลุ่มโรค</span>
+            </button>
+            <a href="#summary-table" class="flex flex-col items-center gap-1 text-slate-400">
+                <i class="ph-bold ph-table text-2xl"></i>
+                <span class="text-[10px] font-bold uppercase tracking-widest">ตารางสรุป</span>
+            </a>
         </div>
     </nav>
 
-    <main class="max-w-6xl mx-auto px-4 py-10 space-y-12">
-
-        <!-- Executive Summary & Rationale -->
-        <section id="overview" class="scroll-mt-24">
-            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8">
-                <h2 class="text-2xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-                    <i class="ph-fill ph-lightbulb text-yellow-500"></i> หลักการและเหตุผลในการคัดเลือกโรค (Rationale)
-                </h2>
-                <div class="prose max-w-none text-slate-600 leading-relaxed mb-6">
-                    <p>การคัดเลือกกลุ่มโรคสำหรับการอภิปรายเชิงวิชาการทางการพยาบาลครั้งนี้ อ้างอิงจากเกณฑ์ความเหมาะสม 4 ประการ ได้แก่ <strong>อุบัติการณ์ของโรคที่พบบ่อย (High Prevalence), สาเหตุการเกิดโรคที่จำเพาะเจาะจง, พยาธิกำเนิด (Pathogenesis) ที่สามารถอธิบายความเชื่อมโยงของอาการได้อย่างเป็นระบบ, และความชัดเจนของบทบาทพยาบาล (Nursing Roles)</strong> โดยแบ่งความโดดเด่นออกเป็น 2 กลุ่มหลัก ได้แก่:</p>
-                </div>
-                
-                <div class="grid md:grid-cols-2 gap-4 mb-8">
-                    <div class="bg-red-50 border border-red-100 rounded-xl p-5">
-                        <h3 class="font-bold text-red-800 flex items-center gap-2 mb-3">
-                            <i class="ph-fill ph-virus"></i> กลุ่มที่โดดเด่นด้าน "เชื้อก่อโรคจำเพาะ" (Specific Pathogens)
-                        </h3>
-                        <ul class="space-y-2 text-red-900/80 list-disc pl-5 font-medium">
-                            <li>วัณโรคปอด (M. tuberculosis)</li>
-                            <li>Acute uncomplicated cystitis (ส่วนใหญ่จาก E. coli)</li>
-                            <li>H. pylori-related peptic disease</li>
-                        </ul>
-                    </div>
-                    <div class="bg-purple-50 border border-purple-100 rounded-xl p-5">
-                        <h3 class="font-bold text-purple-800 flex items-center gap-2 mb-3">
-                            <i class="ph-fill ph-dna"></i> กลุ่มที่โดดเด่นด้าน "กลไกโรคจำเพาะ" (Specific Pathogenesis)
-                        </h3>
-                        <ul class="space-y-2 text-purple-900/80 list-disc pl-5 font-medium">
-                            <li>โรคเกาต์ (เกิดจากการตกผลึกของ Monosodium urate)</li>
-                            <li>Graves disease (กระบวนการ Autoimmune โดยแอนติบอดีกระตุ้นตัวรับ TSH)</li>
-                        </ul>
-                        <p class="text-sm mt-3 text-purple-700">สามารถอธิบายกลไกทางพยาธิสรีรวิทยาได้เป็นรูปธรรมมากกว่ากลุ่มโรคเมตาบอลิกที่มีปัจจัยซับซ้อน</p>
-                    </div>
-                </div>
-
-                <!-- Reference Table -->
-                <div class="overflow-x-auto rounded-xl border border-slate-200">
-                    <table class="w-full text-left text-sm border-collapse">
-                        <thead>
-                            <tr class="bg-slate-50 text-slate-700">
-                                <th class="p-4 font-semibold border-b border-slate-200">กลุ่มโรค</th>
-                                <th class="p-4 font-semibold border-b border-slate-200">ภาระโรค (Burden of Disease)</th>
-                                <th class="p-4 font-semibold border-b border-slate-200">สาเหตุ (Etiology)</th>
-                                <th class="p-4 font-semibold border-b border-slate-200">กลไกการเกิดโรค (Pathogenesis)</th>
-                                <th class="p-4 font-semibold border-b border-slate-200">การวินิจฉัยทางคลินิก</th>
-                                <th class="p-4 font-semibold border-b border-slate-200">ความเกี่ยวข้องทางคลินิก</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100 bg-white">
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-4 font-semibold text-medical-800">วัณโรคปอด</td>
-                                <td class="p-4 text-slate-600">อุบัติการณ์สูงในประเทศไทย</td>
-                                <td class="p-4 text-slate-600">เชื้อ M. tuberculosis</td>
-                                <td class="p-4 text-slate-600">Granuloma formation → Latent / Reactivation</td>
-                                <td class="p-4 text-slate-600 font-mono text-xs">CXR + NAAT + Culture</td>
-                                <td class="p-4 text-slate-500">อายุรกรรม / โรคติดเชื้อ / ระบบทางเดินหายใจ</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-4 font-semibold text-medical-800">Acute cystitis</td>
-                                <td class="p-4 text-slate-600">พบอุบัติการณ์สูงในเพศหญิง</td>
-                                <td class="p-4 text-slate-600">แบคทีเรียย้อนกลับ (Ascending infection)</td>
-                                <td class="p-4 text-slate-600">Periurethral colonization → Bladder invasion</td>
-                                <td class="p-4 text-slate-600 font-mono text-xs">Typical symptoms ± Urinalysis</td>
-                                <td class="p-4 text-slate-500">แผนกผู้ป่วยนอก (OPD) / เวชปฏิบัติทั่วไป</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-4 font-semibold text-medical-800">H. pylori Peptic Disease</td>
-                                <td class="p-4 text-slate-600">ความชุกสูง สาเหตุหลักของแผลในกระเพาะ</td>
-                                <td class="p-4 text-slate-600">เชื้อ H. pylori</td>
-                                <td class="p-4 text-slate-600">Colonization + Urease → Chronic active gastritis</td>
-                                <td class="p-4 text-slate-600 font-mono text-xs">UBT / SAT / Biopsy</td>
-                                <td class="p-4 text-slate-500">อายุรกรรมระบบทางเดินอาหาร (GI)</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-4 font-semibold text-medical-800">Gout</td>
-                                <td class="p-4 text-slate-600">โรคข้ออักเสบที่พบบ่อยในผู้ใหญ่</td>
-                                <td class="p-4 text-slate-600">MSU crystal deposition</td>
-                                <td class="p-4 text-slate-600">Hyperuricemia → Deposition → Inflammasome</td>
-                                <td class="p-4 text-slate-600 font-mono text-xs">Crystal proof ± US/DECT</td>
-                                <td class="p-4 text-slate-500">อายุรกรรม / รูมาตอยด์วิทยา</td>
-                            </tr>
-                            <tr class="hover:bg-slate-50 transition-colors">
-                                <td class="p-4 font-semibold text-medical-800">Graves disease</td>
-                                <td class="p-4 text-slate-600">สาเหตุหลักของ Hyperthyroidism</td>
-                                <td class="p-4 text-slate-600">TRAb/TSI-mediated autoimmunity</td>
-                                <td class="p-4 text-slate-600">Antibody-driven thyroid stimulation</td>
-                                <td class="p-4 text-slate-600 font-mono text-xs">TSH ต่ำ + FT4/T3 สูง + TRAb</td>
-                                <td class="p-4 text-slate-500">อายุรกรรมต่อมไร้ท่อ (Endocrine)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <!-- Mobile Drawer -->
+    <div id="mobile-drawer" class="lg:hidden fixed inset-0 z-[110] bg-black/60 backdrop-blur-sm transition-opacity translate-y-full transform" style="transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);">
+        <div class="absolute bottom-0 left-0 right-0 bg-white rounded-t-[48px] p-10 max-h-[85vh] overflow-y-auto custom-scrollbar">
+            <div class="w-16 h-1.5 bg-slate-200 rounded-full mx-auto mb-10" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')"></div>
+            <h3 class="text-2xl font-black text-slate-900 mb-8 px-2">เมนู 10 กลุ่มโรค</h3>
+            <div class="grid grid-cols-1 gap-3">
+                <a href="#tb" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-5 bg-slate-50 rounded-3xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-lungs text-accent-tb text-2xl"></i> 1. วัณโรคปอด</a>
+                <a href="#flu" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-5 bg-slate-50 rounded-3xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-thermometer text-accent-flu text-2xl"></i> 2. ไข้หวัดใหญ่</a>
+                <a href="#gas" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-5 bg-slate-50 rounded-3xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-microphone-stage text-accent-gas text-2xl"></i> 3. คออักเสบ GAS</a>
+                <a href="#dengue" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-5 bg-slate-50 rounded-3xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-virus text-accent-dengue text-2xl"></i> 4. ไข้เลือดออก</a>
+                <a href="#cystitis" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-5 bg-slate-50 rounded-3xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-drop text-accent-cystitis text-2xl"></i> 5. ปัสสาวะอักเสบ</a>
+                <a href="#hpylori" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-5 bg-slate-50 rounded-3xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-stomach text-accent-hpylori text-2xl"></i> 6. H. pylori Disease</a>
+                <a href="#append" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-5 bg-slate-50 rounded-3xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-activity text-accent-append text-2xl"></i> 7. ไส้ติ่งอักเสบ</a>
+                <a href="#gout" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-5 bg-slate-50 rounded-3xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-bone text-accent-gout text-2xl"></i> 8. โรคเกาต์</a>
+                <a href="#graves" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-5 bg-slate-50 rounded-3xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-butterfly text-accent-graves text-2xl"></i> 9. Graves Disease</a>
+                <a href="#ida" onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="p-5 bg-slate-50 rounded-3xl border border-slate-100 text-sm font-bold flex items-center gap-4"><i class="ph-fill ph-drop-half-bottom text-accent-ida text-2xl"></i> 10. โลหิตจาง IDA</a>
             </div>
-        </section>
-
-        <!-- Divider -->
-        <div class="flex items-center justify-center space-x-2 text-slate-300">
-            <i class="ph-fill ph-circle text-xs"></i>
-            <i class="ph-fill ph-circle text-[10px]"></i>
-            <i class="ph-fill ph-circle text-xs"></i>
+            <button onclick="document.getElementById('mobile-drawer').classList.add('translate-y-full')" class="w-full mt-10 py-5 bg-slate-900 text-white rounded-[24px] font-bold">ปิดหน้าต่าง</button>
         </div>
+    </div>
 
-        <!-- 1. วัณโรคปอด -->
-        <section id="tb" class="scroll-mt-24">
-            <div class="bg-white rounded-2xl shadow-sm border border-l-8 border-l-red-500 overflow-hidden">
-                <div class="p-6 md:p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center text-2xl shadow-sm">
-                            <i class="ph-fill ph-lungs"></i>
+    <!-- Main Content -->
+    <main class="lg:ml-80 min-h-screen pb-40">
+        
+        <!-- Header -->
+        <header class="px-8 pt-20 pb-16 overflow-hidden" id="overview">
+            <div class="max-w-5xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary-100 text-primary-700 rounded-2xl text-[11px] font-black tracking-widest mb-6 uppercase shadow-sm">
+                    <i class="ph-fill ph-sparkle"></i> NongLily's Nursing Guide
+                </div>
+                <h2 class="text-5xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] mb-8">
+                    10 Diseases <br><span class="text-primary-600 underline decoration-primary-200 decoration-8 underline-offset-8">Consultations</span>
+                </h2>
+                <p class="text-xl text-slate-500 max-w-3xl leading-relaxed font-medium">
+                    รวบรวมข้อมูลพยาธิสรีรวิทยาและการจัดการทางการพยาบาลที่ละเอียดที่สุด สำหรับการเตรียมพร้อมปรึกษาอาจารย์ในทุกมิติ
+                </p>
+            </div>
+        </header>
+
+        <div class="max-w-5xl mx-auto px-8 space-y-24">
+
+            <!-- 1. TB -->
+            <section id="tb" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-white rounded-[56px] shadow-sm border border-slate-200 overflow-hidden disease-card">
+                    <div class="bg-accent-tb p-10 text-white relative">
+                        <div class="absolute right-10 top-1/2 -translate-y-1/2 opacity-20">
+                            <i class="ph-fill ph-lungs text-9xl"></i>
                         </div>
-                        <div>
-                            <h2 class="text-2xl font-bold text-slate-800">1. วัณโรคปอด (Pulmonary Tuberculosis)</h2>
-                            <p class="text-slate-500 text-sm">อ้างอิงแนวทางปฏิบัติทางคลินิกจาก: CDC & WHO Guidelines</p>
-                        </div>
+                        <h3 class="text-4xl font-black mb-2">1. วัณโรคปอด (Pulmonary TB)</h3>
+                        <p class="text-white/80 font-bold uppercase tracking-widest text-xs">Mycobact. tuberculosis | Airborne Precautions</p>
                     </div>
-
-                    <!-- Medical Info -->
-                    <div class="grid md:grid-cols-2 gap-8 mb-8">
-                        <div>
-                            <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2"><i class="ph-bold ph-activity text-red-500"></i> สาเหตุและพยาธิกำเนิด (Pathogenesis)</h3>
-                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                                ติดต่อผ่านการสูดดมละอองฝอย (Droplet nuclei) เชื้อเข้าสู่ถุงลมปอด (Alveoli) ถูกทำลายโดย Macrophage และกระตุ้นกลไก Cell-mediated immunity ก่อให้เกิด Granuloma หากระบบภูมิคุ้มกันล้มเหลว เชื้อจะเพิ่มจำนวนและเกิดพยาธิสภาพของโรค (Active disease)
-                            </p>
-                            
-                            <!-- Flowchart TB -->
-                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                                <p class="text-xs font-semibold text-slate-400 mb-3 uppercase tracking-wider">Pathogenesis Flow</p>
-                                <div class="flex flex-col gap-2 relative">
-                                    <div class="flex items-center gap-3 z-10"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold">1</span><span class="text-sm font-medium">สูดดมละอองฝอย M. tuberculosis</span></div>
-                                    <div class="ml-3 w-0.5 h-4 bg-slate-300"></div>
-                                    <div class="flex items-center gap-3 z-10"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold">2</span><span class="text-sm font-medium">เชื้อเข้าสู่ Alveoli & Macrophage ตอบสนอง</span></div>
-                                    <div class="ml-3 w-0.5 h-4 bg-slate-300"></div>
-                                    <div class="flex items-center gap-3 z-10"><span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs font-bold">3</span><span class="text-sm font-medium">กระตุ้นกลไกภูมิคุ้มกัน & เกิด Granuloma <span class="text-xs bg-slate-200 px-2 py-0.5 rounded ml-2 text-slate-600">Latent TB</span></span></div>
-                                    <div class="ml-3 w-0.5 h-4 bg-red-300 border-l-2 border-dashed border-red-400"></div>
-                                    <div class="flex items-center gap-3 z-10"><span class="w-6 h-6 rounded-full bg-red-600 text-white flex items-center justify-center text-xs font-bold">!</span><span class="text-sm font-bold text-red-600">ภูมิคุ้มกันบกพร่อง → Active TB Disease</span></div>
+                    <div class="p-10 md:p-14 space-y-12">
+                        <div class="grid md:grid-cols-2 gap-12 text-sm text-slate-600">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">พยาธิกำเนิด (Pathogenesis)</h4>
+                                <div class="space-y-2">
+                                    <p class="pathway-item">สูดละอองฝอย → ถุงลมปอด → Macrophage กลืนเชื้อ</p>
+                                    <p class="pathway-item">กระตุ้น cell-mediated immunity → เกิด <strong>granuloma</strong></p>
+                                    <p class="pathway-item">Active TB disease (ถ้าภูมิคุ้มกันคุมไม่ได้)</p>
+                                </div>
+                                <div class="bg-slate-50 p-6 rounded-3xl">
+                                    <h5 class="font-bold text-slate-900 mb-2">การวินิจฉัย (Diagnosis)</h5>
+                                    <p class="text-xs">ต้องแยกติดเชื้อกับป่วยจริง CXR + Bacteriologic (AFB smear, NAAT/Xpert) และ <strong>Culture (Gold Standard)</strong></p>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="space-y-6">
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-thermometer text-red-500"></i> อาการและอาการแสดง (Clinical Manifestations)</h3>
-                                <div class="bg-red-50/50 p-3 rounded-lg text-sm text-slate-700 border border-red-100">
-                                    ไอเรื้อรังนาน > 3 สัปดาห์, เจ็บหน้าอก, ไอเสมหะปนเลือด (Hemoptysis), <strong>Constitutional symptoms:</strong> น้ำหนักลดโดยไม่ทราบสาเหตุ, เบื่ออาหาร, อ่อนเพลีย, ไข้ต่ำๆ, หนาวสั่น, เหงื่อออกในเวลากลางคืน (Night sweats)
-                                </div>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-magnifying-glass text-red-500"></i> การวินิจฉัยทางคลินิก (Diagnosis)</h3>
-                                <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                    <li><strong>การแยกภาวะการติดเชื้อและการป่วย:</strong> TST/IGRA บ่งบอกเพียงภาวะ Latent TB ไม่สามารถยืนยัน Active disease ได้</li>
-                                    <li><strong>ภาพถ่ายรังสีทรวงอก (CXR):</strong> แสดงลักษณะ Infiltrates หรือ Cavities แต่ไม่ถือเป็น Definitive diagnosis</li>
-                                    <li><strong>Gold Standard:</strong> การส่งตรวจเสมหะ 3 ครั้ง (ตอนเช้าอย่างน้อย 1 ครั้ง) สำหรับ AFB smear, NAAT (Xpert MTB/RIF), และ Culture</li>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">การพยาบาล (Nursing Care)</h4>
+                                <ul class="space-y-2 list-disc pl-4 text-xs">
+                                    <li>Airborne precautions (N95 สำหรับบุคลากร, Surgical mask สำหรับผู้ป่วย)</li>
+                                    <li>สนับสนุนระบบ <strong>DOT (Directly Observed Therapy)</strong></li>
+                                    <li>ประเมินไอเรื้อรัง (>3 สัปดาห์), เสมหะปนเลือด, ไข้, เหงื่อออกกลางคืน</li>
+                                    <li>เฝ้าระวังยา: ตัวเหลือง (ตับ), ตามัว (Ethambutol), ชา (INH)</li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Nursing Care Section -->
-                    <div class="mt-8 pt-6 border-t border-slate-100">
-                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="ph-fill ph-first-aid text-red-500"></i> กระบวนการพยาบาล (Nursing Process & Care)
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <!-- Col 1 -->
-                            <div class="space-y-4">
-                                <div class="bg-red-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold text-red-800 text-sm mb-2">🎯 เป้าหมายทางการพยาบาล</h4>
-                                    <p class="text-sm text-red-900/80">ป้องกันการแพร่กระจายเชื้อสู่บุคคลอื่น, ส่งเสริมความร่วมมือในการรับประทานยา (Adherence), เฝ้าระวังอาการไม่พึงประสงค์จากยา, บรรเทาอาการทางระบบหายใจ, และลดการตีตราทางสังคม (Social Stigma)</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-stethoscope text-slate-500"></i> การประเมินสภาพผู้ป่วย (Nursing Assessment)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                        <li>ประเมินลักษณะการไอ ปริมาณ/สีของเสมหะ ภาวะไข้ และภาวะโภชนาการ (น้ำหนักที่ลดลง)</li>
-                                        <li>ประเมินสัญญาณชีพ โดยเฉพาะอัตราการหายใจ (RR) และค่าความอิ่มตัวของออกซิเจน (SpO₂)</li>
-                                        <li>ซักประวัติการสัมผัสผู้ป่วยวัณโรค, โรคร่วมที่ส่งผลต่อภูมิคุ้มกัน (HIV, DM), พฤติกรรมการสูบบุหรี่และดื่มสุรา</li>
-                                        <li>ประเมินความรู้และความร่วมมือในการรับประทานยาอย่างต่อเนื่อง</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-rose-50 p-4 rounded-lg border border-rose-200">
-                                    <h4 class="font-semibold text-rose-800 text-sm mb-2 flex items-center gap-1"><i class="ph-fill ph-warning-circle"></i> อาการผิดปกติที่ต้องรายงานแพทย์ด่วน (Red Flags)</h4>
-                                    <p class="text-sm text-rose-700">ภาวะหายใจลำบาก (Dyspnea), SpO₂ ต่ำ, ไอเป็นเลือดปริมาณมาก (Massive hemoptysis), ซึมสับสน, อาการแสดงของตับอักเสบ (ตัวเหลือง ตาเหลือง อาเจียนรุนแรง), ผื่นแพ้ยารุนแรง หรือความผิดปกติของการมองเห็น</p>
-                                </div>
-                            </div>
-                            <!-- Col 2 -->
-                            <div class="space-y-4">
-                                <div>
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-hand-heart text-slate-500"></i> กิจกรรมการพยาบาล (Nursing Interventions)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                        <li><strong>Infection Control:</strong> ใช้หลักการ Airborne Precautions จัดให้อยู่ในห้องแยก (Negative pressure) สวม Surgical mask ให้ผู้ป่วยเมื่อเคลื่อนย้าย บุคลากรสวม N95 respirator</li>
-                                        <li><strong>Specimen Collection:</strong> แนะนำวิธีการเก็บเสมหะที่ถูกต้อง (Deep cough) ในช่วงเช้าตื่นนอน</li>
-                                        <li><strong>Medication:</strong> ดำเนินการตามระบบ DOTS (Directly Observed Treatment, Short-course)</li>
-                                        <li><strong>Monitoring:</strong> เฝ้าระวังพิษต่อตับ (Hepatotoxicity) และพิษต่อระบบประสาท (Neuropathy) จากยาต้านวัณโรค</li>
-                                        <li><strong>Holistic Care:</strong> จัดอาหาร High protein & High calorie และให้การพยาบาลด้านจิตสังคมเพื่อลดความวิตกกังวล</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-chalkboard-teacher text-slate-500"></i> การสอนสุขศึกษา (Health Education)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-1 list-outside list-disc pl-4">
-                                        <li>สร้างความตระหนักว่าโรคสามารถรักษาให้หายขาดได้ หากรับประทานยาอย่างเคร่งครัด</li>
-                                        <li>สอนหลักการ Respiratory etiquette (การปิดปากจมูกเมื่อไอ/จาม, การทิ้งเสมหะอย่างถูกวิธี)</li>
-                                        <li>เน้นย้ำถึงอันตรายของการหยุดยาเอง (นำไปสู่วัณโรคดื้อยา - MDR-TB)</li>
-                                        <li>แนะนำการนำสมาชิกในครอบครัวและผู้สัมผัสใกล้ชิดมาคัดกรอง</li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="red-flag-zone p-8 rounded-[40px]">
+                            <h4 class="text-xs font-black text-danger mb-4 uppercase tracking-widest">สัญญาณอันตราย (Red Flags)</h4>
+                            <p class="text-sm font-bold text-slate-900">หอบมากขึ้น/SpO₂ ต่ำ, ไอเป็นเลือดมาก, ตัวเหลืองตาเหลือง, ตามัวหรือมองเห็นผิดปกติ, ผื่นรุนแรงสงสัยแพ้ยา</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 2. Cystitis -->
-        <section id="cystitis" class="scroll-mt-24">
-            <div class="bg-white rounded-2xl shadow-sm border border-l-8 border-l-amber-500 overflow-hidden">
-                <div class="p-6 md:p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center text-2xl shadow-sm">
-                            <i class="ph-fill ph-drop"></i>
+            <!-- 2. Influenza -->
+            <section id="flu" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-white rounded-[56px] shadow-sm border border-slate-200 overflow-hidden disease-card">
+                    <div class="bg-accent-flu p-10 text-white relative">
+                        <div class="absolute right-10 top-1/2 -translate-y-1/2 opacity-20">
+                            <i class="ph-fill ph-thermometer text-9xl"></i>
                         </div>
-                        <div>
-                            <h2 class="text-2xl font-bold text-slate-800">2. Acute Uncomplicated Cystitis</h2>
-                            <p class="text-slate-500 text-sm">กระเพาะปัสสาวะอักเสบเฉียบพลันแบบไม่ซับซ้อน | EAU & Thai ID Guidelines</p>
-                        </div>
+                        <h3 class="text-4xl font-black mb-2">2. ไข้หวัดใหญ่ (Influenza)</h3>
+                        <p class="text-white/80 font-bold uppercase tracking-widest text-xs">Influenza A/B | Viral Replication Logic</p>
                     </div>
-
-                    <!-- Medical Info -->
-                    <div class="grid md:grid-cols-2 gap-8 mb-8">
-                        <div>
-                            <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2"><i class="ph-bold ph-activity text-amber-500"></i> สาเหตุและพยาธิกำเนิด (Pathogenesis)</h3>
-                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                                พบอุบัติการณ์สูงในเพศหญิง เกิดจากแบคทีเรีย (ส่วนใหญ่ E. coli) บริเวณรอบทวารหนัก เข้าสู่ท่อปัสสาวะและเคลื่อนตัวสูงขึ้นสู่กระเพาะปัสสาวะ (Ascending route infection) ทำให้เกิดการบุกรุกเยื่อบุและเกิดการอักเสบ
-                            </p>
-                            <div class="flex flex-wrap gap-2 mb-4">
-                                <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded">เพศหญิง (ท่อปัสสาวะสั้น)</span>
-                                <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded">การมีเพศสัมพันธ์</span>
-                                <span class="bg-slate-100 text-slate-600 text-xs px-2 py-1 rounded">การอั้นปัสสาวะ</span>
-                            </div>
-                            <div class="flex items-center gap-2 text-sm font-medium text-amber-700 bg-amber-50 p-3 rounded-xl border border-amber-100">
-                                <i class="ph-bold ph-arrow-circle-up text-xl"></i> 
-                                Periurethral colonization → Bladder mucosal invasion
-                            </div>
-                        </div>
-
-                        <div class="space-y-6">
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-thermometer text-amber-500"></i> อาการและอาการแสดง (Clinical Manifestations)</h3>
-                                <div class="bg-amber-50/50 p-3 rounded-lg text-sm text-slate-700 border border-amber-100">
-                                    Dysuria (ปวดแสบขัดเวลาปัสสาวะ), Frequency (ปัสสาวะบ่อย), Urgency (ปวดกลั้นไม่ได้), ปวดหน่วงบริเวณเหนือหัวหน่าว (Suprapubic pain), อาจะพบปัสสาวะขุ่นหรือมีเลือดปน (Gross hematuria)<br>
-                                    <span class="text-red-500 mt-2 block text-xs"><i class="ph-fill ph-warning"></i> ข้อสังเกต: หากมีไข้ หนาวสั่น ปวดบริเวณบั้นเอวร่วมด้วย บ่งชี้ถึงภาวะ Pyelonephritis</span>
+                    <div class="p-10 md:p-14 space-y-12">
+                        <div class="grid md:grid-cols-2 gap-12 text-sm text-slate-600">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">พยาธิกำเนิด</h4>
+                                <p class="leading-relaxed">Virus เข้า epithelial cells → เพิ่มจำนวน → เยื่อบุทางเดินหายใจถูกทำลาย → cytokine response รุนแรง → ไข้สูง ปวดเมื่อยตัวมาก</p>
+                                <div class="bg-amber-50 p-6 rounded-3xl border border-amber-100 text-xs text-amber-900">
+                                    "Antiviral (Oseltamivir) ได้ผลดีที่สุดเมื่อเริ่มภายใน 1–2 วันหลังเริ่มอาการ โดยเฉพาะในกลุ่มเสี่ยงครับอาจารย์"
                                 </div>
                             </div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-magnifying-glass text-amber-500"></i> การวินิจฉัยทางคลินิก (Diagnosis)</h3>
-                                <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                    <li><strong>การประเมินทางคลินิก:</strong> อาศัยการซักประวัติและอาการแสดงที่ชัดเจนเป็นหลัก การตรวจปัสสาวะ (Urinalysis) ช่วยสนับสนุนการวินิจฉัย</li>
-                                    <li><strong>Urine Culture:</strong> พิจารณาส่งตรวจเมื่ออาการไม่จำเพาะเจาะจง, มีการติดเชื้อซ้ำบ่อย, หรือไม่ตอบสนองต่อยาปฏิชีวนะมาตรฐาน</li>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">การพยาบาล</h4>
+                                <ul class="space-y-2 list-disc pl-4 text-xs">
+                                    <li>Droplet precautions + Hand hygiene</li>
+                                    <li>ติดตาม SpO₂, อาการหอบเหนื่อย, ไอเสมหะ</li>
+                                    <li>ระวัง Complication: Pneumonia (อาการแย่ลงหลังเหมือนจะดีขึ้น)</li>
+                                    <li>ให้ความรู้: พักอยู่บ้าน, ดื่มน้ำ, ฉีดวัคซีนประจำปี</li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Nursing Care Section -->
-                    <div class="mt-8 pt-6 border-t border-slate-100">
-                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="ph-fill ph-first-aid text-amber-500"></i> กระบวนการพยาบาล (Nursing Process & Care)
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <!-- Col 1 -->
-                            <div class="space-y-4">
-                                <div class="bg-amber-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold text-amber-800 text-sm mb-2">🎯 เป้าหมายทางการพยาบาล</h4>
-                                    <p class="text-sm text-amber-900/80">บรรเทาอาการปัสสาวะแสบขัด, ป้องกันการลุกลามของการติดเชื้อสู่กรวยไต (Pyelonephritis), ส่งเสริมความร่วมมือในการใช้ยาปฏิชีวนะ, และส่งเสริมพฤติกรรมอนามัยเพื่อป้องกันการติดเชื้อซ้ำ</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-stethoscope text-slate-500"></i> การประเมินสภาพผู้ป่วย (Nursing Assessment)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                        <li>ประเมินรูปแบบการขับถ่ายปัสสาวะ (Dysuria, frequency, urgency) และลักษณะของปัสสาวะ</li>
-                                        <li>ประเมินอาการที่บ่งชี้การลุกลาม: ไข้ หนาวสั่น ปวดบั้นเอว (CVA tenderness) คลื่นไส้ อาเจียน</li>
-                                        <li>ซักประวัติพฤติกรรมเสี่ยง: ปริมาณน้ำดื่มต่อวัน การกลั้นปัสสาวะ สุขอนามัยส่วนบุคคล และประวัติการแพ้ยา</li>
-                                        <li>ประเมินความวิตกกังวล เนื่องจากเป็นเรื่องเกี่ยวกับอวัยวะสืบพันธุ์และการขับถ่าย</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                                    <h4 class="font-semibold text-red-800 text-sm mb-2 flex items-center gap-1"><i class="ph-fill ph-warning-circle"></i> อาการผิดปกติที่ต้องรายงานแพทย์ด่วน (Red Flags)</h4>
-                                    <p class="text-sm text-red-700">มีไข้สูง หนาวสั่น ปวดบริเวณบั้นเอว คลื่นไส้อาเจียน ปัสสาวะเป็นเลือดสด ปัสสาวะไม่ออก อาการเลวลงหลังได้รับยาปฏิชีวนะ หรือสงสัยภาวะตั้งครรภ์ร่วมด้วย</p>
-                                </div>
-                            </div>
-                            <!-- Col 2 -->
-                            <div class="space-y-4">
-                                <div>
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-hand-heart text-slate-500"></i> กิจกรรมการพยาบาล (Nursing Interventions)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                        <li>กระตุ้นการดื่มน้ำอย่างน้อย 2-3 ลิตร/วัน (หากไม่มีข้อห้าม) เพื่อส่งเสริมการชะล้างแบคทีเรีย (Flushing effect)</li>
-                                        <li>บริหารยาปฏิชีวนะตามแผนการรักษา และติดตามอาการข้างเคียง</li>
-                                        <li>บรรเทาอาการปวดเกร็งบริเวณท้องน้อย โดยการประคบอุ่น (Warm compress) หากเหมาะสม</li>
-                                        <li>ให้การพยาบาลด้วยความระมัดระวังและเคารพสิทธิความเป็นส่วนตัว เนื่องจากผู้ป่วยอาจรู้สึกอายในการให้ข้อมูล</li>
-                                        <li>สอนและให้คำแนะนำวิธีการเก็บปัสสาวะแบบ Clean-catch midstream อย่างถูกต้อง</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-chalkboard-teacher text-slate-500"></i> การสอนสุขศึกษา (Health Education)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-1 list-outside list-disc pl-4">
-                                        <li>เน้นย้ำความสำคัญของการรับประทานยาปฏิชีวนะให้ครบตามแผนการรักษา ไม่หยุดยาเองแม้มีอาการดีขึ้น</li>
-                                        <li>แนะนำการทำความสะอาดอวัยวะสืบพันธุ์จากด้านหน้าไปด้านหลังเสมอ (Front-to-back wiping)</li>
-                                        <li>แนะนำการปัสสาวะทันทีหลังการมีเพศสัมพันธ์ และหลีกเลี่ยงการกลั้นปัสสาวะเป็นเวลานาน</li>
-                                        <li>หลีกเลี่ยงการสวนล้างช่องคลอด (Douching) หรือการใช้ผลิตภัณฑ์ที่มีน้ำหอมบริเวณจุดซ่อนเร้น</li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="red-flag-zone p-8 rounded-[40px]">
+                            <h4 class="text-xs font-black text-danger mb-4 uppercase tracking-widest">สัญญาณอันตราย</h4>
+                            <p class="text-sm font-bold text-slate-900">หอบเหนื่อย SpO₂ ต่ำ, เจ็บหน้าอก, ซึม สับสน, ไข้สูงไม่ลด, เสมหะหนองหรือมีเลือด</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 3. H. pylori -->
-        <section id="hpylori" class="scroll-mt-24">
-            <div class="bg-white rounded-2xl shadow-sm border border-l-8 border-l-emerald-500 overflow-hidden">
-                <div class="p-6 md:p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl shadow-sm">
-                            <i class="ph-fill ph-stomach"></i>
+            <!-- 3. GAS Pharyngitis -->
+            <section id="gas" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-white rounded-[56px] shadow-sm border border-slate-200 overflow-hidden disease-card">
+                    <div class="bg-accent-gas p-10 text-white relative">
+                        <div class="absolute right-10 top-1/2 -translate-y-1/2 opacity-20">
+                            <i class="ph-fill ph-microphone-stage text-9xl"></i>
                         </div>
-                        <div>
-                            <h2 class="text-2xl font-bold text-slate-800">3. H. pylori-related Peptic Disease</h2>
-                            <p class="text-slate-500 text-sm">แผลเปปติกจากการติดเชื้อ | Maastricht & ACG Guidelines</p>
-                        </div>
+                        <h3 class="text-4xl font-black mb-2">3. คออักเสบจาก Group A Strep (GAS)</h3>
+                        <p class="text-white/80 font-bold uppercase tracking-widest text-xs">Strep pyogenes | Rheumatic Fever Prevention</p>
                     </div>
-
-                    <!-- Medical Info -->
-                    <div class="grid md:grid-cols-2 gap-8 mb-8">
-                        <div>
-                            <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2"><i class="ph-bold ph-activity text-emerald-500"></i> สาเหตุและพยาธิกำเนิด (Pathogenesis)</h3>
-                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                                สาเหตุหลักของการเกิดแผลในกระเพาะอาหาร (>90% ของ Duodenal ulcer) เชื้อมีกลไกสร้างเอนไซม์ Urease เพื่อปรับสภาพกรดรอบตัว ทำให้สามารถเจริญเติบโตในชั้นเยื่อเมือกและก่อให้เกิดการอักเสบเรื้อรัง
-                            </p>
-                            
-                            <!-- Flowchart H.Pylori -->
-                            <div class="bg-emerald-50 p-4 rounded-xl border border-emerald-100">
-                                <div class="flex flex-col gap-1 text-sm font-medium">
-                                    <div class="flex items-center gap-2 text-emerald-800"><i class="ph-fill ph-bug"></i> H. pylori colonizes in gastric mucus</div>
-                                    <i class="ph-bold ph-arrow-down text-emerald-300 ml-2"></i>
-                                    <div class="flex items-center gap-2 text-emerald-800"><i class="ph-fill ph-shield-check"></i> ผลิต Urease ต้านกรดและแทรกตัวเข้าชั้นเยื่อบุ</div>
-                                    <i class="ph-bold ph-arrow-down text-emerald-300 ml-2"></i>
-                                    <div class="flex items-center gap-2 text-emerald-800"><i class="ph-fill ph-fire"></i> กระตุ้นการอักเสบ (Chronic active gastritis)</div>
-                                    <div class="flex gap-4 ml-6 mt-1 border-l-2 border-emerald-200 pl-4 py-2">
-                                        <div class="flex-1 bg-white p-2 text-xs rounded border border-emerald-100 shadow-sm">กลไกป้องกันเยื่อบุลดลง → <strong class="text-red-500">Peptic Ulcer</strong></div>
-                                        <div class="flex-1 bg-white p-2 text-xs rounded border border-emerald-100 shadow-sm">Atrophy → <strong class="text-red-500">เสี่ยง Gastric Cancer</strong></div>
-                                    </div>
+                    <div class="p-10 md:p-14 space-y-12">
+                        <div class="grid md:grid-cols-2 gap-12 text-sm text-slate-600">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">พยาธิกำเนิด & อาการ</h4>
+                                <p class="leading-relaxed">Colonization ที่ Pharynx → inflammatory response → tonsillopharyngitis → เจ็บคอ ไข้ ต่อมน้ำเหลืองโต</p>
+                                <div class="bg-violet-50 p-6 rounded-3xl border border-violet-100 text-xs text-violet-900 font-bold italic">
+                                    "GAS มักไม่มีไอเด่นครับ (No cough) ถ้ามีไอ น้ำมูก จะชี้ไปทาง Viral มากกว่าครับอาาจารย์"
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="space-y-6">
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-thermometer text-emerald-500"></i> อาการและอาการแสดง (Clinical Manifestations)</h3>
-                                <div class="bg-emerald-50/50 p-3 rounded-lg text-sm text-slate-700 border border-emerald-100">
-                                    อาจไม่แสดงอาการ หรือนำมาด้วยภาวะ Dyspepsia (อาหารไม่ย่อย), ปวดจุกแน่นลิ้นปี่ (Epigastric pain), อึดอัดแน่นท้องหลังรับประทานอาหาร, คลื่นไส้ หรืออาจมาด้วยภาวะแทรกซ้อน เช่น เลือดออกทางเดินอาหารส่วนต้น (Upper GI bleeding)<br>
-                                    <span class="text-slate-500 mt-2 block text-xs"><i>ประเด็นข้อสังเกตทางคลินิก:</i> การแยกภาวะนี้จาก Functional dyspepsia หรือ แผลจากยา NSAIDs</span>
-                                </div>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-magnifying-glass text-emerald-500"></i> การวินิจฉัยทางคลินิก (Diagnosis)</h3>
-                                <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                    <li><strong>การทดสอบ:</strong> Urea Breath Test (UBT), Stool Antigen Test (SAT), หรือ Endoscopy with biopsy</li>
-                                    <li><strong>ข้อควรระวังก่อนการทดสอบ (Pre-test preparation):</strong> จำเป็นต้องงดยากลุ่ม PPI อย่างน้อย 2 สัปดาห์ และงดยาปฏิชีวนะ/Bismuth อย่างน้อย 4 สัปดาห์ เพื่อป้องกันผลลบเทียม (False negative)</li>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">การพยาบาล</h4>
+                                <ul class="space-y-2 list-disc pl-4 text-xs">
+                                    <li>รักษาด้วย <strong>Penicillin/Amoxicillin</strong> เมื่อยืนยันด้วย RADT/Culture</li>
+                                    <li>เน้นให้กินยาครบเพื่อป้องกัน <strong>Rheumatic fever</strong></li>
+                                    <li>ประเมินการกลืน/Airway (ระวัง Peritonsillar abscess)</li>
+                                    <li>สุขอนามัย: แยกของใช้ส่วนตัว, ล้างมือ, ดื่มน้ำอุ่น</li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Nursing Care Section -->
-                    <div class="mt-8 pt-6 border-t border-slate-100">
-                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="ph-fill ph-first-aid text-emerald-500"></i> กระบวนการพยาบาล (Nursing Process & Care)
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <!-- Col 1 -->
-                            <div class="space-y-4">
-                                <div class="bg-emerald-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold text-emerald-800 text-sm mb-2">🎯 เป้าหมายทางการพยาบาล</h4>
-                                    <p class="text-sm text-emerald-900/80">บรรเทาอาการปวดจุกแน่นท้อง, ส่งเสริมความร่วมมือในการรับประทานยาสูตรกำจัดเชื้อ (Eradication therapy), เฝ้าระวังภาวะเลือดออกในทางเดินอาหาร, และให้สุขศึกษาเพื่อปรับเปลี่ยนพฤติกรรมเสี่ยง</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-stethoscope text-slate-500"></i> การประเมินสภาพผู้ป่วย (Nursing Assessment)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                        <li>ประเมินระดับความปวดท้อง (Pain score) ลักษณะและตำแหน่งของการปวด (มักสัมพันธ์กับมื้ออาหาร)</li>
-                                        <li>ประเมินความเสี่ยงต่อการเกิดแผลเพิ่มเติม: การใช้ยา NSAIDs, สเตียรอยด์, พฤติกรรมการสูบบุหรี่และการดื่มสุรา</li>
-                                        <li>เฝ้าระวังอาการแสดงของภาวะ GI Bleeding (อาเจียนเป็นเลือด/Coffee ground, อุจจาระสีดำ/Melena, ภาวะซีด)</li>
-                                        <li>ประเมินความเข้าใจต่อแผนการรักษา เนื่องจากสูตรยามีความซับซ้อน (Polypill regimen)</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                                    <h4 class="font-semibold text-red-800 text-sm mb-2 flex items-center gap-1"><i class="ph-fill ph-warning-circle"></i> อาการผิดปกติที่ต้องรายงานแพทย์ด่วน (Red Flags)</h4>
-                                    <p class="text-sm text-red-700">อาเจียนเป็นเลือด (Hematemesis), ถ่ายดำ (Melena), อาการแสดงของภาวะช็อก (Hypovolemic shock ได้แก่ หน้ามืด ซีด เหงื่อออก ตัวเย็น ชีพจรเบาเร็ว ความดันโลหิตต่ำ), หรือปวดท้องรุนแรงเฉียบพลันร่วมกับหน้าท้องแข็งเกร็ง (Board-like rigidity)</p>
-                                </div>
-                            </div>
-                            <!-- Col 2 -->
-                            <div class="space-y-4">
-                                <div>
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-hand-heart text-slate-500"></i> กิจกรรมการพยาบาล (Nursing Interventions)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                        <li>บริหารยาตามแผนการรักษา (PPI + ยาปฏิชีวนะ ± Bismuth) พร้อมวางแผนและจัดตารางการรับประทานยาให้ผู้ป่วยเข้าใจง่ายเพื่อเพิ่ม Adherence</li>
-                                        <li>ติดตามอาการข้างเคียงจากการใช้ยา เช่น คลื่นไส้ ท้องเสีย การรับรสเปลี่ยนไป หรืออุจจาระสีดำคล้ำจากการรับประทาน Bismuth (เพื่อไม่ให้ผู้ป่วยตกใจ)</li>
-                                        <li>เฝ้าระวังและบันทึกสัญญาณชีพอย่างใกล้ชิดในกลุ่มเสี่ยงสูงต่อภาวะเลือดออกในทางเดินอาหาร</li>
-                                        <li><strong>การเตรียมผู้ป่วยเพื่อตรวจวินิจฉัย:</strong> ให้คำแนะนำและตรวจสอบการงดยากลุ่ม PPI อย่างน้อย 2 สัปดาห์ และยาปฏิชีวนะอย่างน้อย 4 สัปดาห์ก่อนเข้ารับการตรวจ UBT/SAT</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-chalkboard-teacher text-slate-500"></i> การสอนสุขศึกษา (Health Education)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-1 list-outside list-disc pl-4">
-                                        <li>อธิบายความจำเป็นในการรับประทานยาให้ครบโดสตามระยะเวลาที่กำหนด เพื่อป้องกันเชื้อดื้อยา</li>
-                                        <li>นัดหมายผู้ป่วยเพื่อกลับมาตรวจยืนยันการกำจัดเชื้อ (Test of cure) อย่างน้อย 4 สัปดาห์หลังสิ้นสุดการรักษา</li>
-                                        <li>แนะนำการหลีกเลี่ยงการซื้อยาแก้ปวดกลุ่ม NSAIDs มารับประทานเอง รวมถึงหลีกเลี่ยงอาหารรสจัดและเครื่องดื่มแอลกอฮอล์</li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="red-flag-zone p-8 rounded-[40px]">
+                            <h4 class="text-xs font-black text-danger mb-4 uppercase tracking-widest">สัญญาณอันตราย</h4>
+                            <p class="text-sm font-bold text-slate-900">หายใจลำบาก, น้ำลายไหลกลืนไม่ได้, อ้าปากลำบาก (Trismus), เสียงเปลี่ยน, คอบวมมาก</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 4. Gout -->
-        <section id="gout" class="scroll-mt-24">
-            <div class="bg-white rounded-2xl shadow-sm border border-l-8 border-l-blue-500 overflow-hidden">
-                <div class="p-6 md:p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-2xl shadow-sm">
-                            <i class="ph-fill ph-bone"></i>
+            <!-- 4. Dengue -->
+            <section id="dengue" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-white rounded-[56px] shadow-sm border border-slate-200 overflow-hidden disease-card">
+                    <div class="bg-accent-dengue p-10 text-white relative">
+                        <div class="absolute right-10 top-1/2 -translate-y-1/2 opacity-20">
+                            <i class="ph-fill ph-virus text-9xl"></i>
                         </div>
-                        <div>
-                            <h2 class="text-2xl font-bold text-slate-800">4. โรคเกาต์ (Gout)</h2>
-                            <p class="text-slate-500 text-sm">โรคข้ออักเสบจากผลึก (Crystal Arthropathy) | EULAR Guidelines</p>
-                        </div>
+                        <h3 class="text-4xl font-black mb-2">4. ไข้เลือดออกเดงกี (Dengue)</h3>
+                        <p class="text-white/80 font-bold uppercase tracking-widest text-xs">Plasma Leakage | Critical Phase Watch</p>
                     </div>
-
-                    <!-- Medical Info -->
-                    <div class="grid md:grid-cols-2 gap-8 mb-8">
-                        <div>
-                            <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2"><i class="ph-bold ph-activity text-blue-500"></i> สาเหตุและพยาธิกำเนิด (Pathogenesis)</h3>
-                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                                โรคข้ออักเสบที่พบอุบัติการณ์สูงในผู้ใหญ่ เกิดจากภาวะกรดยูริกในเลือดสูง (Hyperuricemia) นำไปสู่การตกผลึก Monosodium Urate (MSU) ในข้อ กระตุ้นระบบภูมิคุ้มกันแต่กำเนิดให้เกิดการอักเสบเฉียบพลัน
-                            </p>
-                            
-                            <div class="bg-blue-50 flex items-center justify-between p-4 rounded-xl border border-blue-100 text-sm font-medium text-center">
-                                <div class="flex-1">
-                                    <span class="block text-blue-800 mb-1"><i class="ph-fill ph-trend-up"></i> Hyperuricemia</span>
-                                    <span class="text-[10px] text-blue-600">ภาวะกรดยูริกสูง</span>
-                                </div>
-                                <i class="ph-bold ph-arrow-right text-blue-400"></i>
-                                <div class="flex-1">
-                                    <span class="block text-blue-800 mb-1"><i class="ph-fill ph-diamonds-four"></i> MSU Crystal</span>
-                                    <span class="text-[10px] text-blue-600">ตกผลึกในเนื้อเยื่อข้อ</span>
-                                </div>
-                                <i class="ph-bold ph-arrow-right text-blue-400"></i>
-                                <div class="flex-1">
-                                    <span class="block text-red-600 mb-1"><i class="ph-fill ph-flame"></i> Inflammasome</span>
-                                    <span class="text-[10px] text-red-500">กระตุ้นอักเสบเฉียบพลัน</span>
+                    <div class="p-10 md:p-14 space-y-12">
+                        <div class="grid md:grid-cols-2 gap-12 text-sm text-slate-600">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">พยาธิกำเนิด</h4>
+                                <p class="leading-relaxed">Endothelial dysfunction + Vascular permeability เพิ่ม → <strong>Plasma leakage</strong> → Hemoconcentration → Shock</p>
+                                <div class="bg-red-50 p-6 rounded-3xl border border-red-100 text-xs text-red-900">
+                                    <h5 class="font-bold mb-2">CDC Warning Signs</h5>
+                                    <p>ปวดท้องรุนแรง, อาเจียนต่อเนื่อง, ซึม/กระสับกระส่าย, เลือดออกตามเยื่อบุ, ตับโต</p>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="space-y-6">
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-thermometer text-blue-500"></i> อาการและอาการแสดง (Clinical Manifestations)</h3>
-                                <div class="bg-blue-50/50 p-3 rounded-lg text-sm text-slate-700 border border-blue-100">
-                                    <strong>Acute monoarthritis:</strong> ข้ออักเสบเฉียบพลันแบบข้อเดียว มีอาการปวด บวม แดง ร้อน เกิดขึ้นอย่างรวดเร็ว มักพบในรยางค์ส่วนล่าง<br>
-                                    <span class="font-semibold text-blue-700">Classic feature:</span> ข้อโคนนิ้วหัวแม่เท้าอักเสบ (First MTP joint involvement / Podagra)
-                                </div>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-magnifying-glass text-blue-500"></i> การวินิจฉัยทางคลินิก (Diagnosis)</h3>
-                                <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                    <li><strong>Definitive Dx:</strong> การเจาะน้ำไขข้อพบผลึก MSU (Synovial fluid analysis)</li>
-                                    <li><strong>Imaging:</strong> การใช้ Ultrasound พบลักษณะ Double contour sign หรือการใช้ DECT scan</li>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">การพยาบาล</h4>
+                                <ul class="space-y-2 list-disc pl-4 text-xs">
+                                    <li>Monitor ใกล้ชิดช่วงไข้ลด (เสี่ยง Shock)</li>
+                                    <li>ติดตาม Hct, Platelet และ Urine output อย่างเคร่งครัด</li>
+                                    <li><strong>ห้าม NSAIDs/Aspirin</strong> เด็ดขาด เพราะเพิ่มเสี่ยงเลือดออก</li>
+                                    <li>ดูแลให้สารน้ำตามระดับความรุนแรงและประเมิน Response</li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Nursing Care Section -->
-                    <div class="mt-8 pt-6 border-t border-slate-100">
-                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="ph-fill ph-first-aid text-blue-500"></i> กระบวนการพยาบาล (Nursing Process & Care)
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <!-- Col 1 -->
-                            <div class="space-y-4">
-                                <div class="bg-blue-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold text-blue-800 text-sm mb-2">🎯 เป้าหมายทางการพยาบาล</h4>
-                                    <p class="text-sm text-blue-900/80">บรรเทาอาการปวดและอักเสบในระยะกำเริบเฉียบพลัน (Acute flare), ป้องกันความพิการของข้อในระยะยาว, ส่งเสริมความร่วมมือในการรับประทานยาลดกรดยูริก (ULT) อย่างต่อเนื่อง, และปรับเปลี่ยนพฤติกรรมเสี่ยง</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-stethoscope text-slate-500"></i> การประเมินสภาพผู้ป่วย (Nursing Assessment)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                        <li>ประเมินระดับความปวด (Pain score) ตำแหน่งที่อักเสบ บวม แดง ร้อน และผลกระทบต่อการทำกิจวัตรประจำวัน</li>
-                                        <li>ซักประวัติการกำเริบซ้ำ, การมีก้อน Tophi, โรคร่วม (เช่น นิ่วในไต, ไตเรื้อรัง-CKD, เบาหวาน, ความดันโลหิตสูง) และประวัติการใช้ยา</li>
-                                        <li>ตรวจสอบผลการตรวจทางห้องปฏิบัติการ: ระดับ Serum Uric Acid, Renal function (BUN, Cr) เพื่อการเฝ้าระวังผลข้างเคียงจากยา</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                                    <h4 class="font-semibold text-red-800 text-sm mb-2 flex items-center gap-1"><i class="ph-fill ph-warning-circle"></i> อาการผิดปกติที่ต้องรายงานแพทย์ด่วน (Red Flags)</h4>
-                                    <p class="text-sm text-red-700">ข้ออักเสบรุนแรงร่วมกับมีไข้สูง/หนาวสั่น (เพื่อแยกภาวะ Septic arthritis), ข้ออักเสบลุกลามอย่างรวดเร็ว, มีผื่นแพ้ยารุนแรง (เช่น SJS จาก Allopurinol), หรือมีภาวะแทรกซ้อนทางระบบทางเดินอาหารจากยา NSAIDs</p>
-                                </div>
-                            </div>
-                            <!-- Col 2 -->
-                            <div class="space-y-4">
-                                <div>
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-hand-heart text-slate-500"></i> กิจกรรมการพยาบาล (Nursing Interventions)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                        <li><strong>ในระยะ Acute Flare:</strong> จำกัดการเคลื่อนไหวข้อที่อักเสบ (Joint rest) ลดการลงน้ำหนัก จัดท่าโดยยกส่วนที่อักเสบให้สูงขึ้น และประคบเย็น (หากผู้ป่วยทนได้และเหมาะสม)</li>
-                                        <li>บริหารยาต้านการอักเสบตามแผนการรักษา (NSAIDs, Colchicine) พร้อมเฝ้าระวังอาการข้างเคียง (เช่น ท้องเสียจาก Colchicine, การระคายเคืองกระเพาะอาหารจาก NSAIDs)</li>
-                                        <li><strong>สำหรับการรักษาต่อเนื่อง:</strong> บริหารยาลดระดับกรดยูริก (ULT) เช่น Allopurinol โดยเริ่มจากขนาดต่ำตามแผนแพทย์ และติดตามอาการแพ้ยาทางผิวหนังอย่างใกล้ชิด</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-chalkboard-teacher text-slate-500"></i> การสอนสุขศึกษา (Health Education)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-1 list-outside list-disc pl-4">
-                                        <li>ให้ความรู้ว่าโรคเกิดจากการสะสมผลึกยูริก ไม่ได้เกิดจากการรับประทานอาหารที่มีพิวรีนสูงเพียงอย่างเดียว</li>
-                                        <li>แนะนำการจำกัดเครื่องดื่มแอลกอฮอล์ เครื่องดื่มที่มีฟรุกโตสสูง และหลีกเลี่ยงอาหารที่มีพิวรีนสูงในปริมาณมากเกินไป</li>
-                                        <li><strong class="text-blue-600">ประเด็นสำคัญ:</strong> ห้ามหยุดรับประทานยา Allopurinol ด้วยตนเองเมื่ออาการปวดบรรเทาลง เนื่องจากเป้าหมายคือการควบคุมระดับยูริกในระยะยาว (Treat-to-target)</li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="red-flag-zone p-8 rounded-[40px]">
+                            <h4 class="text-xs font-black text-danger mb-4 uppercase tracking-widest">ภาวะวิกฤต (รายงานแพทย์ทันที)</h4>
+                            <p class="text-sm font-bold text-slate-900">Pulse pressure แคบ (≤20 mmHg), มือเท้าเย็น/Cap refill ช้า, ปัสสาวะน้อย, ซึมสับสน</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- 5. Graves Disease -->
-        <section id="graves" class="scroll-mt-24">
-            <div class="bg-white rounded-2xl shadow-sm border border-l-8 border-l-purple-500 overflow-hidden">
-                <div class="p-6 md:p-8">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-2xl shadow-sm">
-                            <i class="ph-fill ph-butterfly"></i>
+            <!-- 5. Cystitis -->
+            <section id="cystitis" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-white rounded-[56px] shadow-sm border border-slate-200 overflow-hidden disease-card">
+                    <div class="bg-accent-cystitis p-10 text-white relative">
+                        <div class="absolute right-10 top-1/2 -translate-y-1/2 opacity-20">
+                            <i class="ph-fill ph-drop text-9xl"></i>
                         </div>
-                        <div>
-                            <h2 class="text-2xl font-bold text-slate-800">5. Graves Disease</h2>
-                            <p class="text-slate-500 text-sm">ภาวะไทรอยด์เป็นพิษ | ATA & ETA Guidelines</p>
-                        </div>
+                        <h3 class="text-4xl font-black mb-2">5. กระเพาะปัสสาวะอักเสบเฉียบพลัน</h3>
+                        <p class="text-white/80 font-bold uppercase tracking-widest text-xs">E. coli | Ascending Infection Logic</p>
                     </div>
-
-                    <!-- Medical Info -->
-                    <div class="grid md:grid-cols-2 gap-8 mb-8">
-                        <div>
-                            <h3 class="text-lg font-semibold text-slate-800 mb-3 flex items-center gap-2"><i class="ph-bold ph-activity text-purple-500"></i> สาเหตุและพยาธิกำเนิด (Pathogenesis)</h3>
-                            <p class="text-sm text-slate-600 mb-4 leading-relaxed">
-                                สาเหตุหลักที่พบบ่อยที่สุดของภาวะ Hyperthyroidism เป็นความผิดปกติของระบบภูมิคุ้มกัน (Autoimmune) ที่มีการสร้างแอนติบอดี <strong>TRAb/TSI</strong> ไปจับกับตัวรับ TSH (TSH receptor) บนต่อมไทรอยด์ ส่งผลให้เกิดการกระตุ้นการสร้างและหลั่งฮอร์โมนไทรอยด์มากเกินความจำเป็น
-                            </p>
-
-                            <!-- Flowchart Graves -->
-                            <div class="bg-purple-50 p-4 rounded-xl border border-purple-100 text-sm">
-                                <p class="text-xs font-semibold text-purple-400 mb-2 uppercase tracking-wider">Diagnostic Algorithm</p>
-                                <div class="border-l-2 border-purple-300 ml-2 pl-4 py-1 space-y-3 relative">
-                                    <div><i class="ph-fill ph-magnifying-glass absolute -left-[9px] bg-purple-50 text-purple-500"></i> สงสัยภาวะ Thyrotoxicosis</div>
-                                    <div><i class="ph-fill ph-drop absolute -left-[9px] bg-purple-50 text-purple-500"></i> ตรวจทางห้องปฏิบัติการ: <strong class="text-purple-700">TSH ต่ำ</strong> ร่วมกับ <strong class="text-purple-700">FT4/T3 สูง</strong></div>
-                                    <div class="bg-white p-2 rounded border border-purple-200 shadow-sm">
-                                        <i class="ph-fill ph-test-tube absolute -left-[9px] bg-purple-50 text-purple-500"></i> ส่งตรวจ <strong>TRAb</strong> หรือ <strong>TSI</strong>
-                                        <div class="grid grid-cols-2 gap-2 mt-2">
-                                            <div class="text-xs bg-green-50 text-green-700 p-1 rounded font-medium"><strong>(+) ผลบวก:</strong> ยืนยัน Graves</div>
-                                            <div class="text-xs bg-orange-50 text-orange-700 p-1 rounded font-medium"><strong>(-) ผลลบ:</strong> ประเมิน RAIU/US เพื่อแยกโรค</div>
-                                        </div>
-                                    </div>
+                    <div class="p-10 md:p-14 space-y-12">
+                        <div class="grid md:grid-cols-2 gap-12 text-sm text-slate-600">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">สาเหตุ & พยาธิสภาพ</h4>
+                                <p class="leading-relaxed">Periurethral colonization → Ascending infection → Bladder mucosal invasion โดยแบคทีเรีย (E. coli)</p>
+                                <div class="bg-orange-50 p-6 rounded-3xl border border-orange-100 text-xs text-orange-900 italic font-bold">
+                                    "ถ้ามีไข้หนาวสั่น ปวดสีข้าง ต้องคิดถึง Pyelonephritis มากกว่า Cystitis ธรรมดาครับอาจารย์"
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="space-y-6">
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-thermometer text-purple-500"></i> อาการและอาการแสดง (Clinical Manifestations)</h3>
-                                <div class="bg-purple-50/50 p-3 rounded-lg text-sm text-slate-700 border border-purple-100">
-                                    อาการของภาวะไทรอยด์ทำงานเกิน: ใจสั่น มือสั่น นอนไม่หลับ น้ำหนักลดแม้อยากอาหาร กล้ามเนื้ออ่อนแรง ทนต่อความร้อนไม่ได้ (Heat intolerance)<br>
-                                    <span class="font-semibold text-purple-700 mt-2 block">ลักษณะทางคลินิกที่จำเพาะ:</span> คอพอกแบบกระจาย (Diffuse goiter), ภาวะตาโปน (Graves' Orbitopathy), อาการทางผิวหนัง (Dermopathy)
-                                </div>
-                            </div>
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-800 mb-2 flex items-center gap-2"><i class="ph-bold ph-magnifying-glass text-purple-500"></i> การวินิจฉัยทางคลินิก (Diagnosis)</h3>
-                                <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                    <li><strong>การตรวจทางภูมิคุ้มกันวิทยา:</strong> การตรวจพบแอนติบอดี (TRAb/TSI) สามารถใช้ยืนยันการวินิจฉัยได้อย่างชัดเจน</li>
-                                    <li><strong>การวินิจฉัยแยกโรค (DDx):</strong> Toxic multinodular goiter, Toxic adenoma, Thyroiditis</li>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">การพยาบาล</h4>
+                                <ul class="space-y-2 list-disc pl-4 text-xs">
+                                    <li>สอนการเก็บปัสสาวะ <strong>Clean-catch midstream</strong></li>
+                                    <li>กินยาปฏิชีวนะให้ครบ แม้อาการดีขึ้น (Adherence)</li>
+                                    <li>เช็ดทำความสะอาดจาก <strong>หน้าไปหลัง</strong> เสมอ</li>
+                                    <li>ดื่มน้ำเพียงพอ, ไม่กลั้นปัสสาวะ, ปัสสาวะหลังมีเพศสัมพันธ์</li>
                                 </ul>
                             </div>
                         </div>
-                    </div>
-
-                    <!-- Nursing Care Section -->
-                    <div class="mt-8 pt-6 border-t border-slate-100">
-                        <h3 class="text-lg font-bold text-slate-800 mb-4 flex items-center gap-2">
-                            <i class="ph-fill ph-first-aid text-purple-500"></i> กระบวนการพยาบาล (Nursing Process & Care)
-                        </h3>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <!-- Col 1 -->
-                            <div class="space-y-4">
-                                <div class="bg-purple-50 p-4 rounded-lg">
-                                    <h4 class="font-semibold text-purple-800 text-sm mb-2">🎯 เป้าหมายทางการพยาบาล</h4>
-                                    <p class="text-sm text-purple-900/80">ควบคุมอาการของภาวะ Thyrotoxicosis, ป้องกันภาวะวิกฤตไทรอยด์ (Thyroid Storm), เฝ้าระวังอาการข้างเคียงรุนแรงจากยา Antithyroid, บรรเทาภาวะหัวใจทำงานหนัก, และให้ความรู้ในการจัดการตนเองระยะยาว</p>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-stethoscope text-slate-500"></i> การประเมินสภาพผู้ป่วย (Nursing Assessment)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                        <li>ประเมินสัญญาณชีพอย่างใกล้ชิด (โดยเฉพาะอัตราการเต้นของหัวใจ ความดันโลหิต และอุณหภูมิร่างกาย) น้ำหนักตัว และระดับความกระวนกระวาย</li>
-                                        <li>ประเมินอาการทางระบบประสาทอัตโนมัติ: ใจสั่น มือสั่น นอนไม่หลับ เหงื่อออกมาก</li>
-                                        <li>ประเมินความผิดปกติทางตา (Graves' Orbitopathy): ตาโปน ปวดตา ภาพซ้อน ตาแดง แสบตา ระดับการมองเห็นลดลง</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-red-50 p-4 rounded-lg border border-red-100">
-                                    <h4 class="font-semibold text-red-800 text-sm mb-2 flex items-center gap-1"><i class="ph-fill ph-warning-circle"></i> อาการผิดปกติที่ต้องรายงานแพทย์ด่วน (Red Flags)</h4>
-                                    <p class="text-sm text-red-700"><strong>สงสัยภาวะ Thyroid Storm:</strong> ไข้สูงมาก ใจสั่นเต้นผิดจังหวะ สับสน กระสับกระส่าย อาเจียน/ท้องเสียรุนแรง<br>
-                                    <strong>สงสัยภาวะ Agranulocytosis:</strong> มีไข้ เจ็บคอรุนแรงระหว่างรับประทานยา Antithyroid<br>
-                                    <strong>อาการอื่นๆ:</strong> ตัว/ตาเหลือง ปัสสาวะเข้มจัด (Hepatotoxicity) หรือมีการมองเห็นลดลงกะทันหัน</p>
-                                </div>
-                            </div>
-                            <!-- Col 2 -->
-                            <div class="space-y-4">
-                                <div>
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-hand-heart text-slate-500"></i> กิจกรรมการพยาบาล (Nursing Interventions)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-2 list-outside list-disc pl-4">
-                                        <li>จัดสิ่งแวดล้อมให้สงบ อากาศเย็นสบาย เพื่อลดการกระตุ้นประสาทสัมผัสและส่งเสริมการพักผ่อน</li>
-                                        <li>ติดตามคลื่นไฟฟ้าหัวใจ (EKG) เฝ้าระวังภาวะหัวใจเต้นผิดจังหวะ (Arrhythmia) โดยเฉพาะในผู้สูงอายุ</li>
-                                        <li>บริหารยาตามแผนการรักษา: Beta-blocker เพื่อลดอาการทางระบบประสาทซิมพาเทติก และยา Antithyroid (PTU, MMI)</li>
-                                        <li>ส่งเสริมภาวะโภชนาการ: จัดอาหารที่มีโปรตีนและแคลอรี่สูง (High protein, High calorie) ชดเชยการเผาผลาญที่เพิ่มขึ้น</li>
-                                        <li><strong>การพยาบาลเพื่อป้องกันภาวะแทรกซ้อนทางตา:</strong> แนะนำการหยอดน้ำตาเทียม การหนุนศีรษะสูงเวลานอนเพื่อลดบวม และการสวมแว่นตากันแดด</li>
-                                    </ul>
-                                </div>
-                                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
-                                    <h4 class="font-semibold text-slate-800 text-sm mb-2 flex items-center gap-1"><i class="ph-bold ph-chalkboard-teacher text-slate-500"></i> การสอนสุขศึกษา (Health Education)</h4>
-                                    <ul class="text-sm text-slate-600 space-y-1 list-outside list-disc pl-4">
-                                        <li>เน้นย้ำความสำคัญของการรับประทานยาอย่างสม่ำเสมอและตรงเวลา</li>
-                                        <li><strong class="text-red-500">ข้อควรระวังสำคัญ:</strong> หากมีอาการไข้ เจ็บคอ ต้องหยุดยาและรีบมาพบแพทย์ทันทีเพื่อตรวจระดับเม็ดเลือดขาว (CBC)</li>
-                                        <li>แนะนำการหลีกเลี่ยงเครื่องดื่มที่มีคาเฟอีน (เพิ่มอาการใจสั่น) และงดการสูบบุหรี่อย่างเด็ดขาด (ทำให้ภาวะทางตาแย่ลง)</li>
-                                    </ul>
-                                </div>
-                            </div>
+                        <div class="red-flag-zone p-8 rounded-[40px]">
+                            <h4 class="text-xs font-black text-danger mb-4 uppercase tracking-widest">สัญญาณอันตราย</h4>
+                            <p class="text-sm font-bold text-slate-900">ไข้สูงหนาวสั่น, ปวดสีข้าง (Flank pain), อาเจียนมาก, ปัสสาวะเป็นเลือดมาก/ไม่ออก</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Summary & Wrap-up -->
-        <section id="nursing-summary" class="scroll-mt-24">
-            <div class="bg-medical-900 rounded-2xl shadow-lg p-1">
-                <div class="bg-white rounded-[14px] p-6 md:p-8">
-                    <h2 class="text-2xl font-bold text-medical-900 mb-6 flex items-center gap-2">
-                        <i class="ph-fill ph-clipboard-text"></i> สรุปบทบาทพยาบาล (Nursing Role Summary)
-                    </h2>
-                    
-                    <div class="overflow-x-auto rounded-xl border border-slate-200 mb-8">
-                        <table class="w-full text-left text-sm border-collapse">
-                            <thead>
-                                <tr class="bg-slate-100 text-slate-800">
-                                    <th class="p-4 font-bold border-b border-slate-200 w-1/3">กลุ่มโรคทางคลินิก</th>
-                                    <th class="p-4 font-bold border-b border-slate-200">กิจกรรมการพยาบาลที่สำคัญ (Key Nursing Interventions)</th>
+            <!-- 6. H. pylori -->
+            <section id="hpylori" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-white rounded-[56px] shadow-sm border border-slate-200 overflow-hidden disease-card">
+                    <div class="bg-accent-hpylori p-10 text-white relative">
+                        <div class="absolute right-10 top-1/2 -translate-y-1/2 opacity-20">
+                            <i class="ph-fill ph-stomach text-9xl"></i>
+                        </div>
+                        <h3 class="text-4xl font-black mb-2">6. H. pylori Peptic Disease</h3>
+                        <p class="text-white/80 font-bold uppercase tracking-widest text-xs">Urease Enzyme | Gastric Cancer Risk</p>
+                    </div>
+                    <div class="p-10 md:p-14 space-y-12">
+                        <div class="grid md:grid-cols-2 gap-12 text-sm text-slate-600">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">พยาธิกำเนิด</h4>
+                                <p class="leading-relaxed">H. pylori สร้าง <strong>urease</strong> ทนกรด → เกิด chronic active gastritis → เยื่อบุป้องกันกรดลดลง → เกิด peptic ulcer</p>
+                                <div class="bg-emerald-900 text-white p-6 rounded-3xl">
+                                    <h5 class="text-[10px] font-bold text-emerald-400 mb-2 uppercase">Pre-test Requirements</h5>
+                                    <p class="text-[11px] leading-relaxed">หยุด PPI 2 สัปดาห์ และ Antibiotics/Bismuth 4 สัปดาห์ก่อนตรวจ UBT/Stool antigen เพื่อลด false negative</p>
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">การพยาบาล</h4>
+                                <ul class="space-y-2 list-disc pl-4 text-xs">
+                                    <li>จัดตารางยา Eradication (ยาหลายตัว) ให้คนไข้เข้าใจง่าย</li>
+                                    <li>เฝ้าระวัง <strong>Upper GI Bleed</strong>: ถ่ายดำ, อาเจียนเป็นเลือด, หน้ามืด</li>
+                                    <li>ทำ <strong>Test of Cure</strong> อย่างน้อย 4 สัปดาห์หลังรักษาเสร็จ</li>
+                                    <li>เลี่ยง NSAIDs/Aspirin, งดสูบบุหรี่และแอลกอฮอล์</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="red-flag-zone p-8 rounded-[40px]">
+                            <h4 class="text-xs font-black text-danger mb-4 uppercase tracking-widest">ภาวะแทรกซ้อนที่ต้องรายงาน</h4>
+                            <p class="text-sm font-bold text-slate-900">อาเจียนเป็นเลือด/ถ่ายดำ, หน้ามืดความดันตก, ปวดท้องรุนแรงเฉียบพลัน/ท้องแข็ง (Perforation)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. Appendicitis -->
+            <section id="append" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-white rounded-[56px] shadow-sm border border-slate-200 overflow-hidden disease-card">
+                    <div class="bg-accent-append p-10 text-white relative">
+                        <div class="absolute right-10 top-1/2 -translate-y-1/2 opacity-20">
+                            <i class="ph-fill ph-activity text-9xl"></i>
+                        </div>
+                        <h3 class="text-4xl font-black mb-2">7. ไส้ติ่งอักเสบเฉียบพลัน (Appendicitis)</h3>
+                        <p class="text-white/80 font-bold uppercase tracking-widest text-xs">Obstruction → Ischemia → Perforation</p>
+                    </div>
+                    <div class="p-10 md:p-14 space-y-12">
+                        <div class="grid md:grid-cols-2 gap-12 text-sm text-slate-600">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">พยาธิกำเนิด (Causal Chain)</h4>
+                                <div class="space-y-2">
+                                    <p class="pathway-item">Lumen Obstruction (Fecalith)</p>
+                                    <p class="pathway-item">Intraluminal pressure เพิ่มขึ้น</p>
+                                    <p class="pathway-item">Venous congestion → Ischemia</p>
+                                    <p class="pathway-item"><strong>Inflammation → Perforation</strong></p>
+                                </div>
+                                <div class="bg-amber-50 p-6 rounded-3xl border border-amber-100 text-xs text-amber-900 font-bold italic">
+                                    "ปวดเริ่มรอบสะดือ แล้วย้ายไปปวดท้องน้อยขวา (RLQ) ครับอาจารย์"
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">การพยาบาล</h4>
+                                <ul class="space-y-2 list-disc pl-4 text-xs">
+                                    <li><strong>NPO</strong>, ให้ IV Fluid และ Antibiotic ตามแผน</li>
+                                    <li>เฝ้าระวัง Perforation: ท้องแข็ง, ไข้สูง, ชีพจรเร็ว</li>
+                                    <li><strong>ห้ามสวนอุจจาระหรือให้ยาระบายเด็ดขาด</strong> (เสี่ยง Rupture)</li>
+                                    <li>หลังผ่าตัด: Early ambulation, ประเมินแผล, ประเมิน Bowel sound</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="red-flag-zone p-8 rounded-[40px]">
+                            <h4 class="text-xs font-black text-danger mb-4 uppercase tracking-widest">สัญญาณอันตราย</h4>
+                            <p class="text-sm font-bold text-slate-900">ปวดท้องมากขึ้นทั่วท้อง, ท้องแข็งเกร็ง (Rebound tenderness), ไข้สูงชีพจรเร็ว, ซึม/ความดันตก</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. Gout -->
+            <section id="gout" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-white rounded-[56px] shadow-sm border border-slate-200 overflow-hidden disease-card">
+                    <div class="bg-accent-gout p-10 text-white relative">
+                        <div class="absolute right-10 top-1/2 -translate-y-1/2 opacity-20">
+                            <i class="ph-fill ph-bone text-9xl"></i>
+                        </div>
+                        <h3 class="text-4xl font-black mb-2">8. โรคเกาต์ (Gout)</h3>
+                        <p class="text-white/80 font-bold uppercase tracking-widest text-xs">MSU Crystals | NLRP3 Inflammasome</p>
+                    </div>
+                    <div class="p-10 md:p-14 space-y-12">
+                        <div class="grid md:grid-cols-2 gap-12 text-sm text-slate-600">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">พยาธิสภาพ</h4>
+                                <p class="leading-relaxed">Hyperuricemia → ตกผลึก <strong>MSU crystal</strong> → กระตุ้น innate immune (NLRP3 inflammasome) → Acute monoarthritis</p>
+                                <div class="bg-blue-50 p-6 rounded-3xl border border-blue-100 text-xs text-blue-900 italic font-bold">
+                                    "Classic คือ Podagra (First MTP joint) ครับอาจารย์ บวมแดงร้อนรุนแรงเฉียบพลันครับ"
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">การพยาบาล</h4>
+                                <ul class="space-y-2 list-disc pl-4 text-xs">
+                                    <li>ระยะ Flare: พักข้อ, ยกสูง, ประคบเย็น, ให้ NSAIDs/Colchicine</li>
+                                    <li>เฝ้าระวังยา: ท้องเสีย (Colchicine), ไตแย่ลง (NSAIDs)</li>
+                                    <li>ส่งเสริม Adherence ต่อ <strong>ULT (Allopurinol)</strong>: ห้ามหยุดยาเอง</li>
+                                    <li>ลดปัจจัยกระตุ้น: แอลกอฮอล์ (เบียร์), อาหาร Purine สูง, ดื่มน้ำพอ</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="red-flag-zone p-8 rounded-[40px]">
+                            <h4 class="text-xs font-black text-danger mb-4 uppercase tracking-widest">สัญญาณวิกฤต</h4>
+                            <p class="text-sm font-bold text-slate-900">ข้อบวมแดงร้อนร่วมกับไข้สูง (สงสัย Septic arthritis), ผื่นแพ้ยารุนแรงหลังใช้ Allopurinol</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. Graves -->
+            <section id="graves" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-white rounded-[56px] shadow-sm border border-slate-200 overflow-hidden disease-card">
+                    <div class="bg-accent-graves p-10 text-white relative">
+                        <div class="absolute right-10 top-1/2 -translate-y-1/2 opacity-20">
+                            <i class="ph-fill ph-butterfly text-9xl"></i>
+                        </div>
+                        <h3 class="text-4xl font-black mb-2">9. Graves Disease</h3>
+                        <p class="text-white/80 font-bold uppercase tracking-widest text-xs">TRAb/TSI | Thyroid Storm Risk</p>
+                    </div>
+                    <div class="p-10 md:p-14 space-y-12">
+                        <div class="grid md:grid-cols-2 gap-12 text-sm text-slate-600">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">พยาธิกำเนิด</h4>
+                                <p class="leading-relaxed">TRAb จับ TSH receptor → กระตุ้นไทรอยด์สร้างฮอร์โมนเกิน → Thyrotoxicosis → Metabolism สูงทั่วร่างกาย</p>
+                                <div class="bg-purple-50 p-6 rounded-3xl border border-purple-100 text-xs text-purple-900 font-bold">
+                                    "ใจสั่น มือสั่น ทนร้อนไม่ได้ ตาโปน (Orbitopathy) และต่อมไทรอยด์โตทั่วๆ (Goiter) ครับอาจารย์"
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">การพยาบาล</h4>
+                                <ul class="space-y-2 list-disc pl-4 text-xs">
+                                    <li>เฝ้าระวัง <strong>Thyroid Storm</strong>: ไข้สูงมาก, สับสน, หัวใจเต้นเร็วมาก</li>
+                                    <li>เฝ้าระวังยา (ATD): <strong>Agranulocytosis</strong> (ถ้ามีไข้ เจ็บคอ ต้องหยุดยาเช็ก CBC)</li>
+                                    <li>ดูแลตา: น้ำตาเทียม, หนุนหัวสูง, งดสูบบุหรี่เด็ดขาด</li>
+                                    <li>โภชนาการ: ให้พลังงานและโปรตีนเพียงพอ, เลี่ยงคาเฟอีน</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="red-flag-zone p-8 rounded-[40px]">
+                            <h4 class="text-xs font-black text-danger mb-4 uppercase tracking-widest">สัญญาณอันตราย</h4>
+                            <p class="text-sm font-bold text-slate-900">ไข้สูงสับสนสงสัย Thyroid Storm, เจ็บคอ/ไข้ระหว่างใช้ยา ATD, ตัวเหลือง/ปัสสาวะเข้ม</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 10. IDA -->
+            <section id="ida" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-white rounded-[56px] shadow-sm border border-slate-200 overflow-hidden disease-card">
+                    <div class="bg-accent-ida p-10 text-white relative">
+                        <div class="absolute right-10 top-1/2 -translate-y-1/2 opacity-20">
+                            <i class="ph-fill ph-drop-half-bottom text-9xl"></i>
+                        </div>
+                        <h3 class="text-4xl font-black mb-2">10. โลหิตจางจากการขาดเหล็ก (IDA)</h3>
+                        <p class="text-white/80 font-bold uppercase tracking-widest text-xs">Microcytic Hypochromic | Ferritin Low</p>
+                    </div>
+                    <div class="p-10 md:p-14 space-y-12">
+                        <div class="grid md:grid-cols-2 gap-12 text-sm text-slate-600">
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">พยาธิสภาพ</h4>
+                                <p class="leading-relaxed">Iron Store ต่ำ (Ferritin < 30) → สร้าง Hemoglobin ไม่พอ → เม็ดเลือดแดงเล็กและซีด → ขนส่งออกซิเจนลดลง</p>
+                                <div class="bg-teal-50 p-6 rounded-3xl border border-teal-100 text-xs text-teal-900 italic font-bold">
+                                    "เมื่อวินิจฉัยแล้ว ต้องหาสาเหตุการเสียเลือดเรื้อรัง (Occult blood loss) เสมอครับอาจารย์"
+                                </div>
+                            </div>
+                            <div class="space-y-6">
+                                <h4 class="text-xs font-black text-slate-900 uppercase tracking-widest">การพยาบาล</h4>
+                                <ul class="space-y-2 list-disc pl-4 text-xs">
+                                    <li>สอนกินยาเหล็กคู่กับ <strong>Vitamin C</strong> (ช่วยดูดซึม)</li>
+                                    <li>เลี่ยง ชา กาแฟ นม พร้อมยาเหล็ก</li>
+                                    <li>แจ้งผลข้างเคียง: <strong>อุจจาระสีดำ</strong>, ท้องผูก, คลื่นไส้</li>
+                                    <li>ป้องกันหกล้มถ้าเวียนศีรษะ และจัดกิจกรรมพักเป็นช่วง</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="red-flag-zone p-8 rounded-[40px]">
+                            <h4 class="text-xs font-black text-danger mb-4 uppercase tracking-widest">สัญญาณอันตราย</h4>
+                            <p class="text-sm font-bold text-slate-900">เจ็บหน้าอก, เป็นลมหน้ามืดรุนแรง, ถ่ายดำเหนียวเหม็น (GI Bleeding), Hb ลดลงอย่างรวดเร็ว</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SUMMARY TABLE -->
+            <section id="summary-table" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-slate-900 rounded-[56px] p-12 text-white">
+                    <h3 class="text-3xl font-black mb-10 flex items-center gap-4">
+                        <i class="ph-fill ph-table text-primary-500"></i> ตารางสรุป 10 โรค (Quick Guide)
+                    </h3>
+                    <div class="overflow-x-auto custom-scrollbar">
+                        <table class="w-full text-left text-xs">
+                            <thead class="text-primary-400 uppercase font-black border-b border-white/10">
+                                <tr>
+                                    <th class="py-4 px-2">โรค</th>
+                                    <th class="py-4 px-2">จุดที่พยาบาลต้องเน้นที่สุด</th>
+                                    <th class="py-4 px-2 text-red-400">Red Flags (เตือนแพทย์)</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100 bg-white">
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-semibold text-red-700"><i class="ph-fill ph-lungs mr-2 text-red-500"></i>วัณโรคปอด</td>
-                                    <td class="p-4 text-slate-700">การควบคุมการติดเชื้อ (Airborne precautions), การสอนเก็บเสมหะที่ถูกต้อง, สนับสนุนระบบ DOTS, และประเมินอาการไม่พึงประสงค์จากยาอย่างใกล้ชิด</td>
-                                </tr>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-semibold text-amber-700"><i class="ph-fill ph-drop mr-2 text-amber-500"></i>Acute Uncomplicated Cystitis</td>
-                                    <td class="p-4 text-slate-700">ประเมินแบบแผนการขับถ่าย, ส่งเสริมการดื่มน้ำ, บริหารยาปฏิชีวนะให้ครบโดส, และเฝ้าระวังอาการที่บ่งชี้ถึงภาวะแทรกซ้อน (Pyelonephritis)</td>
-                                </tr>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-semibold text-emerald-700"><i class="ph-fill ph-stomach mr-2 text-emerald-500"></i>H. pylori Peptic Disease</td>
-                                    <td class="p-4 text-slate-700">ส่งเสริม Medication Adherence สำหรับยาสูตรผสม, เฝ้าระวังอาการตกเลือดในทางเดินอาหาร (GI Bleeding), และการเตรียมตัวก่อนตรวจ UBT</td>
-                                </tr>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-semibold text-blue-700"><i class="ph-fill ph-bone mr-2 text-blue-500"></i>Gout</td>
-                                    <td class="p-4 text-slate-700">การบรรเทาปวดแบบประคับประคองในระยะกำเริบ (Joint rest), สนับสนุนการรับประทานยาลดกรดยูริกอย่างต่อเนื่อง, และปรับเปลี่ยนพฤติกรรมสุขภาพ</td>
-                                </tr>
-                                <tr class="hover:bg-slate-50">
-                                    <td class="p-4 font-semibold text-purple-700"><i class="ph-fill ph-butterfly mr-2 text-purple-500"></i>Graves Disease</td>
-                                    <td class="p-4 text-slate-700">ประเมินและเฝ้าระวังภาวะ Thyroid Storm, บริหารยาและติดตามผลข้างเคียง (Agranulocytosis/Hepatotoxicity), และให้การพยาบาลเพื่อป้องกันภาวะแทรกซ้อนทางตา</td>
-                                </tr>
+                            <tbody class="divide-y divide-white/5">
+                                <tr><td class="py-4 px-2 font-bold">1. วัณโรคปอด</td><td class="py-4 px-2">Airborne, N95, DOT ยาครบ</td><td class="py-4 px-2">ไอเป็นเลือดมาก, ตัวเหลือง, ตามัว</td></tr>
+                                <tr><td class="py-4 px-2 font-bold">2. ไข้หวัดใหญ่</td><td class="py-4 px-2">Droplet, Antiviral ใน 48 ชม.</td><td class="py-4 px-2">หอบเหนื่อย, SpO₂ ต่ำ, ซึม</td></tr>
+                                <tr><td class="py-4 px-2 font-bold">3. คออักเสบ GAS</td><td class="py-4 px-2">Abx ครบกันรูมาติก, Airway</td><td class="py-4 px-2">น้ำลายไหล, กลืนไม่ได้, เสียงเปลี่ยน</td></tr>
+                                <tr><td class="py-4 px-2 font-bold">4. ไข้เลือดออก</td><td class="py-4 px-2">Monitor ช่วงไข้ลด, I/O, Hct</td><td class="py-4 px-2">ปวดท้องมาก, Pulse pressure แคบ</td></tr>
+                                <tr><td class="py-4 px-2 font-bold">5. ปัสสาวะอักเสบ</td><td class="py-4 px-2">เช็ดหน้าไปหลัง, ดื่มน้ำ, ยาครบ</td><td class="py-4 px-2">ไข้สูงหนาวสั่น, ปวดสีข้าง</td></tr>
+                                <tr><td class="py-4 px-2 font-bold">6. H. pylori</td><td class="py-4 px-2">Adherence ยาหลายตัว, GI Bleed</td><td class="py-4 px-2">ถ่ายดำ, อาเจียนเลือด, ท้องแข็ง</td></tr>
+                                <tr><td class="py-4 px-2 font-bold">7. ไส้ติ่งอักเสบ</td><td class="py-4 px-2">NPO, No laxative, Rupture</td><td class="py-4 px-2">ท้องแข็งเกร็ง, ไข้สูง, Shock</td></tr>
+                                <tr><td class="py-4 px-2 font-bold">8. โรคเกาต์</td><td class="py-4 px-2">พักข้อ, ULT ต่อเนื่อง, เลี่ยงแอลฯ</td><td class="py-4 px-2">ข้อบวมแดงร่วมไข้สูง, ผื่นแพ้ยา</td></tr>
+                                <tr><td class="py-4 px-2 font-bold">9. Graves</td><td class="py-4 px-2">Thyroid storm, ยา ATD (เจ็บคอ)</td><td class="py-4 px-2">สับสนสับส่าย, ไข้สูงชีพจรเร็วมาก</td></tr>
+                                <tr><td class="py-4 px-2 font-bold">10. โลหิตจาง IDA</td><td class="py-4 px-2">เหล็ก+วิตามินซี, หาสาเหตุเลือดออก</td><td class="py-4 px-2">เจ็บหน้าอก, เป็นลม, ถ่ายดำ</td></tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Q&A Section -->
-        <section id="qa-section" class="scroll-mt-24">
-            <div class="bg-slate-800 rounded-2xl shadow-lg p-6 md:p-8">
-                <div class="flex items-center gap-3 mb-8 border-b border-slate-700 pb-4">
-                    <div class="w-12 h-12 rounded-full bg-slate-700 text-white flex items-center justify-center text-2xl">
-                        <i class="ph-bold ph-chats"></i>
-                    </div>
-                    <div>
-                        <h2 class="text-2xl font-bold text-white">Q&A สำหรับเตรียมความพร้อมในการตอบข้อซักถาม</h2>
-                        <p class="text-slate-400 text-sm mt-1">แนวทางการตอบคำถามอาจารย์พยาบาลเชิงวิชาการ (คลิกที่คำถามเพื่อดูแนวคำตอบ)</p>
-                    </div>
+            <!-- Q&A & CLOSING -->
+            <section id="qa-section" class="scroll-mt-32" data-aos="fade-up">
+                <div class="bg-primary-600 rounded-[56px] p-16 text-white text-center relative overflow-hidden">
+                    <div class="absolute -top-10 -right-10 opacity-10"><i class="ph ph-quotes text-[200px]"></i></div>
+                    <h3 class="text-3xl font-black mb-8 italic">"Closing Statement for Professor"</h3>
+                    <p class="max-w-3xl mx-auto text-xl leading-relaxed font-medium">
+                        “ทั้ง 10 โรคนี้เลือกเพราะมีสาเหตุและพยาธิกำเนิดชัดเจน สามารถเชื่อมจากกลไกโรคไปสู่อาการ การวินิจฉัย การรักษา และบทบาทพยาบาลได้เป็นระบบ โดยบทบาทพยาบาลหลักคือการประเมินอาการสำคัญ เฝ้าระวังภาวะแทรกซ้อน ส่งเสริม Adherence ต่อการรักษา ป้องกันการแพร่เชื้อในโรคติดเชื้อ และให้ความรู้ผู้ป่วยเพื่อป้องกันการกลับเป็นซ้ำหรืออาการรุนแรงครับ”
+                    </p>
                 </div>
+            </section>
 
-                <div class="space-y-6">
-                    
-                    <!-- หมวด: ภาพรวม -->
-                    <div>
-                        <h3 class="text-medical-300 font-semibold mb-3 flex items-center gap-2"><i class="ph-fill ph-lightbulb"></i> ชุดคำถามประเด็นภาพรวม</h3>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start">
-                                    <i class="ph-bold ph-question text-medical-500 mt-1"></i>
-                                    <span>หลักการและเหตุผลสำคัญในการเลือก 5 กลุ่มโรคนี้มานำเสนอคืออะไร?</span>
-                                </span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                ทางกลุ่มพิจารณาเลือกจากโรคที่มีอุบัติการณ์สูงทางคลินิก มีสาเหตุและกลไกการเกิดโรค (Pathogenesis) ที่สามารถอธิบายความเชื่อมโยงของอาการได้อย่างเป็นระบบ และมีมาตรฐานการวินิจฉัยที่ชัดเจนค่ะ/ครับ โดยวัณโรคปอด, Cystitis, และ H. pylori มีความโดดเด่นด้านเชื้อก่อโรคจำเพาะ ในขณะที่ Gout และ Graves disease มีความโดดเด่นด้านกระบวนการพยาธิสรีรวิทยาที่ชัดเจน
-                            </div>
-                        </details>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start">
-                                    <i class="ph-bold ph-question text-medical-500 mt-1"></i>
-                                    <span>หากพิจารณาถึงความชัดเจนของกลไกระดับพยาธิกำเนิด โรคใดมีความโดดเด่นมากที่สุด?</span>
-                                </span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                หากพิจารณาในประเด็นนี้ Graves disease และ Gout มีความโดดเด่นมากที่สุดค่ะ/ครับ เนื่องจาก Graves disease สามารถอธิบายผ่านกระบวนการที่แอนติบอดี (TRAb) เข้าไปกระตุ้น TSH receptor โดยตรง ส่วน Gout สามารถอธิบายการเกิดข้ออักเสบผ่านกระบวนการที่ผลึก Monosodium urate กระตุ้นระบบ Innate immune response ได้อย่างชัดเจน
-                            </div>
-                        </details>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start">
-                                    <i class="ph-bold ph-question text-medical-500 mt-1"></i>
-                                    <span>โรคใดที่มีบริบทสอดคล้องกับระบบสาธารณสุขของประเทศไทยมากที่สุด?</span>
-                                </span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                ทางกลุ่มพิจารณาว่าคือ วัณโรคปอด (Pulmonary TB) ค่ะ/ครับ เนื่องจากประเทศไทยยังมีภาระโรค (Burden of disease) สูง และเป็นโรคที่เกี่ยวข้องกับการสาธารณสุขในหลายมิติ ทั้งการป้องกันการแพร่กระจายเชื้อ การตรวจคัดกรอง และระบบการติดตามการรับประทานยา (DOTS)
-                            </div>
-                        </details>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start">
-                                    <i class="ph-bold ph-question text-medical-500 mt-1"></i>
-                                    <span>ในฐานะพยาบาลวิชาชีพ โรคใดที่สะท้อนให้เห็นบทบาทอิสระของพยาบาลได้อย่างชัดเจนที่สุด?</span>
-                                </span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                ทุกโรคล้วนต้องการการพยาบาลแบบองค์รวม แต่โรคที่สะท้อนบทบาทพยาบาลในการดูแลอย่างครอบคลุมที่สุดคือ วัณโรคปอด ค่ะ/ครับ เนื่องจากพยาบาลมีบทบาทหลักตั้งแต่การจัดการด้าน Infection control (Airborne precautions), การสอนสุขศึกษาเรื่องการเก็บสิ่งส่งตรวจ, การจัดการด้านจิตสังคมเพื่อลด Stigma, และการเป็นแกนนำในระบบติดตามการรักษา (DOTS)
-                            </div>
-                        </details>
-                    </div>
+        </div>
 
-                    <!-- หมวด: วัณโรคปอด -->
-                    <div>
-                        <h3 class="text-red-400 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-fill ph-lungs"></i> 1. วัณโรคปอด (Pulmonary TB)</h3>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-red-500 mt-1"></i><span>จงอธิบายความแตกต่างเชิงพยาธิสรีรวิทยาระหว่าง Latent TB และ Active TB</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                <strong>Latent TB:</strong> เป็นสภาวะที่ร่างกายได้รับเชื้อและระบบภูมิคุ้มกันสร้าง Granuloma ล้อมรอบเชื้อไว้ ทำให้เชื้ออยู่ในภาวะสงบ ผู้ป่วยจะไม่มีอาการทางคลินิกและไม่สามารถแพร่เชื้อได้<br>
-                                <strong>Active TB:</strong> เป็นสภาวะที่ระบบภูมิคุ้มกันบกพร่องหรือไม่สามารถควบคุมเชื้อได้ ทำให้เชื้อแบคทีเรียแบ่งตัวและก่อให้เกิดพยาธิสภาพในเนื้อปอด ผู้ป่วยจะมีอาการแสดง (เช่น ไอเรื้อรัง น้ำหนักลด) และสามารถแพร่กระจายเชื้อสู่ผู้อื่นได้ทางละอองฝอย
-                            </div>
-                        </details>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-red-500 mt-1"></i><span>การทดสอบ TST หรือ IGRA สามารถใช้เพื่อยืนยันข้อวินิจฉัย Active TB ได้หรือไม่?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                ไม่สามารถยืนยันได้ค่ะ/ครับ การทดสอบ TST และ IGRA บ่งชี้เพียงการตอบสนองของระบบภูมิคุ้มกันว่า "เคยได้รับเชื้อ (Latent)" เท่านั้น การวินิจฉัยยืนยันมาตรฐาน (Gold standard) จำเป็นต้องอาศัยการเพาะเชื้อ (Culture) หรือการตรวจหาสารพันธุกรรมของเชื้อ (NAAT เช่น Xpert MTB/RIF) จากสิ่งส่งตรวจ
-                            </div>
-                        </details>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-red-500 mt-1"></i><span>อาการไม่พึงประสงค์ (Adverse Effects) จากยาที่พยาบาลต้องประเมินมีอะไรบ้าง และหากผู้ป่วยประสงค์จะหยุดยาควรให้การพยาบาลอย่างไร?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                <strong>การประเมิน:</strong> เฝ้าระวังภาวะตับอักเสบ (ตัวเหลือง ตาเหลือง ปัสสาวะสีเข้ม), อาการทางระบบประสาท (ชาปลายมือปลายเท้า), ผื่นแพ้ยา, และความผิดปกติของการมองเห็นตาบอดสี<br>
-                                <strong>การพยาบาล:</strong> พยาบาลต้องให้สุขศึกษาเพื่อปรับเปลี่ยนความเชื่อ (Health belief) โดยอธิบายผลกระทบของการหยุดยาไม่ครบ Course ซึ่งจะนำไปสู่ภาวะวัณโรคดื้อยาหลายขนาน (MDR-TB) และส่งเสริมให้ผู้ป่วยอยู่ในระบบติดตามการรักษา (DOTS)
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- หมวด: Cystitis -->
-                    <div>
-                        <h3 class="text-amber-400 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-fill ph-drop"></i> 2. Acute Uncomplicated Cystitis</h3>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-amber-500 mt-1"></i><span>ปัจจัยทางกายวิภาคใดที่ส่งผลให้อุบัติการณ์ของโรคนี้สูงในเพศหญิง และกลไกการติดเชื้อเป็นอย่างไร?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                ท่อปัสสาวะของเพศหญิงมีลักษณะสั้นและมีตำแหน่งกายวิภาคใกล้กับช่องคลอดและทวารหนัก ทำให้แบคทีเรียประจำถิ่น (Normal flora บริเวณรอบทวารหนัก เช่น E. coli) สามารถเคลื่อนตัวเข้าสู่ท่อปัสสาวะและแพร่กระจายย้อนกลับ (Ascending route) เข้าสู่กระเพาะปัสสาวะ ก่อให้เกิดการอักเสบของเยื่อบุ
-                            </div>
-                        </details>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-amber-500 mt-1"></i><span>หากผู้ป่วยมีอาการไข้ ปวดบริเวณบั้นเอว และคลื่นไส้อาเจียน พยาบาลควรประเมินข้อวินิจฉัยแยกโรคใด?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                อาการดังกล่าวเป็นกลุ่มอาการทางระบบ (Systemic symptoms) ซึ่งบ่งชี้ถึงภาวะแทรกซ้อนที่การติดเชื้อลุกลามขึ้นสู่ทางเดินปัสสาวะส่วนบน โดยต้องประเมินเพื่อแยกโรค กรวยไตอักเสบเฉียบพลัน (Acute Pyelonephritis) ค่ะ/ครับ
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- หมวด: H.pylori -->
-                    <div>
-                        <h3 class="text-emerald-400 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-fill ph-stomach"></i> 3. H. pylori-related Peptic Disease</h3>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-emerald-500 mt-1"></i><span>เชื้อ H. pylori มีกลไกการอยู่รอดในสภาวะความเป็นกรดสูงของกระเพาะอาหารได้อย่างไร?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                เชื้อมีคุณสมบัติในการผลิตเอนไซม์ Urease ซึ่งทำหน้าที่เร่งปฏิกิริยาเปลี่ยน Urea ให้เป็น Ammonia ทำให้เกิดสภาวะความเป็นด่างรอบตัวเชื้อ (Microenvironment) ช่วยให้เชื้อทนต่อกรด แทรกตัวผ่านชั้นเมือก และเข้าไปเกาะเยื่อบุกระเพาะอาหารจนเกิดการอักเสบเรื้อรัง
-                            </div>
-                        </details>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-emerald-500 mt-1"></i><span>ทำไมการตรวจ Serology จึงไม่ใช่วิธีมาตรฐานในการวินิจฉัย และเหตุใดจึงต้องเตรียมผู้ป่วยโดยการงดยา PPI?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                <strong>Serology:</strong> บ่งบอกเพียงการมีภูมิคุ้มกันจากการเคยได้รับเชื้อ แต่ไม่สามารถใช้ยืนยันภาวะการติดเชื้อในปัจจุบัน (Active infection) หรือใช้ประเมินผลหลังการรักษาได้<br>
-                                <strong>การงด PPI:</strong> ยากลุ่ม Proton Pump Inhibitors จะลดปริมาณแบคทีเรียชั่วคราว จึงต้องงดล่วงหน้าอย่างน้อย 2 สัปดาห์ เพื่อป้องกันผลลบเทียม (False negative) ในการตรวจ UBT หรือ SAT
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- หมวด: Gout -->
-                    <div>
-                        <h3 class="text-blue-400 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-fill ph-bone"></i> 4. โรคเกาต์ (Gout)</h3>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-blue-500 mt-1"></i><span>กระบวนการพยาธิสรีรวิทยาของการเกิดข้ออักเสบเฉียบพลันในโรคเกาต์คืออะไร?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                ภาวะ Hyperuricemia นำไปสู่การตกผลึก Monosodium urate (MSU) ในรอยต่อของข้อและเนื้อเยื่อ ผลึกดังกล่าวจะกระตุ้นระบบภูมิคุ้มกันแต่กำเนิด (Innate immune response) ผ่านกระบวนการ Inflammasome (โดยเฉพาะ NLRP3) ทำให้หลั่งสารสื่อการอักเสบ นำไปสู่อาการปวด บวม แดง ร้อนอย่างเฉียบพลัน
-                            </div>
-                        </details>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-blue-500 mt-1"></i><span>ระดับ Serum Uric Acid ที่สูงสามารถใช้ยืนยันการวินิจฉัยโรคเกาต์ได้หรือไม่?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                ไม่สามารถใช้เป็นข้อวินิจฉัยยืนยัน (Definitive diagnosis) ได้เสมอไปค่ะ/ครับ เนื่องจากผู้ป่วยหลายรายมีภาวะ Hyperuricemia แต่ไม่มีอาการข้ออักเสบ (Asymptomatic) และในขณะเกิด Acute flare ระดับยูริกในเลือดอาจลดลงมาอยู่ในเกณฑ์ปกติได้ การวินิจฉัยยืนยันจำเป็นต้องอาศัยการตรวจพบผลึก MSU จากน้ำไขข้อ (Synovial fluid analysis)
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- หมวด: Graves -->
-                    <div>
-                        <h3 class="text-purple-400 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-fill ph-butterfly"></i> 5. Graves Disease</h3>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-purple-500 mt-1"></i><span>พยาธิกำเนิดของโรคนี้ แตกต่างจากภาวะ Thyroiditis อย่างไร?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                <strong>Graves Disease:</strong> เกิดจากภูมิคุ้มกันทำลายตนเอง โดยสร้างแอนติบอดี (TRAb) ไป "กระตุ้น" ตัวรับบนต่อมไทรอยด์ ทำให้ต่อมไทรอยด์สังเคราะห์และหลั่งฮอร์โมนออกมาอย่างต่อเนื่อง (การดูดจับไอโอดีนจะสูงขึ้น)<br>
-                                <strong>Thyroiditis:</strong> เกิดจาก "การอักเสบ" ของต่อมไทรอยด์ ทำให้ฮอร์โมนที่สะสมไว้ "รั่วไหล" ออกมาสู่กระแสเลือด แต่ไม่ได้เกิดจากการสร้างใหม่ (การดูดจับไอโอดีนจะลดต่ำลง)
-                            </div>
-                        </details>
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-purple-500 mt-1"></i><span>การพยาบาลเมื่อผู้ป่วยรับประทานยา Antithyroid แล้วเกิดอาการไข้สูงและเจ็บคอรุนแรงคืออะไร?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                พยาบาลต้องตระหนักว่าอาการดังกล่าวเป็นสัญญาณเตือน (Red flag) ของภาวะ <strong>Agranulocytosis</strong> (ภาวะเม็ดเลือดขาวต่ำอย่างรุนแรง) ซึ่งเป็นผลข้างเคียงที่เป็นอันตรายถึงชีวิตของยากลุ่มนี้ ข้อปฏิบัติคือต้องแนะนำให้ผู้ป่วยหยุดยาชั่วคราวและรีบมาสถานพยาบาลเพื่อประเมินความสมบูรณ์ของเม็ดเลือด (CBC) ทันที
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- หมวด: เปรียบเทียบ และ พยาบาล -->
-                    <div>
-                        <h3 class="text-medical-200 font-semibold mb-3 mt-4 flex items-center gap-2"><i class="ph-bold ph-scales"></i> การเปรียบเทียบและการประยุกต์ใช้กระบวนการพยาบาล</h3>
-                        
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-slate-500 mt-1"></i><span>เปรียบเทียบพยาธิสภาพ: วัณโรคปอด กับ กระเพาะปัสสาวะอักเสบ แตกต่างกันอย่างไรในมิติของการกระจายเชื้อ?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                วัณโรคปอดเป็นการติดเชื้อที่แพร่กระจายผ่านระบบทางเดินหายใจ (Airborne transmission) จึงมีบทบาทสำคัญในการควบคุมการติดเชื้อระดับชุมชนและสิ่งแวดล้อม ในขณะที่ กระเพาะปัสสาวะอักเสบ เป็นการติดเชื้อเฉพาะที่ (Localized) โดยเกิดจากการเคลื่อนย้ายของเชื้อประจำถิ่น (Normal flora) เข้าสู่ระบบทางเดินปัสสาวะ (Ascending infection) จึงเน้นการดูแลสุขอนามัยส่วนบุคคล
-                            </div>
-                        </details>
-                        
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-slate-500 mt-1"></i><span>โรคใดที่พยาบาลต้องให้ความสำคัญกับประเด็น Medication Adherence มากที่สุด?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                ทุกโรคมีความสำคัญ แต่ที่พยาบาลต้องเน้นย้ำมากเป็นพิเศษคือ วัณโรคปอด และ H. pylori ค่ะ/ครับ เนื่องจากรูปแบบการรักษามีความซับซ้อน ประกอบด้วยยาหลายชนิด (Polypharmacy) และใช้ระยะเวลานาน หากขาดความร่วมมือจะส่งผลโดยตรงต่อความล้มเหลวของการรักษาและนำไปสู่อุบัติการณ์เชื้อดื้อยา
-                            </div>
-                        </details>
-
-                        <details class="group bg-white rounded-xl border border-slate-200 shadow-sm mb-2 overflow-hidden">
-                            <summary class="flex justify-between items-center font-medium cursor-pointer p-4 text-slate-800 hover:bg-slate-50 transition-colors">
-                                <span class="flex gap-3 items-start"><i class="ph-bold ph-question text-red-500 mt-1"></i><span>อาการฉุกเฉิน (Emergency conditions) ของแต่ละโรคที่พยาบาลต้องรายงานแพทย์มีอะไรบ้าง?</span></span>
-                                <span class="transition group-open:rotate-180"><i class="ph-bold ph-caret-down text-slate-400"></i></span>
-                            </summary>
-                            <div class="p-4 border-t border-slate-100 bg-slate-50 text-slate-600 text-sm leading-relaxed">
-                                <table class="w-full text-left border-collapse mt-2 bg-white rounded shadow-sm">
-                                    <thead class="bg-slate-100">
-                                        <tr><th class="p-2 border">กลุ่มโรค</th><th class="p-2 border">อาการแสดงที่ต้องเฝ้าระวังฉุกเฉิน (Red Flags)</th></tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr><td class="p-2 border font-medium">Pulmonary TB</td><td class="p-2 border text-red-600">ภาวะหายใจล้มเหลว, ไอเป็นเลือดปริมาณมาก (Massive Hemoptysis)</td></tr>
-                                        <tr><td class="p-2 border font-medium">Acute Cystitis</td><td class="p-2 border text-red-600">ไข้สูง หนาวสั่น ปวดบั้นเอวรุนแรง (สงสัย Acute Pyelonephritis)</td></tr>
-                                        <tr><td class="p-2 border font-medium">H. pylori / PUD</td><td class="p-2 border text-red-600">ถ่ายดำ, อาเจียนเป็นเลือด, สัญญาณชีพผิดปกติ (สงสัย Hypovolemic shock)</td></tr>
-                                        <tr><td class="p-2 border font-medium">Gout</td><td class="p-2 border text-red-600">ข้อบวมแดงร่วมกับไข้สูง (จำเป็นต้องแยกภาวะ Septic arthritis)</td></tr>
-                                        <tr><td class="p-2 border font-medium">Graves Disease</td><td class="p-2 border text-red-600">ไข้สูง ใจสั่น สับสน กระสับกระส่าย (สงสัยภาวะ Thyroid storm)</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </details>
-                    </div>
-
-                    <!-- Highlighted Action Boxes -->
-                    <div class="grid md:grid-cols-2 gap-4 mt-8 pt-4">
-                        <div class="bg-slate-700/50 rounded-xl p-5 border border-slate-600">
-                            <h3 class="text-medical-300 font-bold mb-3 flex items-center gap-2"><i class="ph-fill ph-chat-circle-dots"></i> แนวคำถามเชิงรุกสำหรับอภิปรายกับอาจารย์</h3>
-                            <ul class="text-sm text-slate-300 space-y-2 list-disc pl-4 italic">
-                                <li>"จาก 5 กลุ่มโรคนี้ อาจารย์มองว่าโรคใดสามารถนำไปประยุกต์ใช้ในการเขียนข้อวินิจฉัยทางการพยาบาล (Nursing diagnosis) ได้ครอบคลุมทั้งมิติร่างกายและจิตสังคมมากที่สุดคะ/ครับ?"</li>
-                                <li>"ในประเด็นของโรคติดเชื้อ อาจารย์มีข้อเสนอแนะเพิ่มเติมเกี่ยวกับการพยาบาลด้าน Infection control ที่นักศึกษามักมองข้ามหรือไม่คะ/ครับ?"</li>
-                                <li>"หากนำเสนอเป็น Case Study อาจารย์แนะนำให้มุ่งเน้นการจัดการพยาบาลในระยะกำเริบ (Acute phase) หรือการสอนสุขศึกษาเพื่อป้องกัน (Preventive phase) คะ/ครับ?"</li>
-                                <li>"สำหรับโรคที่มีความซับซ้อนของยา เช่น H. pylori อาจารย์มีเทคนิคหรือนวัตกรรมทางการพยาบาลใดที่แนะนำเพื่อช่วยเพิ่ม Medication Adherence ให้ผู้ป่วยไหมคะ/ครับ?"</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="bg-gradient-to-br from-medical-600 to-medical-800 rounded-xl p-5 border border-medical-500 shadow-lg">
-                            <h3 class="text-white font-bold mb-3 flex items-center gap-2"><i class="ph-fill ph-megaphone"></i> แนวทางการสรุปประเด็นสำคัญสำหรับการนำเสนอ</h3>
-                            <p class="text-sm text-medical-100 mb-2">เมื่ออาจารย์ให้สรุปภาพรวมของการนำเสนอ สามารถใช้ประโยคที่แสดงถึงความเป็นวิชาชีพดังนี้:</p>
-                            <div class="bg-white/10 p-4 rounded-lg border border-white/20">
-                                <p class="text-white italic leading-relaxed text-sm">
-                                    "สำหรับข้อสรุปของการนำเสนอ กลุ่มของเราได้พิจารณาคัดเลือก 5 กลุ่มโรคที่มีความสำคัญทางระบาดวิทยาและมีกระบวนการพยาธิสรีรวิทยาที่ชัดเจน ได้แก่ วัณโรคปอด, Acute Uncomplicated Cystitis, H. pylori-related Peptic Disease, Gout และ Graves disease โดยมุ่งเน้นการเชื่อมโยงองค์ความรู้จากพยาธิสภาพไปสู่อาการทางคลินิก เพื่อนำมาประยุกต์ใช้ในการวางแผนกระบวนการพยาบาลแบบองค์รวม ทั้งในด้านการประเมินสภาพ การเฝ้าระวังภาวะแทรกซ้อน และบทบาทสำคัญในการให้สุขศึกษาแก่ผู้ป่วยค่ะ/ครับ"
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
+        <footer class="mt-40 py-20 border-t border-slate-100 text-center">
+            <p class="text-slate-400 text-xs font-bold tracking-[0.5em] uppercase">Professional Clinical Resource • 2024</p>
+        </footer>
     </main>
 
-    <footer class="bg-slate-900 text-slate-400 text-center py-8 mt-12 text-sm border-t border-slate-800">
-        <p>เอกสารสรุปอ้างอิงจากแนวทางปฏิบัติทางคลินิกมาตรฐาน (Clinical Practice Guidelines)</p>
-        <p class="mt-2 text-slate-500">Academic Presentation UI designed for Nursing Students</p>
-    </footer>
-
+    <script>
+        AOS.init({ duration: 1200, once: true, easing: 'ease-out-quint' });
+        window.onclick = function(event) {
+            let drawer = document.getElementById('mobile-drawer');
+            if (event.target == drawer) { drawer.classList.add('translate-y-full'); }
+        }
+    </script>
 </body>
 </html>
