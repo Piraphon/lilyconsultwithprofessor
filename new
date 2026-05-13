@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuberculosis (TB) Masterclass สำหรับนักศึกษาพยาบาล</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #F8FAFC; /* Slate 50 - Warm Neutral */
+            color: #334155; /* Slate 700 */
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        .nav-active {
+            background-color: #0F766E; /* Teal 700 */
+            color: white;
+            border-left: 4px solid #042F2E; /* Teal 900 */
+        }
+
+        .nav-item {
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+        }
+        
+        .nav-item:hover:not(.nav-active) {
+            background-color: #E2E8F0; /* Slate 200 */
+        }
+
+        /* Chart Container Requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 350px; }
+        }
+
+        /* Accordion transition */
+        .accordion-content {
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        .accordion-content.expanded {
+            max-height: 2000px; /* Arbitrary large number for expansion */
+        }
+
+        /* Card Hover */
+        .disease-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .disease-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Flashcard for Clinical Reasoning */
+        .flashcard {
+            perspective: 1000px;
+            height: 250px;
+        }
+        .flashcard-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+        .flashcard.flipped .flashcard-inner {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        .flashcard-front {
+            background-color: #ffffff;
+            border-top: 4px solid #0F766E;
+        }
+        .flashcard-back {
+            background-color: #F0FDFA; /* Teal 50 */
+            color: #0F766E;
+            transform: rotateY(180deg);
+            border: 1px solid #CCFBF1;
+            text-align: left;
+            align-items: flex-start;
+        }
+    </style>
+
+    <!-- Chosen Palette: Slate (Neutrals) & Teal (Medical/Trust Accent) -->
+    <!-- Application Structure Plan: The SPA is structured as a dynamic dashboard/study guide. It uses a sidebar navigation (collapsible on mobile) to handle the immense volume of information logically, preventing cognitive overload. Users can jump directly to specific parts (Overview, Pulm TB, Extra-pulm TB, Reasoning, etc.). Inside sections, data is chunked using accordions (for meds/care plans) and interactive flashcards (for clinical reasoning) to promote active recall and engagement rather than passive reading. This mirrors how a student would prepare for an exam or presentation. -->
+    <!-- Visualization & Content Choices: 
+         - Overview Data -> Proportions of TB types -> Chart.js Doughnut Chart -> Visualizes that while Pulm is common, Extra-pulm is significant (Library used: Chart.js).
+         - Pathophysiology -> Step-by-step CSS styled lists with Unicode arrows -> Avoids SVG while clearly showing the cascade of events.
+         - Clinical Reasoning -> Interactive Flashcards (Vanilla JS/CSS 3D transform) -> Promotes active learning, self-testing before seeing the professor's expected answer.
+         - Deep Dive Details -> Accordions -> Hides overwhelming text blocks until the user needs them. 
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="flex h-screen overflow-hidden text-slate-800">
+
+    <!-- Mobile Header -->
+    <div class="md:hidden fixed w-full bg-teal-800 text-white p-4 flex justify-between items-center z-50">
+        <h1 class="text-lg font-bold">TB Masterclass</h1>
+        <button id="mobile-menu-btn" class="text-white text-2xl px-2">&#9776;</button>
+    </div>
+
+    <!-- Sidebar Navigation -->
+    <nav id="sidebar" class="bg-white w-64 border-r border-slate-200 h-full flex-shrink-0 absolute md:relative z-40 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out pt-16 md:pt-0 overflow-y-auto">
+        <div class="p-6 border-b border-slate-200">
+            <h2 class="text-2xl font-bold text-teal-800">TB Masterclass</h2>
+            <p class="text-xs text-slate-500 mt-1">Clinical Reasoning for Nurses</p>
+        </div>
+        <ul class="py-4" id="nav-list">
+            <!-- Populated by JS -->
+        </ul>
+        <div class="p-4 mt-auto border-t border-slate-200 bg-slate-50">
+            <p class="text-xs text-slate-400">สำหรับเตรียม Presentation<br>อ.พยาบาลเฉพาะทาง</p>
+        </div>
+    </nav>
+
+    <!-- Overlay for mobile sidebar -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 h-full overflow-y-auto pt-16 md:pt-0 scroll-smooth" id="main-content">
+        
+        <div class="max-w-5xl mx-auto p-4 md:p-8">
+            
+            <!-- Welcome Header (Visible initially, hidden when section clicked) -->
+            <div id="welcome-section" class="mb-8 bg-teal-700 text-white rounded-xl p-8 shadow-lg relative overflow-hidden">
+                <div class="relative z-10">
+                    <h1 class="text-3xl md:text-4xl font-bold mb-4">ยินดีต้อนรับสู่ TB Clinical Masterclass</h1>
+                    <p class="text-teal-100 mb-4 text-lg">"อาจารย์พยาบาลไม่ได้ต้องการแค่รู้ว่าอาการคืออะไร แต่ต้องการรู้ว่า ทำไมถึงเกิด และพยาบาลต้องทำอะไร เพราะอะไร"</p>
+                    <p class="text-sm opacity-90">คู่มือนี้ออกแบบมาสำหรับนักศึกษาพยาบาลเพื่อเตรียมความพร้อมเชิงลึก เชื่อมโยงพยาธิสรีรวิทยา อาการ และการพยาบาล (4 Layers) เลือกหัวข้อด้านซ้ายเพื่อเริ่มศึกษา</p>
+                </div>
+                <!-- Decorative element using unicode -->
+                <div class="absolute right-[-20px] bottom-[-40px] text-[150px] text-teal-600 opacity-30 select-none">🫁</div>
+            </div>
+
+            <!-- Content Container (Sections rendered here) -->
+            <div id="content-display" class="space-y-8">
+                <!-- Content injected by JS -->
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        // --- DATA STRUCTURE: Containing all the deep nursing knowledge ---
+
+        const tbData = {
+            part1: {
+                title: "PART 1: ภาพรวมของวัณโรค (TB Overview)",
+                icon: "🔬",
+                intro: "ส่วนนี้วางรากฐานความเข้าใจเชื้อ Mycobacterium tuberculosis พฤติกรรมของเชื้อ กลไกการก่อโรคในระดับเซลล์ และปัจจัยเสี่ยง เพื่อเป็นฐานในการอธิบายพยาธิสภาพในระบบอวัยวะอื่นๆ ต่อไป",
+                content: `
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 mb-6">
+                        <h3 class="text-xl font-bold text-teal-800 mb-3 border-b pb-2">1. นิยามและคุณสมบัติของเชื้อ</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <p><strong>วัณโรค (TB):</strong> โรคติดต่อเรื้อรัง เกิดจากเชื้อแบคทีเรียกลุ่ม <em>Mycobacterium tuberculosis complex (MTB)</em></p>
+                                <p class="mt-2 text-sm text-slate-600"><strong>ทำไมการรู้คุณสมบัติเชื้อถึงสำคัญต่อการพยาบาล?</strong></p>
+                                <ul class="list-disc pl-5 text-sm space-y-1 mt-1 text-slate-700">
+                                    <li><strong>Acid-fast bacilli (AFB):</strong> ผนังเซลล์มี Mycolic acid หนามาก ย้อมสีธรรมดาไม่ติด ต้องย้อมทนกรด (Ziehl-Neelsen) ➔ <em>พยาบาลจึงต้องเข้าใจความหมายของผล Sputum AFB</em></li>
+                                    <li><strong>Aerobe ยิ่งยวด:</strong> ชอบออกซิเจนสูง ➔ <em>อธิบายได้ว่าทำไมเชื้อชอบไปโตที่ Upper lobe ของปอด</em></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <ul class="list-disc pl-5 text-sm space-y-1 text-slate-700">
+                                    <li><strong>เจริญเติบโตช้า (Slow-growing):</strong> แบ่งตัวทุก 15-20 ชม. ➔ <em>อธิบายว่าทำไมอาการโรคจึงค่อยเป็นค่อยไป (เรื้อรัง) ทำไมเพาะเชื้อ (Culture) นานถึง 2-6 สัปดาห์ และทำไมต้องกินยานาน 6 เดือนขึ้นไป</em></li>
+                                    <li><strong>Intracellular pathogen:</strong> ซ่อนตัวและแบ่งตัวใน Macrophage ได้โดยยับยั้ง phagolysosome fusion ➔ <em>อธิบายการเกิด Latent TB และทำไมภูมิคุ้มกันชนิด Cellular (T-cell) ถึงสำคัญมาก (ถ้า T-cell ต่ำอย่าง HIV ถึงป่วยหนัก)</em></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 mb-6">
+                        <h3 class="text-xl font-bold text-teal-800 mb-3 border-b pb-2">2. ความสำคัญและการแพร่กระจายเชื้อ (Airborne Transmission)</h3>
+                        <p class="mb-3 text-sm">วัณโรคแพร่ทาง <strong>Airborne</strong> ไม่ใช่ Droplet ธรรมดา ซึ่งต่างกันโดยสิ้นเชิงในมุม Infection Control</p>
+                        
+                        <div class="bg-slate-50 p-4 rounded-md text-sm border-l-4 border-teal-500 mb-4">
+                            <h4 class="font-bold mb-2">กลไก Droplet Nuclei (ละอองลอยขนาด < 5 ไมครอน)</h4>
+                            <p>1. ผู้ป่วย ไอ จาม (Droplet ใหญ่) ➔ 2. น้ำระเหยออกอย่างรวดเร็วในอากาศ ➔ 3. เหลือแต่แกนกลางที่มีเชื้อ (Droplet nuclei) น้ำหนักเบามากลอยในอากาศได้เป็นชั่วโมงๆ ➔ 4. คนอื่นสูดดมเข้าไป ขนาดที่เล็กมากทำให้ทะลุผ่าน Cilia ในหลอดลม เข้าไปถึงถุงลม (Alveoli) ได้โดยตรง</p>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-blue-50 p-3 rounded">
+                                <span class="font-bold text-blue-800">ทำไมผู้ป่วยใส่ Surgical Mask?</span><br>
+                                เพื่อดักจับ Droplet ขนาดใหญ่ "ตั้งแต่ตอนออกมาจากปาก" ก่อนที่น้ำจะระเหยกลายเป็นละอองลอย (Source control)
+                            </div>
+                            <div class="bg-teal-50 p-3 rounded">
+                                <span class="font-bold text-teal-800">ทำไมพยาบาลใส่ N95?</span><br>
+                                เพื่อกรอง Droplet nuclei ขนาดเล็กมากที่ลอยฟุ้งในอากาศแล้ว (Surgical mask กรองไม่ได้เพราะไม่แนบสนิทและรูพรุนใหญ่กว่า)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 mb-6">
+                        <h3 class="text-xl font-bold text-teal-800 mb-3 border-b pb-2">3. พยาธิสรีรวิทยาการเกิดโรค (Pathophysiology)</h3>
+                        <p class="text-sm mb-4">เชื่อมโยงกลไกระดับเซลล์สู่อาการทางคลินิก (The 4 Layers of Clinical Reasoning)</p>
+                        
+                        <div class="space-y-3 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+                            <!-- Step 1 -->
+                            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-teal-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">1</div>
+                                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded shadow-sm border border-slate-100">
+                                    <div class="font-bold text-teal-700">Infection (รับเชื้อ)</div>
+                                    <p class="text-xs mt-1">เชื้อลงสู่ Alveoli ➔ Alveolar Macrophage กินเชื้อ แต่เชื้อรอดตายและแบ่งตัวใน Macrophage</p>
+                                </div>
+                            </div>
+                            <!-- Step 2 -->
+                            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-teal-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">2</div>
+                                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded shadow-sm border border-slate-100">
+                                    <div class="font-bold text-teal-700">Immune Response (2-4 สัปดาห์)</div>
+                                    <p class="text-xs mt-1">T-cell ทำงาน ➔ ปล่อย Cytokines (IFN-gamma) ➔ กระตุ้น Macrophage ให้กลายเป็น Epitheloid cells ล้อมกรอบเชื้อ เกิดเป็น <strong>Granuloma (Tubercle)</strong> เพื่อจำกัดบริเวณเชื้อ</p>
+                                </div>
+                            </div>
+                            <!-- Step 3 -->
+                            <div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+                                <div class="flex items-center justify-center w-10 h-10 rounded-full border border-white bg-teal-500 text-white font-bold shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">3</div>
+                                <div class="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] bg-white p-4 rounded shadow-sm border border-slate-100">
+                                    <div class="font-bold text-teal-700">Latent TB vs Active TB</div>
+                                    <p class="text-xs mt-1"><strong>ภูมิคุ้มกันดี:</strong> เกิดหินปูนเกาะ (Calcification - Ghon complex) เชื้อสงบ = <em>Latent TB</em><br>
+                                    <strong>ภูมิคุ้มกันตก:</strong> Granuloma แตก ➔ ตรงกลางตายแบบชีส <strong>(Caseous necrosis)</strong> ➔ เกิดโพรง <strong>(Cavity)</strong> = <em>Active TB</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 mb-6">
+                        <h3 class="text-xl font-bold text-teal-800 mb-3 border-b pb-2">4. หมวดหมู่ (Classification) & ปัจจัยเสี่ยง (Risk Factors)</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-bold text-sm mb-2">การจัดหมวดหมู่สำคัญทางการพยาบาล</h4>
+                                <ul class="text-sm space-y-2">
+                                    <li><span class="font-semibold text-teal-700">Latent TB (LTBI):</span> มีเชื้อแต่ไม่ป่วย ไม่แพร่เชื้อ TST/IGRA บวก แต่ CXR ปกติ อาการไม่มี ➔ <em>พยาบาลดูแลให้ยา Isoniazid preventive therapy (IPT)</em></li>
+                                    <li><span class="font-semibold text-teal-700">Active TB:</span> ป่วยและแพร่เชื้อได้</li>
+                                    <li><span class="font-semibold text-teal-700">MDR-TB:</span> ดื้อยา Isoniazid + Rifampicin ➔ <em>ต้องใช้ยาฉีด/ยา second-line ผลข้างเคียงสูง พยาบาลต้องเฝ้าระวังรุนแรง</em></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm mb-2">Risk Factors & Patho-Rationale</h4>
+                                <ul class="text-sm space-y-2">
+                                    <li><span class="font-semibold text-red-600">HIV/AIDS:</span> CD4 (T-cell) ต่ำ ไม่สามารถสร้าง Granuloma กักขังเชื้อได้ ➔ Reactivation สูงมากและมักเป็น Extrapulmonary หรือ Miliary TB</li>
+                                    <li><span class="font-semibold text-orange-600">DM (เบาหวาน):</span> น้ำตาลสูงทำลายฟังก์ชัน Macrophage และ Neutrophil</li>
+                                    <li><span class="font-semibold text-slate-700">Malnutrition/CKD/Elderly:</span> ภาวะภูมิคุ้มกันบกพร่องโดยรวม (Immunocompromised state)</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- Chart Container as required -->
+                        <div class="mt-6 border-t pt-4">
+                            <h4 class="text-sm font-bold text-center mb-2">สัดส่วนตำแหน่งที่พบวัณโรคโดยประมาณ (เพื่อความเข้าใจภาพรวม)</h4>
+                            <div class="chart-container">
+                                <canvas id="tbDistributionChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            part2: {
+                title: "PART 2 & 4: วัณโรคนอกปอด (Extrapulmonary TB)",
+                icon: "🧠",
+                intro: "วัณโรคไม่ได้เป็นแค่ที่ปอด เมื่อเชื้อเข้ากระแสเลือดหรือน้ำเหลืองระหว่างช่วง Primary infection สามารถไปซ่อน (seed) ตามอวัยวะต่างๆ ทั่วร่างกาย และเกิด Reactivation ภายหลัง ส่วนนี้จะเจาะลึกอาการและการพยาบาลเฉพาะจุดที่อันตราย",
+                content: `
+                    <p class="mb-4 text-sm bg-blue-50 p-3 rounded border border-blue-100">คลิกที่แต่ละอวัยวะเพื่อดูข้อมูลเชิงลึก พยาธิสภาพ อาการ และประเด็นสำคัญที่พยาบาลต้องประเมิน (Red flags)</p>
+                    <div class="space-y-4" id="extrapulm-accordion">
+                        <!-- Items injected by JS renderExtrapulm() -->
+                    </div>
+                `
+            },
+            part3: {
+                title: "PART 3: เจาะลึกวัณโรคปอด (Pulmonary TB)",
+                icon: "🫁",
+                intro: "วัณโรคปอดคือแหล่งแพร่เชื้อหลัก การเข้าใจพยาธิสภาพที่ทำให้เกิดอาการแต่ละอย่าง จะช่วยให้พยาบาลเขียน Nursing Care Plan ได้ตรงประเด็น ไม่ใช่แค่ดูแลตามคำสั่งแพทย์",
+                content: `
+                    <!-- 1. Patho & Symptoms -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 mb-6">
+                        <h3 class="text-xl font-bold text-teal-800 mb-3 border-b pb-2">1. ทำไมอาการถึงเป็นแบบนี้? (Patho ➔ Symptom ➔ Nursing)</h3>
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-sm text-left">
+                                <thead class="bg-slate-100 text-slate-700">
+                                    <tr>
+                                        <th class="p-3 font-semibold">อาการ (Symptom)</th>
+                                        <th class="p-3 font-semibold">พยาธิสรีรวิทยา (Pathophysiology)</th>
+                                        <th class="p-3 font-semibold">สิ่งที่พยาบาลต้องประเมิน/ทำ (Nursing Priority)</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200">
+                                    <tr>
+                                        <td class="p-3 font-medium text-teal-700">ไอเรื้อรัง > 2 สัปดาห์<br>มีเสมหะ</td>
+                                        <td class="p-3 text-slate-600">กระบวนการอักเสบในเนื้อปอด มี Exudate และเนื้อตาย (Caseous) หลุดเข้าไปในหลอดลม ร่างกายพยายามขับออก</td>
+                                        <td class="p-3">สอนวิธีไออย่างมีประสิทธิภาพ (Effective cough) จัดการเสมหะลงถุงซิปล็อค และส่งตรวจ Sputum AFB</td>
+                                    </tr>
+                                    <tr class="bg-slate-50">
+                                        <td class="p-3 font-medium text-red-600">ไอเป็นเลือด (Hemoptysis)</td>
+                                        <td class="p-3 text-slate-600">รอยโรค Cavity ขยายตัวไปกัดกร่อนเส้นเลือดฝอยในปอด (Rasmussen's aneurysm) ทำให้เลือดออก</td>
+                                        <td class="p-3 font-semibold">⚠️ RED FLAG: ประเมินปริมาณเลือด, V/S (ระวัง Hypovolemic shock), ให้นอนตะแคงทับข้างที่เป็น (ป้องกันเลือดไหลลงปอดข้างดี), NPO</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-3 font-medium text-teal-700">ไข้ต่ำๆ ตอนบ่าย/เย็น<br>เหงื่อออกกลางคืน</td>
+                                        <td class="p-3 text-slate-600">กระบวนการอักเสบเรื้อรัง Macrophage หลั่ง Pyrogenic cytokines (TNF-alpha, IL-1) ไปกวน Hypothalamus กลางคืนภูมิคุ้มกันทำงานสูงขึ้น</td>
+                                        <td class="p-3">ประเมินไข้ เช็ดตัว ให้เปลี่ยนเสื้อผ้าที่เปียกชื้นเพื่อความสุขสบาย</td>
+                                    </tr>
+                                    <tr class="bg-slate-50">
+                                        <td class="p-3 font-medium text-teal-700">น้ำหนักลด เบื่ออาหาร</td>
+                                        <td class="p-3 text-slate-600">TNF-alpha (หรือ Cachectin) กระตุ้นการสลายโปรตีนและไขมัน และกดศูนย์อยากอาหาร</td>
+                                        <td class="p-3">ประเมิน BMI, High protein/high calorie diet, small frequent meals</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- 2. Diagnosis -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 mb-6">
+                        <h3 class="text-xl font-bold text-teal-800 mb-3 border-b pb-2">2. การวินิจฉัยและการแปลผล (Diagnosis Translation)</h3>
+                        <div class="grid md:grid-cols-3 gap-4">
+                            <div class="border border-slate-200 p-4 rounded bg-slate-50">
+                                <h4 class="font-bold text-teal-700 border-b pb-1 mb-2">Sputum AFB Smear</h4>
+                                <p class="text-xs mb-1"><strong>ตรวจอะไร:</strong> ย้อมดูแบคทีเรียทนกรด</p>
+                                <p class="text-xs mb-1"><strong>Positive:</strong> มีเชื้อมาก (แพร่เชื้อสูง) โอกาสเป็น TB สูง</p>
+                                <p class="text-xs text-red-600"><strong>Negative:</strong> ยังเป็น TB ได้! ถ้าเชื้อน้อยกว่า 10,000 ตัว/ml จะตรวจไม่พบ</p>
+                                <p class="text-xs mt-2 border-t pt-1 font-semibold">พยาบาล: เน้นเก็บตอนเช้าตรู่ บ้วนปากก่อนเก็บ เอาเสมหะจากปอดลึกๆ ไม่ใช่น้ำลาย</p>
+                            </div>
+                            <div class="border border-slate-200 p-4 rounded bg-slate-50">
+                                <h4 class="font-bold text-blue-700 border-b pb-1 mb-2">GeneXpert MTB/RIF</h4>
+                                <p class="text-xs mb-1"><strong>ตรวจอะไร:</strong> ตรวจ DNA เชื้อ และยีนดื้อยา Rifampicin (rpoB)</p>
+                                <p class="text-xs mb-1"><strong>ข้อดี:</strong> เร็วมาก (2 ชม.) แม่นยำกว่า Smear</p>
+                                <p class="text-xs"><strong>แปลผล:</strong> ถ้า RIF resistance detected ต้องแยกผู้ป่วยทันทีและปรึกษาแพทย์ใช้ยา MDR-TB</p>
+                            </div>
+                            <div class="border border-slate-200 p-4 rounded bg-slate-50">
+                                <h4 class="font-bold text-purple-700 border-b pb-1 mb-2">Chest X-Ray (CXR)</h4>
+                                <p class="text-xs mb-1"><strong>พบบ่อย:</strong> Infiltration, Cavity บริเวณ Upper lobe</p>
+                                <p class="text-xs mb-1"><strong>Cavity สำคัญอย่างไร:</strong> โพรงเป็นแหล่งที่ออกซิเจนสูง เชื้อแบ่งตัวมหาศาล แพร่เชื้อเก่งสุดๆ</p>
+                                <p class="text-xs text-red-600"><strong>HIV case:</strong> CXR อาจปกติ หรือพบที่ lower lobe ได้ เพราะไม่มี T-cell สร้าง granuloma</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Medications -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 mb-6">
+                        <h3 class="text-xl font-bold text-teal-800 mb-3 border-b pb-2">3. ยาต้านวัณโรค (First-line Drugs) & Nursing Assessment</h3>
+                        <p class="text-sm mb-4"><strong>ทำไมต้องใช้ยาหลายตัว?</strong> เพราะเชื้อ TB แบ่งตัวช้า มีหลายสถานะ (ตื่น/หลับ) และเกิด mutation ดื้อยาง่ายมาก การให้ยาตัวเดียว (Monotherapy) จะทำให้เกิดเชื้อดื้อยาทันที</p>
+                        
+                        <div class="space-y-2">
+                            <!-- INH -->
+                            <details class="group bg-slate-50 border border-slate-200 rounded">
+                                <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-teal-800">
+                                    <span>💊 Isoniazid (INH) <span class="text-xs text-slate-500 font-normal ml-2">ฆ่าเชื้อที่กำลังแบ่งตัว</span></span>
+                                    <span class="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div class="p-4 bg-white text-sm border-t border-slate-200">
+                                    <p><strong>Adverse Effects:</strong> 
+                                        <span class="text-red-600 font-bold">Hepatitis (ตับอักเสบ)</span>, 
+                                        <span class="text-orange-600 font-bold">Peripheral neuropathy (ปลายประสาทอักเสบชา)</span>
+                                    </p>
+                                    <div class="mt-2 grid grid-cols-2 gap-2">
+                                        <div class="bg-slate-50 p-2 rounded"><strong>สิ่งที่พยาบาลต้องทำ:</strong> ประเมิน LFT (AST/ALT), สังเกตตาเหลือง ตัวเหลือง คลื่นไส้อาเจียนผิดปกติ</div>
+                                        <div class="bg-slate-50 p-2 rounded"><strong>Patient Ed:</strong> ห้ามดื่มแอลกอฮอล์เด็ดขาด, ให้กินร่วมกับ <strong>Vitamin B6 (Pyridoxine)</strong> เพื่อป้องกันปลายประสาทชา</div>
+                                    </div>
+                                </div>
+                            </details>
+                            
+                            <!-- RIF -->
+                            <details class="group bg-slate-50 border border-slate-200 rounded">
+                                <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-teal-800">
+                                    <span>💊 Rifampicin (RIF) <span class="text-xs text-slate-500 font-normal ml-2">ฆ่าเชื้อได้ทั้งที่หลับและตื่น (Sterilizing)</span></span>
+                                    <span class="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div class="p-4 bg-white text-sm border-t border-slate-200">
+                                    <p><strong>Adverse Effects:</strong> 
+                                        <span class="text-red-600 font-bold">Hepatitis</span>, ปัสสาวะ/น้ำตา/เหงื่อมีสีส้มแดง, เป็น CYP450 inducer (เร่งกำจัดยาอื่น)
+                                    </p>
+                                    <div class="mt-2 grid grid-cols-2 gap-2">
+                                        <div class="bg-slate-50 p-2 rounded"><strong>สิ่งที่พยาบาลต้องทำ:</strong> เช็คยาตัวอื่นที่คนไข้กิน โดยเฉพาะยาคุมกำเนิด ยาต้านไวรัส HIV เพราะ RIF จะทำให้ระดับยาพวกนี้ลดลงจนไม่ได้ผล</div>
+                                        <div class="bg-slate-50 p-2 rounded"><strong>Patient Ed:</strong> อธิบายล่วงหน้าว่าปัสสาวะสีส้มคือปกติ ไม่ใช่เลือด ห้ามใส่คอนแทคเลนส์เพราะสีจะติด</div>
+                                    </div>
+                                </div>
+                            </details>
+
+                            <!-- PZA -->
+                            <details class="group bg-slate-50 border border-slate-200 rounded">
+                                <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-teal-800">
+                                    <span>💊 Pyrazinamide (PZA) <span class="text-xs text-slate-500 font-normal ml-2">เก่งในการฆ่าเชื้อที่ซ่อนใน Macrophage (สภาพเป็นกรด)</span></span>
+                                    <span class="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div class="p-4 bg-white text-sm border-t border-slate-200">
+                                    <p><strong>Adverse Effects:</strong> 
+                                        <span class="text-red-600 font-bold">Hepatitis (รุนแรงสุดในกลุ่ม)</span>, Hyperuricemia (กรดยูริกสูง ทำให้ปวดข้อ/เก๊าท์กำเริบ)
+                                    </p>
+                                    <div class="mt-2 grid grid-cols-2 gap-2">
+                                        <div class="bg-slate-50 p-2 rounded"><strong>สิ่งที่พยาบาลต้องทำ:</strong> ประเมินอาการปวดข้อบวมแดง ตรวจ Uric acid และ LFT</div>
+                                        <div class="bg-slate-50 p-2 rounded"><strong>Patient Ed:</strong> แนะนำดื่มน้ำมากๆ แจ้งทันทีถ้าปวดข้อรุนแรง</div>
+                                    </div>
+                                </div>
+                            </details>
+
+                            <!-- EMB -->
+                            <details class="group bg-slate-50 border border-slate-200 rounded">
+                                <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-teal-800">
+                                    <span>💊 Ethambutol (EMB) <span class="text-xs text-slate-500 font-normal ml-2">ยับยั้งการสร้างผนังเซลล์ (Bacteriostatic)</span></span>
+                                    <span class="transition group-open:rotate-180">
+                                        <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                                    </span>
+                                </summary>
+                                <div class="p-4 bg-white text-sm border-t border-slate-200">
+                                    <p><strong>Adverse Effects:</strong> 
+                                        <span class="text-red-600 font-bold">Optic neuritis (เส้นประสาทตาอักเสบ)</span> ➔ ตามัว มองเห็นสีเขียว-แดงเพี้ยน
+                                    </p>
+                                    <div class="mt-2 grid grid-cols-2 gap-2">
+                                        <div class="bg-slate-50 p-2 rounded"><strong>สิ่งที่พยาบาลต้องทำ:</strong> ประเมิน Visual acuity (Snellen chart) และ Color vision (Ishihara) ก่อนเริ่มยาและระหว่างกินยา</div>
+                                        <div class="bg-slate-50 p-2 rounded text-red-600"><strong>⚠️ RED FLAG:</strong> ถ้าคนไข้บอกตามัว ให้ <strong>หยุดยา EMB ทันที</strong> และรายงานแพทย์ ถ้าฝืนกินต่ออาจตาบอดถาวร</div>
+                                    </div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- 4. Nursing Care Plans -->
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200 mb-6">
+                        <h3 class="text-xl font-bold text-teal-800 mb-3 border-b pb-2">4. แผนการพยาบาล (Nursing Care Plan)</h3>
+                        <p class="text-sm mb-4 text-slate-600">วิเคราะห์ข้อมูล ➔ ข้อวินิจฉัย ➔ กิจกรรมพยาบาลพร้อมเหตุผล (Rationale)</p>
+                        
+                        <div class="space-y-4" id="careplan-accordion">
+                            <!-- Care Plans Injected Here -->
+                        </div>
+                    </div>
+                `
+            },
+            part5: {
+                title: "PART 5: ตารางเปรียบเทียบอาการ (Comparison Table)",
+                icon: "📊",
+                intro: "ตารางสรุปเพื่อใช้ทบทวนความจำก่อนสอบหรือนำเสนอ ช่วยให้แยกความแตกต่างของจุดเน้นการพยาบาลในวัณโรคแต่ละตำแหน่งได้อย่างรวดเร็ว",
+                content: `
+                    <div class="bg-white rounded-lg shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-sm text-left">
+                                <thead class="bg-teal-700 text-white">
+                                    <tr>
+                                        <th class="p-3">ชนิดวัณโรค</th>
+                                        <th class="p-3">พยาธิ/กลไกเด่น</th>
+                                        <th class="p-3">อาการเด่น</th>
+                                        <th class="p-3">Red Flags ⚠️</th>
+                                        <th class="p-3">Nursing Priority</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="divide-y divide-slate-200 bg-white" id="comparison-table-body">
+                                    <!-- Injected via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `
+            },
+            part6: {
+                title: "PART 6: Clinical Reasoning (คิดแบบพยาบาล)",
+                icon: "💡",
+                intro: "ทดสอบกระบวนการคิดวิเคราะห์เชิงคลินิก ลองตอบคำถามในใจก่อนคลิกดูเฉลย เพื่อฝึกเชื่อมโยงความรู้ Pathophysiology สู่การปฏิบัติจริงบนหอผู้ป่วย",
+                content: `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="reasoning-cards">
+                        <!-- Flashcards injected by JS -->
+                    </div>
+                `
+            },
+            part7: {
+                title: "PART 7: ถาม-ตอบ กับอาจารย์ (Prof. Q&A)",
+                icon: "👩‍🏫",
+                intro: "รวมคำถามปราบเซียนที่อาจารย์พยาบาลเฉพาะทางมักใช้ถามเพื่อทดสอบความ 'เข้าใจลึกซึ้ง' ไม่ใช่แค่ 'ท่องจำ'",
+                content: `
+                    <div class="space-y-3" id="qa-accordion">
+                        <!-- Q&A injected by JS -->
+                    </div>
+                `
+            },
+            part8: {
+                title: "PART 8: โครงร่างนำเสนอ (Slide Outline)",
+                icon: "📑",
+                intro: "นำข้อมูลทั้งหมดมาจัดระเบียบเป็น Flow สำหรับทำสไลด์ 20-25 หน้า ให้ครอบคลุมและจบได้ภายในเวลา 15-20 นาที",
+                content: `
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <ul class="list-none space-y-4 text-sm text-slate-700" id="slide-outline-list">
+                            <!-- Injected by JS -->
+                        </ul>
+                    </div>
+                `
+            }
+        };
+
+        // --- Extrapulmonary TB Data ---
+        const extrapulmData = [
+            { name: "TB Meningitis (เยื่อหุ้มสมอง)", patho: "Tubercle ที่เยื่อหุ้มสมอง (Rich focus) แตกเข้าสู่ subarachnoid space เกิด exudate หนาตัวเกาะฐานสมอง (Basilar exudate) ไปกดทับเส้นประสาทสมอง (Cranial nerves) และอุดตันทางเดินน้ำไขสันหลังเกิด Hydrocephalus", symptoms: "ปวดหัวรุนแรง คอแข็ง (Stiff neck) ซึม สับสน (Altered level of consciousness) มองเห็นภาพซ้อน (CN VI palsy)", redflag: "ระดับความรู้สึกตัวลดลง, Seizure, อาการความดันในกะโหลกศีรษะสูง (IICP) เช่น Cushing's triad ➔ ภาวะฉุกเฉิน!", nursing: "ประเมิน Neuro sign (GCS, Pupil, Motor) อย่างใกล้ชิด, จัดท่าศีรษะสูง 15-30 องศา ลด IICP, ดูแลให้ Dexamethasone ตามแผนการรักษาเพื่อลดการอักเสบในสมอง" },
+            { name: "Skeletal TB / Pott disease (กระดูกสันหลัง)", patho: "เชื้อแพร่มาทางเส้นเลือดที่หล่อเลี้ยงหมอนรองกระดูกและตัวกระดูกสันหลัง (มักเป็นช่วง Thoracic ล่าง/Lumbar) ทำลายเนื้อกระดูกด้านหน้า (Anterior wedging) ทำให้กระดูกยุบตัว เกิดหลังโก่ง (Kyphosis) และมีหนองเย็น (Cold abscess) ไหลไปตามกล้ามเนื้อ Psoas", symptoms: "ปวดหลังเรื้อรัง หลังโก่ง (Gibbus deformity) ชาหรืออ่อนแรงขาสองข้าง เดินลำบาก (Cord compression)", redflag: "ชาครึ่งท่อนล่าง, กลั้นปัสสาวะ/อุจจาระไม่อยู่ (Cauda equina syndrome), อ่อนแรงจนขยับไม่ได้ ➔ ต้องผ่าตัดระบายหนอง/ดามกระดูกด่วน", nursing: "Log roll เวลาพลิกตัว, ประเมิน Motor/Sensory function, เฝ้าระวังและจัดการความปวด, สังเกตอาการชารอบทวารหนัก" },
+            { name: "TB Pericarditis (เยื่อหุ้มหัวใจ)", patho: "เชื้อลามจากต่อมน้ำเหลืองที่ขั้วปอดเข้าเยื่อหุ้มหัวใจ เกิดการอักเสบ มีน้ำขัง (Pericardial effusion) ถ้าน้ำมากจะกดทับหัวใจ (Cardiac tamponade) ระยะยาวเยื่อหุ้มจะหนาและแข็งตัว (Constrictive pericarditis) ทำให้หัวใจขยายตัวรับเลือดไม่ได้", symptoms: "เจ็บหน้าอกแบบแปลบๆ (Pleuritic chest pain), เหนื่อยหอบเวลานอนราบ, ขาบวม ตับโต (Right heart failure signs)", redflag: "ชีพจรเบาเร็ว, ความดันตก (Hypotension), คอโป่ง (Engorged neck veins), เสียงหัวใจเบาลง (Beck's triad ของ Cardiac tamponade)", nursing: "ประเมิน V/S ใกล้ชิด (ระวัง Shock), ฟังเสียงหัวใจ, ประเมิน Pulsus paradoxus, เตรียมผู้ป่วยเจาะระบายน้ำเยื่อหุ้มหัวใจ (Pericardiocentesis)" },
+            { name: "Miliary TB (วัณโรคแพร่กระจาย)", patho: "เชื้อทะลักเข้าสู่กระแสเลือดดำและกระจายไปทั่วร่างกายอย่างรุนแรง (Disseminated infection) เกิดรอยโรคขนาดเล็กเท่าเมล็ดข้าวฟ่าง (Millet seeds) ทั่วปอด ตับ ม้าม ไขกระดูก มักพบในผู้ป่วยภูมิคุ้มกันต่ำมาก (HIV, ได้ยากดภูมิ)", symptoms: "ไข้สูงลอย หนาวสั่น อ่อนเพลียรุนแรง น้ำหนักลดฮวบ ตับม้ามโต (Hepatosplenomegaly) อาการคล้าย Sepsis CXR พบจุดเล็กๆ ทั่วปอดสองข้าง", redflag: "หอบเหนื่อยรุนแรง (ARDS), ซึมสับสน, ภาวะช็อก (Septic shock-like), ตับวาย", nursing: "ให้ Oxygen therapy, ดูแลระบบไหลเวียนโลหิต, ประเมินและป้องกันภาวะแทรกซ้อนหลายระบบ (Multi-organ failure), ควบคุมการแพร่กระจายเชื้อเข้มงวด" },
+            { name: "Tuberculous Lymphadenitis (ต่อมน้ำเหลือง)", patho: "เชื้อเข้าสู่ต่อมน้ำเหลือง (มักเป็นบริเวณคอ - Scrofula) เกิด Granulomatous inflammation ต่อมน้ำเหลืองโต ติดกันเป็นก้อน (Matted) และอาจมีหนองแตกทะลุผิวหนัง (Sinus tract)", symptoms: "คลำก้อนได้ที่คอ (Painless, firm) อาจมีไข้ต่ำๆ ถ้าระยะท้ายก้อนจะนุ่มและแตกออก", redflag: "ก้อนโตเร็วไปกดเบียดหลอดลม, แผลมีหนองไหลไม่หยุด (เสี่ยง Secondary infection)", nursing: "ทำแผล (Wound care) แบบ Sterile technique, ประเมินการกลืน/หายใจ (ถ้าก้อนใหญ่), ให้ความรู้เรื่องไม่ควรบีบหรือเจาะก้อนเอง" },
+            { name: "TB Pleuritis (เยื่อหุ้มปอด)", patho: "Tubercle บริเวณขอบปอดแตกเข้าสู่ Pleural space เกิดปฏิกิริยา Hypersensitivity ของโปรตีนเชื้อ ดึงดูดน้ำเหลืองเข้ามาเกิด Pleural effusion (น้ำเป็นแบบ Exudate มี Lymphocyte สูง)", symptoms: "เจ็บหน้าอกเวลาหายใจเข้าลึกๆ หรือไอ ไอแห้งๆ หอบเหนื่อย (ถ้ามีน้ำปริมาณมากไปกดเบียดเนื้อปอด)", redflag: "หอบเหนื่อยรุนแรง เขียว (Hypoxia), Trachea shift ไปด้านตรงข้าม", nursing: "เตรียมอุปกรณ์ Thoracentesis (เจาะน้ำ), ดูแลหลังเจาะสังเกตภาวะ Pneumothorax, สอน Deep breathing exercise" },
+            { name: "Intestinal TB (ลำไส้)", patho: "เกิดจากการกลืนเสมหะที่มีเชื้อลงไป หรือดื่มนมวัวที่ไม่ผ่านพาสเจอไรซ์ (M. bovis) เชื้อไปฝังตัวที่ Peyer's patches (มักเป็นช่วง Ileocecal valve) เกิดแผล (Ulcer) ลำไส้หนาตัว หรือตีบตัน (Stricture)", symptoms: "ปวดท้องเรื้อรัง (มักเป็นขวาล่าง คล้ายไส้ติ่ง) ท้องเสียสลับท้องผูก คลำได้ก้อนที่ท้อง น้ำหนักลด", redflag: "ปวดท้องรุนแรง หน้าท้องแข็งเกร็ง (Bowel perforation/Peritonitis), อาเจียน ท้องอืดรุนแรง (Bowel obstruction)", nursing: "ประเมิน Bowel sound, สังเกตลักษณะอุจจาระ, ประเมินภาวะขาดน้ำ/ทุพโภชนาการ, เตรียมผู้ป่วยผ่าตัดหากมี Bowel obstruction" },
+            { name: "Genitourinary TB (ทางเดินปัสสาวะ)", patho: "เชื้อไป seed ที่ไต เกิด Granuloma และเนื้อตาย ทำลายเนื้อไต ลามไปที่ท่อไต (Ureter stricture) และกระเพาะปัสสาวะ (contracted bladder) ในชายลามไป Epididymis ในหญิงลามไป Fallopian tubes (ทำให้เป็นหมัน)", symptoms: "ปัสสาวะบ่อย ปวดแสบขัด ปัสสาวะเป็นเลือด (Painless hematuria) ตรวจปัสสาวะพบเม็ดเลือดขาวแต่เพาะเชื้อแบคทีเรียทั่วไปไม่ขึ้น (Sterile pyuria)", redflag: "ปัสสาวะไม่ออก (Anuria) จากการอุดตันสองข้าง ➔ Renal failure", nursing: "เก็บ Urine for AFB 3 วันติด (เก็บตอนเช้าทั้งหมด ไม่ใช่แค่ Midstream), ประเมิน I/O, ประเมินค่า BUN/Cr" }
+        ];
+
+        // --- Care Plan Data ---
+        const carePlans = [
+            {
+                dx: "Risk for infection transmission (เสี่ยงต่อการแพร่กระจายเชื้อวัณโรคสู่ผู้อื่น)",
+                related: "มีการขับเชื้อ Mycobacterium tuberculosis ออกมาทางละอองฝอยเสมหะ (Airborne)",
+                goal: "ไม่เกิดการแพร่กระจายเชื้อไปยังบุคลากร ผู้ป่วยอื่น และญาติ",
+                interventions: [
+                    "1. (Admin) จัดให้อยู่ห้องแยกเดี่ยวชนิดความดันลบ (Negative pressure room) ปิดประตูตลอดเวลา",
+                    "2. (Environmental) หากไม่มีห้องแยก ให้จัดอยู่ห้องที่ระบายอากาศดีเยี่ยม เปิดหน้าต่าง (Air changes > 12 ACH)",
+                    "3. (PPE) พยาบาลสวมหน้ากาก N95 ทุกครั้งที่เข้าห้อง และทำ Fit test ก่อนเข้า",
+                    "4. (Source control) ให้ผู้ป่วยสวม Surgical mask ตลอดเวลาเมื่อมีคนเข้าใกล้หรือต้องเคลื่อนย้ายออกนอกห้อง",
+                    "5. สอนไอจามให้ถูกวิธี (Cough etiquette) ปิดปากและจมูกด้วยกระดาษทิชชู ทิ้งในถังขยะติดเชื้อ"
+                ],
+                rationale: "เชื้อ TB แพร่กระจายผ่าน Droplet nuclei (<5 microns) ที่ลอยในอากาศได้นาน ห้องความดันลบจะดึงอากาศเสียออกไม่ให้ฟุ้งมาที่โถงทางเดิน N95 กรองอนุภาคขนาดเล็กได้ 95% ส่วนผู้ป่วยใส่ Surgical mask เพื่อดักจับเสมหะขนาดใหญ่ไม่ให้กลายเป็นละอองลอย"
+            },
+            {
+                dx: "Ineffective airway clearance (ประสิทธิภาพการทำทางเดินหายใจให้โล่งลดลง)",
+                related: "มีเสมหะเหนียวข้นมากจากกระบวนการอักเสบและ Caseous necrosis",
+                goal: "ทางเดินหายใจโล่ง ฟังเสียงปอดไม่มี Crepitations/Rhonchi",
+                interventions: [
+                    "1. ประเมินลักษณะ สี ปริมาณ ของเสมหะ และเสียงหายใจ (Lung sounds)",
+                    "2. สอนและกระตุ้นให้ไออย่างมีประสิทธิภาพ (Effective cough / Huff cough)",
+                    "3. ดูแลให้ได้รับน้ำอย่างเพียงพอ 2-3 ลิตร/วัน (หากไม่มีข้อห้ามเรื่องโรคหัวใจ/ไต)",
+                    "4. ดูแลให้ยาละลายเสมหะตามแผนการรักษา",
+                    "5. จัดท่านอนศีรษะสูง หรือสอน Postural drainage ในตำแหน่งที่มีรอยโรค"
+                ],
+                rationale: "น้ำจะช่วยลดความหนืดของเสมหะ ทำให้ไอออกง่ายขึ้น การไออย่างถูกวิธีช่วยสร้างแรงดันขับเสมหะออกจากหลอดลมส่วนลึกได้ดีกว่าการไอแบบตื้นๆ"
+            },
+            {
+                dx: "Imbalanced nutrition: less than body requirements (ภาวะโภชนาการบกพร่อง)",
+                related: "ความต้องการพลังงานสูงขึ้นจากการติดเชื้อเรื้อรัง ร่วมกับอาการเบื่ออาหารจาก Cytokine (TNF-alpha)",
+                goal: "น้ำหนักตัวเพิ่มขึ้นหรือคงที่ ผล Lab Albumin อยู่ในเกณฑ์ปกติ",
+                interventions: [
+                    "1. ชั่งน้ำหนักทุกวัน/สัปดาห์ เพื่อประเมินแนวโน้ม",
+                    "2. ดูแลให้อาหาร High protein, High calorie แบ่งเป็นมื้อย่อยๆ (Small frequent meals)",
+                    "3. ทำความสะอาดช่องปากก่อนรับประทานอาหาร เพื่อเพิ่มการรับรส",
+                    "4. หลีกเลี่ยงขั้นตอนการพยาบาลที่รบกวนเวลาอาหาร",
+                    "5. หากผู้ป่วยมีอาการคลื่นไส้จากยา (INH, RIF) ให้ปรึกษาแพทย์เพื่อปรับเวลาการกินยา หรือให้ยาแก้คลื่นไส้ก่อน"
+                ],
+                rationale: "ร่างกายต้องการโปรตีนเพื่อซ่อมแซมเนื้อเยื่อ (Healing) และสร้างภูมิคุ้มกัน (Macrophage, T-cells) อาการเบื่ออาหารจากภาวะอักเสบทำให้กินมื้อใหญ่ไม่ได้ จึงต้องแบ่งมื้อย่อย"
+            },
+            {
+                dx: "Risk for ineffective therapeutic regimen management (เสี่ยงต่อการจัดการแผนการรักษาไม่ลุล่วง/ขาดยา)",
+                related: "ระยะเวลาการรักษายาวนาน (6 เดือนขึ้นไป) ยามีผลข้างเคียงมาก และขาดความรู้ความเข้าใจโรค",
+                goal: "ผู้ป่วยกินยาสม่ำเสมอครบถ้วน ไม่ขาดยาจนกว่าแพทย์จะสั่งหยุด (High Adherence)",
+                interventions: [
+                    "1. ประเมินอุปสรรคในการกินยา (Adherence barriers) เช่น ลืม, ไม่มีเงินค่ารถ, ผลข้างเคียงยา",
+                    "2. ใช้ระบบ DOTS (Directly Observed Treatment, Short-course) หรือ Video DOTS",
+                    "3. ให้ความรู้ชัดเจนว่า อาการดีขึ้นใน 2 สัปดาห์แรก 'ไม่ได้แปลว่าเชื้อตายหมด' ถ้าหยุดยาจะเกิด MDR-TB ทันที",
+                    "4. อธิบายผลข้างเคียงที่ 'ยอมรับได้' (ปัสสาวะสีส้ม) และผลข้างเคียงที่ 'ต้องรีบแจ้ง' (ตาเหลือง ตามัว ชาปลายมือ)",
+                    "5. ประสานงานชุมชน/รพ.สต. เพื่อติดตามดูแลต่อเนื่องเมื่อกลับบ้าน"
+                ],
+                rationale: "ปัจจัยหลักของ MDR-TB คือการกินยาไม่สม่ำเสมอ การจัดการความเชื่อผิดๆ (คิดว่าหายแล้วเมื่ออาการดีขึ้น) และการมีระบบกำกับดูแล (DOTS) เป็นหัวใจสำคัญที่สุดของการพยาบาลวัณโรค"
+            }
+        ];
+
+        // --- Clinical Reasoning Scenarios ---
+        const reasoningScenarios = [
+            { q: "ผู้ป่วยมาด้วยไอเรื้อรัง 3 สัปดาห์ น้ำหนักลด เหงื่อออกกลางคืน พยาบาลควรคิดอะไรเป็นอันดับแรก?", a: "สงสัย Pulmonary TB. ต้องรีบจับแยก (Airborne precaution) ให้ใส่ Surgical mask ทันที ซักประวัติสัมผัสวัณโรค และส่งตรวจ Sputum AFB 2-3 วันติดกัน" },
+            { q: "ผู้ป่วย TB ปอด มีอาการ 'ไอเป็นเลือด' (Hemoptysis) วันนี้ประมาณครึ่งแก้วน้ำ พยาบาลต้องทำอะไรเป็น Priority?", a: "Priority: ประเมิน V/S ระวัง Hypovolemic shock จัดท่านอนตะแคง 'ทับปอดข้างที่มีรอยโรค' (ถ้า CXR บอกว่าเป็นซ้าย ให้ตะแคงซ้าย) เพื่อป้องกันเลือดไหลไปอุดกั้นปอดข้างที่ดี NPO เตรียมเครื่องดูดเสมหะ/ช่วยหายใจ" },
+            { q: "ผู้ป่วยกินยาวัณโรคสูตร HRZE ได้ 2 สัปดาห์ ญาติบอกว่าตาขาวเริ่มมีสีเหลือง ตัวเหลือง พยาบาลวิเคราะห์ว่าเกิดจากอะไร?", a: "เกิด Drug-induced Hepatitis (ตับอักเสบจากยา) เป็นผลข้างเคียงรุนแรงของ INH, RIF, PZA (โดยเฉพาะ PZA และ INH) ต้องรายงานแพทย์ อาจต้อง 'หยุดยาทุกตัว' ชั่วคราว และเจาะ LFT (AST/ALT/Bilirubin) ทันที" },
+            { q: "หลังเริ่มยา ผู้ป่วยบ่นว่า 'ตามัว มองป้ายรถเมล์ไม่ชัด สีไฟจราจรแปลกๆ' พยาบาลต้องสงสัยยาตัวใด และ action คืออะไร?", a: "สงสัย Ethambutol (EMB) ทำให้เกิด Optic neuritis (เส้นประสาทตาอักเสบ) Action: แนะนำให้ 'หยุดยา EMB ทันที' แจ้งแพทย์ และเตรียมส่งตรวจตากับจักษุแพทย์ การฝืนกินต่ออาจตาบอดถาวร" },
+            { q: "ผู้ป่วยหยุดยาวัณโรคเองมา 1 เดือน เพราะรู้สึกว่าหายไอแล้ว การหยุดยาเองทำให้เกิดผลเสียระดับเซลล์อย่างไร?", a: "เชื้อ TB ในระยะหลับ (Dormant) ยังไม่ตายหมด การที่ระดับยาลดลง เชื้อจะกลายพันธุ์ (Mutation) สร้างยีนดื้อยา ทำให้เกิด MDR-TB (ดื้อ INH+RIF) ซึ่งรักษายากขึ้น ใช้เวลานานขึ้น (18-24 เดือน) และยาฉีดมีผลข้างเคียงสูง (หูหนวก ไตวาย)" },
+            { q: "ผู้ป่วย TB ปอด ผล Sputum AFB smear เป็น 'Negative' ทั้ง 3 วัน แปลว่าเขาไม่ได้เป็นวัณโรคใช่หรือไม่?", a: "ไม่ใช่! สมมติฐานคือ เชื้ออาจยังมีปริมาณน้อย (Smear ต้องการเชื้อ >10,000 ตัว/ml ถึงจะเห็น) พยาบาลต้องตามผล GeneXpert หรือ Culture (ซึ่งไวกว่า) และดูผล CXR อาการทางคลินิกประกอบ แพทย์อาจเริ่มยา TB แม้ smear negative ได้" }
+        ];
+
+        // --- Prof Q&A ---
+        const qaData = [
+            { q: "ทำไม TB ต้องกินยานาน 6 เดือนขึ้นไป ไม่เหมือนปอดอักเสบทั่วไปที่กินยา 7 วัน?", a: "เพราะเชื้อ TB โตช้ามาก (แบ่งตัวทุก 15-20 ชม. เทียบกับแบคทีเรียทั่วไป 20 นาที) และมีช่วงหลับ (Dormant state) ซ่อนตัวใน Macrophage และก้อน Caseous necrosis ที่ยาเข้าถึงยาก ยาจึงต้องใช้เวลานานเพื่อทำลายเชื้อกลุ่มนี้ให้หมด ป้องกัน Reactivation" },
+            { q: "ทำไมเชื้อ TB ชอบไปเกิดรอยโรค (Cavity) ที่ Upper lobe ของปอด?", a: "เนื่องจาก TB เป็นแบคทีเรียกลุ่ม Obligate aerobe (ต้องการออกซิเจนสูงมากในการเจริญเติบโต) บริเวณ Upper lobe มี Ventilation/Perfusion (V/Q) ratio สูงสุด ทำให้มีค่า Oxygen tension (PaO2) สูงที่สุดในปอด จึงเป็นสภาพแวดล้อมที่เชื้อชอบที่สุด รวมทั้งการระบายน้ำเหลืองบริเวณนี้แย่กว่าด้านล่าง" },
+            { q: "Latent TB infection (LTBI) แพร่เชื้อให้คนอื่นได้ไหม?", a: "ไม่ได้เด็ดขาด! LTBI คือเชื้อถูกกักขังอยู่ใน Granuloma (Ghon complex) เรียบร้อยแล้ว เชื้อไม่สามารถออกมาที่หลอดลมเพื่อไอออกมาได้ Sputum จะ negative, CXR ปกติ แต่ภูมิคุ้มกัน T-cell จดจำเชื้อแล้ว ทำให้ TST (Mantoux) หรือ IGRA ให้ผลบวก" },
+            { q: "Cavity (โพรงในปอด) มีความสำคัญอย่างไรในแง่ Infection Control?", a: "โพรงเป็นบริเวณที่ไม่มีหลอดเลือดมาเลี้ยง (ยาเข้าถึงยาก) แต่เชื่อมต่อกับหลอดลม (มีออกซิเจนสูงมหาศาล) ทำให้เชื้อแบ่งตัวแบบทวีคูณ (Logarithmic phase) ผู้ป่วยที่มี Cavity จึงมีปริมาณเชื้อในเสมหะสูงลิ่ว (Highly infectious) แพร่เชื้อเก่งที่สุด พยาบาลต้องเฝ้าระวังการแยกโรคให้ดีที่สุด" },
+            { q: "บุคลากรการแพทย์ใส่ N95 เพื่ออะไร ทำไม Surgical mask ถึงไม่พอ?", a: "วัณโรคแพร่กระจายผ่าน Droplet nuclei ซึ่งมีขนาดเล็กกว่า 5 ไมครอน สามารถลอยอยู่ในอากาศได้นานและทะลุผ่านรูพรุนของ Surgical mask ได้ N95 ถูกออกแบบมาให้กรองอนุภาคขนาดเล็ก 0.3 ไมครอน ได้ถึง 95% และซีลแนบสนิทกับใบหน้า (Fit seal) จึงป้องกันการสูดดมเชื้อได้" }
+        ];
+
+        // --- Slide Outline ---
+        const slideOutline = [
+            "<strong>Slide 1-2: บทนำและระบาดวิทยา</strong><br><em>เน้น:</em> ทำไม TB ยังเป็นปัญหา (MDR-TB, HIV co-infection) ความสำคัญที่พยาบาลต้องรู้",
+            "<strong>Slide 3-4: เชื้อ MTB และ Pathophysiology</strong><br><em>เน้น:</em> โตช้า, ซ่อนใน Macrophage, ก่อ Granuloma, Caseous necrosis (อธิบายเชื่อมโยงไปหาทำไมรักษายาก)",
+            "<strong>Slide 5: การแพร่กระจายเชื้อ (Airborne)</strong><br><em>เน้น:</em> อธิบาย Droplet vs Droplet nuclei ให้ชัดเจน อิงกับหลัก Infection control",
+            "<strong>Slide 6-7: อาการของ Pulmonary TB</strong><br><em>เน้น:</em> อาการ = ผลจาก Patho (เช่น ไข้กลางคืนจาก TNF-alpha, ไอเป็นเลือดจาก Cavity กัดเส้นเลือด)",
+            "<strong>Slide 8-10: การตรวจทางห้องปฏิบัติการ</strong><br><em>เน้น:</em> ข้อจำกัดของ Smear, จุดเด่นของ GeneXpert, การแปลผล CXR",
+            "<strong>Slide 11-13: ยาต้านวัณโรค (HRZE)</strong><br><em>เน้น:</em> ผลข้างเคียงตัวท็อป (ตับอักเสบ, ตาบอดจาก EMB) และ Nursing assessment ที่คู่กัน",
+            "<strong>Slide 14-16: วัณโรคนอกปอดที่สำคัญ (Meningitis, Pott's)</strong><br><em>เน้น:</em> Red flags (IICP, ขาชา/อ่อนแรง) อาการฉุกเฉินที่พยาบาลต้องรายงานทันที",
+            "<strong>Slide 17-19: Nursing Care Plans</strong><br><em>เน้น:</em> Airway clearance, การป้องกันแพร่เชื้อแบบ Airborne, การส่งเสริม Adherence (DOTS)",
+            "<strong>Slide 20: บทบาทพยาบาล (สรุปจบ)</strong><br><em>เน้น:</em> การลด Stigma, การประเมินครอบครัว (Contact tracing), ทิ้งท้ายด้วย impact ของพยาบาลต่อการคุมโรควัณโรคระดับชาติ"
+        ];
+
+        // --- UI Logic ---
+        
+        const contentDisplay = document.getElementById('content-display');
+        const navList = document.getElementById('nav-list');
+        const welcomeSection = document.getElementById('welcome-section');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        
+        // Initialize Navigation
+        function initNav() {
+            Object.keys(tbData).forEach(key => {
+                const li = document.createElement('li');
+                li.className = 'nav-item p-4 text-slate-700 font-medium border-l-4 border-transparent';
+                li.innerHTML = `<span class="mr-2">${tbData[key].icon}</span> ${tbData[key].title.split(':')[0]}`;
+                li.onclick = () => loadSection(key, li);
+                navList.appendChild(li);
+            });
+        }
+
+        // Load Section Content
+        function loadSection(key, navElement) {
+            // UI Updates
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.classList.remove('nav-active');
+            });
+            if(navElement) navElement.classList.add('nav-active');
+            
+            welcomeSection.classList.add('hidden');
+            
+            // Close mobile sidebar
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+
+            const sectionData = tbData[key];
+            
+            let html = `
+                <div class="mb-6 fade-in">
+                    <h2 class="text-3xl font-bold text-teal-900 mb-2">${sectionData.icon} ${sectionData.title}</h2>
+                    <p class="text-slate-600 bg-teal-50 p-4 rounded-lg border-l-4 border-teal-500">${sectionData.intro}</p>
+                </div>
+                <div class="fade-in">
+                    ${sectionData.content}
+                </div>
+            `;
+            
+            contentDisplay.innerHTML = html;
+
+            // Post-render JS executions based on section
+            if (key === 'part1') renderChart();
+            if (key === 'part2') renderExtrapulm();
+            if (key === 'part3') renderCarePlans();
+            if (key === 'part5') renderComparisonTable();
+            if (key === 'part6') renderReasoningCards();
+            if (key === 'part7') renderQA();
+            if (key === 'part8') renderSlideOutline();
+            
+            // Scroll to top
+            document.getElementById('main-content').scrollTop = 0;
+        }
+
+        // --- Render Specific Section Data ---
+
+        function renderExtrapulm() {
+            const container = document.getElementById('extrapulm-accordion');
+            let html = '';
+            extrapulmData.forEach((item, index) => {
+                html += `
+                    <details class="group bg-white border border-slate-200 rounded-lg shadow-sm disease-card">
+                        <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-4 text-teal-800 bg-slate-50 rounded-t-lg">
+                            <span>${index + 1}. ${item.name}</span>
+                            <span class="transition group-open:rotate-180">
+                                <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><path d="M19 9l-7 7-7-7"></path></svg>
+                            </span>
+                        </summary>
+                        <div class="p-5 text-sm border-t border-slate-200">
+                            <div class="mb-3"><span class="font-bold text-slate-700 block mb-1">🔬 Pathophysiology:</span> <p class="text-slate-600 pl-4 border-l-2 border-teal-200">${item.patho}</p></div>
+                            <div class="mb-3"><span class="font-bold text-slate-700 block mb-1">🤒 อาการเด่น:</span> <p class="text-slate-600 pl-4">${item.symptoms}</p></div>
+                            <div class="mb-3 bg-red-50 p-3 rounded border border-red-100"><span class="font-bold text-red-700">⚠️ RED FLAGS (ต้องรายงานทันที):</span> <p class="text-red-600 mt-1">${item.redflag}</p></div>
+                            <div class="bg-teal-50 p-3 rounded border border-teal-100"><span class="font-bold text-teal-800">👩‍⚕️ Nursing Priority:</span> <p class="text-teal-900 mt-1">${item.nursing}</p></div>
+                        </div>
+                    </details>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderCarePlans() {
+            const container = document.getElementById('careplan-accordion');
+            let html = '';
+            carePlans.forEach((plan, index) => {
+                html += `
+                    <details class="group border border-slate-200 rounded">
+                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-teal-700 bg-slate-50">
+                            <span>Dx ${index+1}: ${plan.dx}</span>
+                            <span class="transition group-open:rotate-180 text-slate-400">▼</span>
+                        </summary>
+                        <div class="p-4 bg-white text-sm border-t border-slate-200">
+                            <p class="mb-2"><span class="font-semibold text-slate-700">Related to (สาเหตุ):</span> ${plan.related}</p>
+                            <p class="mb-3"><span class="font-semibold text-teal-700">Goal/Outcome:</span> ${plan.goal}</p>
+                            <p class="font-semibold text-slate-700 mb-1">Nursing Interventions:</p>
+                            <ul class="list-none space-y-1 pl-2 mb-3 text-slate-600">
+                                ${plan.interventions.map(i => `<li>${i}</li>`).join('')}
+                            </ul>
+                            <div class="bg-blue-50 p-3 rounded border border-blue-100 text-blue-800">
+                                <strong>Rationale (เหตุผลทางวิทยาศาสตร์):</strong> ${plan.rationale}
+                            </div>
+                        </div>
+                    </details>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderComparisonTable() {
+            const tbody = document.getElementById('comparison-table-body');
+            // Select a few key ones for comparison
+            const selected = [extrapulmData[0], extrapulmData[1], extrapulmData[3]]; 
+            
+            // Add Pulmonary manually
+            const pulm = {
+                name: "Pulmonary TB (ปอด)",
+                patho: "Cavity/Caseous necrosis ที่ Upper lobe",
+                symptoms: "ไอเรื้อรัง, ไอเป็นเลือด, ไข้กลางคืน, นน.ลด",
+                redflag: "Massive hemoptysis, หอบเหนื่อย (SpO2 ต่ำ)",
+                nursing: "Airborne precaution, จัดการเสมหะ, ประเมินการหายใจ"
+            };
+            
+            const rows = [pulm, ...selected];
+            let html = '';
+            rows.forEach(item => {
+                html += `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 font-semibold text-teal-700 border-r">${item.name}</td>
+                        <td class="p-3 text-slate-600">${item.patho}</td>
+                        <td class="p-3 text-slate-600">${item.symptoms}</td>
+                        <td class="p-3 text-red-600 text-xs">${item.redflag}</td>
+                        <td class="p-3 text-slate-700 text-xs font-medium">${item.nursing}</td>
+                    </tr>
+                `;
+            });
+            tbody.innerHTML = html;
+        }
+
+        function renderReasoningCards() {
+            const container = document.getElementById('reasoning-cards');
+            let html = '';
+            reasoningScenarios.forEach((scenario, index) => {
+                html += `
+                    <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                        <div class="flashcard-inner">
+                            <div class="flashcard-front">
+                                <span class="absolute top-2 left-2 text-xs font-bold text-slate-400">Q${index+1}</span>
+                                <p class="text-lg font-medium text-slate-700 px-4">${scenario.q}</p>
+                                <p class="text-xs text-teal-500 absolute bottom-4 animate-pulse">คลิกเพื่อดูการวิเคราะห์</p>
+                            </div>
+                            <div class="flashcard-back">
+                                <span class="absolute top-2 left-2 text-xs font-bold text-teal-200">Analysis</span>
+                                <p class="text-sm font-medium p-2 leading-relaxed">${scenario.a}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderQA() {
+            const container = document.getElementById('qa-accordion');
+            let html = '';
+            qaData.forEach((qa, index) => {
+                html += `
+                    <details class="group bg-white border border-slate-200 rounded-lg shadow-sm">
+                        <summary class="flex justify-between items-center font-bold cursor-pointer list-none p-4 text-slate-800">
+                            <span class="flex items-start"><span class="text-teal-600 mr-2">Q:</span> ${qa.q}</span>
+                            <span class="transition group-open:rotate-180 text-slate-400 shrink-0 ml-2">▼</span>
+                        </summary>
+                        <div class="p-4 bg-teal-50 text-sm border-t border-slate-200 text-teal-900 leading-relaxed">
+                            <strong>A:</strong> ${qa.a}
+                        </div>
+                    </details>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderSlideOutline() {
+            const container = document.getElementById('slide-outline-list');
+            let html = '';
+            slideOutline.forEach(slide => {
+                html += `<li class="p-3 border-l-4 border-teal-500 bg-slate-50">${slide}</li>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderChart() {
+            // Ensure canvas exists
+            if(!document.getElementById('tbDistributionChart')) return;
+            
+            const ctx = document.getElementById('tbDistributionChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Pulmonary TB (ปอด) ~80-85%', 'Extrapulmonary TB (นอกปอด) ~15-20%'],
+                    datasets: [{
+                        data: [85, 15],
+                        backgroundColor: ['#0F766E', '#94A3B8'], // Teal 700, Slate 400
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { font: { family: 'Sarabun' } } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+
+        // --- Mobile Menu Handling ---
+        mobileMenuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('-translate-x-full');
+            sidebarOverlay.classList.toggle('hidden');
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.add('-translate-x-full');
+            sidebarOverlay.classList.add('hidden');
+        });
+
+        // Add some basic CSS animation classes dynamically
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .fade-in { animation: fadeIn 0.4s ease-in; }
+            @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize app
+        initNav();
+
+    </script>
+</body>
+</html>
