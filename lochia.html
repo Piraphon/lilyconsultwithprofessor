@@ -36,17 +36,39 @@
 </head>
 <body class="min-h-screen bg-gray-50 flex flex-col md:flex-row text-gray-800">
 
+    <!-- Mobile Header Top Bar -->
+    <div class="md:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+        <h1 class="text-xl font-bold text-rose-700 flex items-center gap-2">
+            <i data-lucide="droplet" class="text-rose-500 w-5 h-5"></i>
+            Lochia
+        </h1>
+        <button onclick="toggleSidebar()" class="p-2 rounded-lg text-gray-600 hover:bg-gray-100 focus:outline-none flex items-center justify-center" aria-label="Toggle Menu">
+            <i data-lucide="menu" id="menu-icon" class="w-6 h-6"></i>
+            <i data-lucide="x" id="close-icon" class="w-6 h-6 hidden"></i>
+        </button>
+    </div>
+
+    <!-- Sidebar Overlay Backdrop for Mobile -->
+    <div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-30 hidden md:hidden transition-opacity"></div>
+
     <!-- Sidebar Navigation -->
-    <aside class="w-full md:w-64 bg-white border-r border-gray-200 flex-shrink-0 md:h-screen md:sticky md:top-0 overflow-y-auto z-20">
-        <div class="p-6">
+    <aside id="sidebar" class="fixed inset-y-0 left-0 transform -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out w-64 bg-white border-r border-gray-200 flex-shrink-0 h-full md:h-screen md:sticky md:top-0 overflow-y-auto z-40">
+        <div class="p-6 hidden md:block">
             <h1 class="text-2xl font-bold text-rose-700 flex items-center gap-2">
                 <i data-lucide="droplet" class="text-rose-500"></i>
                 Lochia
             </h1>
             <p class="text-sm text-gray-500 mt-1">แนวทางประเมินน้ำคาวปลา</p>
         </div>
-        <nav class="px-4 pb-6 space-y-1" id="sidebar-menu">
-            <!-- Menu items will be managed by JS -->
+        <!-- Mobile Logo Inside Drawer -->
+        <div class="p-6 md:hidden border-b border-gray-100">
+            <h1 class="text-xl font-bold text-rose-700 flex items-center gap-2">
+                <i data-lucide="droplet" class="text-rose-500 w-5 h-5"></i>
+                Lochia
+            </h1>
+            <p class="text-xs text-gray-500">แนวทางประเมินน้ำคาวปลา</p>
+        </div>
+        <nav class="px-4 py-4 md:py-0 space-y-1" id="sidebar-menu">
             <button onclick="switchTab('summary')" class="menu-btn w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors text-left bg-rose-100 text-rose-800 font-semibold" data-tab="summary">
                 <i data-lucide="book-open" class="w-5 h-5 menu-icon text-rose-600"></i>
                 <span class="text-sm md:text-base">บทสรุปผู้บริหาร</span>
@@ -91,14 +113,14 @@
         
         <!-- SECTION 1: Summary -->
         <div id="tab-summary" class="tab-content active animate-fadeIn">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">บทสรุปสำหรับผู้บริหาร</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-b pb-4">บทสรุปสำหรับผู้บริหาร</h2>
             
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-6 mb-6">
-                <p class="text-gray-700 leading-relaxed mb-4">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4 md:p-6 mb-6">
+                <p class="text-gray-700 leading-relaxed mb-4 text-sm md:text-base">
                     <strong>น้ำคาวปลา (Lochia)</strong> เป็นสารคัดหลั่งหลังคลอดที่ออกจากโพรงมดลูก ปากมดลูก และช่องคลอด ประกอบด้วยเลือด เมือก เศษเยื่อบุโพรงมดลูก และของเหลวจากการสมานแผลบริเวณรกลอกตัว กระบวนการนี้สัมพันธ์โดยตรงกับ <strong>Uterine involution</strong> การสมานแผล การเปลี่ยนแปลงฮอร์โมน และกลไกห้ามเลือด
                 </p>
                 
-                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                <div class="grid md:grid-cols-2 gap-4 md:gap-6 mt-6">
                     <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
                         <h3 class="font-semibold text-blue-800 mb-2">ความเข้าใจที่ถูกต้อง</h3>
                         <ul class="list-disc pl-5 space-y-1 text-sm text-blue-900">
@@ -137,10 +159,10 @@
                 </div>
             </div>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-6 mt-6 bg-gray-50">
-                <h3 class="font-bold text-gray-800 mb-3">หลักการจัดการเมื่อพบความผิดปกติ</h3>
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4 md:p-6 mt-6 bg-gray-50">
+                <h3 class="font-bold text-gray-800 mb-3 text-sm md:text-base">หลักการจัดการเมื่อพบความผิดปกติ</h3>
                 <p class="text-sm text-gray-700 mb-4">ต้องทำเป็นขั้นเป็นตอนและเร็วพอ:</p>
-                <div class="flex flex-wrap gap-2 text-sm">
+                <div class="flex flex-wrap gap-2 text-xs md:text-sm">
                     <span class="bg-white px-3 py-1 rounded-full border shadow-sm">คัดแยก Stable / Unstable</span>
                     <span class="bg-white px-3 py-1 rounded-full border shadow-sm">เปิด IV & ส่งตรวจ Lab (CBC, Coag, Type & Cross)</span>
                     <span class="bg-white px-3 py-1 rounded-full border shadow-sm border-rose-300 text-rose-700 font-medium">Uterotonic (IV Oxytocin เป็นยาหลัก)</span>
@@ -154,12 +176,13 @@
 
         <!-- SECTION 2: Timeline -->
         <div id="tab-timeline" class="tab-content animate-fadeIn">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">ชนิด และช่วงเวลา (Timeline)</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-b pb-4">ชนิด และช่วงเวลา (Timeline)</h2>
             
-            <p class="mb-6 text-gray-700">กลิ่นปกติต้องคล้ายประจำเดือนหรืออับอ่อนๆ <strong>ไม่ควรมีกลิ่นเหม็นรุนแรง (สัญญาณติดเชื้อ)</strong> ระยะเวลารวมเฉลี่ยในงานวิจัยคือ 36.0 ± 7.5 วัน (ช่วง 17-51 วัน) จึงไม่ควรวินิจฉัยความผิดปกติจากวันหรือสีเพียงอย่างเดียว</p>
+            <p class="mb-6 text-gray-700 text-sm md:text-base">กลิ่นปกติต้องคล้ายประจำเดือนหรืออับอ่อนๆ <strong>ไม่ควรมีกลิ่นเหม็นรุนแรง (สัญญาณติดเชื้อ)</strong> ระยะเวลารวมเฉลี่ยในงานวิจัยคือ 36.0 ± 7.5 วัน (ช่วง 17-51 วัน) จึงไม่ควรวินิจฉัยความผิดปกติจากวันหรือสีเพียงอย่างเดียว</p>
 
             <div class="mb-8 relative py-4">
-                <div class="absolute top-1/2 left-0 right-0 h-1 bg-gray-300 -translate-y-1/2 z-0"></div>
+                <!-- Decorative line hidden on mobile to avoid overlapping issues -->
+                <div class="hidden md:block absolute top-1/2 left-0 right-0 h-1 bg-gray-300 -translate-y-1/2 z-0"></div>
                 <div class="relative z-10 flex flex-col md:flex-row justify-between gap-4">
                     <div class="bg-red-100 border-2 border-red-400 p-4 rounded-xl flex-1 text-center shadow-sm">
                         <div class="text-red-800 font-bold mb-1">Lochia Rubra</div>
@@ -178,7 +201,7 @@
                     </div>
                 </div>
                 
-                <div class="relative z-10 flex flex-col md:flex-row justify-end mt-4 gap-4 px-[10%]">
+                <div class="relative z-10 flex flex-col md:flex-row justify-end mt-4 gap-4 md:px-[10%]">
                     <div class="bg-white border-dashed border-2 border-gray-400 p-3 rounded-lg text-center text-xs text-gray-600 shadow-sm md:w-1/3">
                         <strong>สัปดาห์ 1-2:</strong> อาจมีเลือดแดงเพิ่มช่วงสั้นๆ จาก Placental-site eschar sloughing (ต้องหยุดเอง)
                     </div>
@@ -188,8 +211,8 @@
                 </div>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left text-gray-500 border rounded-lg overflow-hidden">
+            <div class="overflow-x-auto border rounded-lg shadow-sm">
+                <table class="w-full text-sm text-left text-gray-500 whitespace-nowrap md:whitespace-normal">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-100">
                         <tr>
                             <th scope="col" class="px-6 py-3">ระยะ</th>
@@ -224,9 +247,9 @@
 
         <!-- SECTION 3: Physiology -->
         <div id="tab-physiology" class="tab-content animate-fadeIn">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">สรีรวิทยาและพยาธิสรีรวิทยา</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-b pb-4">สรีรวิทยาและพยาธิสรีรวิทยา</h2>
             
-            <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-6 mb-8">
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-5">
                     <h3 class="font-bold text-lg mb-3 flex items-center gap-2"><i data-lucide="activity" class="w-5 h-5 text-rose-600"></i> การคืนสภาพมดลูก (Involution)</h3>
                     <ul class="space-y-2 text-sm text-gray-700">
@@ -249,7 +272,7 @@
 
             <h3 class="text-xl font-bold text-gray-800 mb-4">ข้อมูลเชิงปริมาณสำหรับการแปลผลทางคลินิก</h3>
             <div class="overflow-x-auto shadow-sm rounded-lg border">
-                <table class="w-full text-sm text-left">
+                <table class="w-full text-sm text-left whitespace-nowrap md:whitespace-normal">
                     <thead class="bg-gray-100 text-gray-700">
                         <tr>
                             <th class="px-4 py-3 border-b">ตัวแปร</th>
@@ -300,9 +323,9 @@
 
         <!-- SECTION 4: Assessment -->
         <div id="tab-assessment" class="tab-content animate-fadeIn">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">การประเมิน การเฝ้าระวัง และการบันทึก</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-b pb-4">การประเมิน การเฝ้าระวัง และการบันทึก</h2>
             
-            <p class="mb-4 text-gray-700">
+            <p class="mb-4 text-gray-700 text-sm md:text-base">
                 แก่นของการประเมินคือ <strong>ประวัติ + ตรวจร่างกาย + บันทึกเชิงปริมาณ → ตัดสินใจ Escalate care</strong> ไม่ใช่แค่แยกสี
             </p>
 
@@ -327,11 +350,11 @@
             <!-- Danger Alert Box -->
             <div class="p-4 rounded-lg border my-4 bg-red-50 border-red-200 text-red-800">
                 <h4 class="font-bold mb-2 flex items-center gap-2">
-                    <i data-lucide="alert-circle" class="w-[18px] h-[18px]"></i>
+                    <i data-lucide="alert-circle" class="w-[18px] h-[18px] flex-shrink-0"></i>
                     Maternal Early Warning Criteria (MEWC) - ต้องประเมินเร่งด่วนเมื่อพบ:
                 </h4>
                 <div class="text-sm space-y-2">
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-sm font-medium">
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs md:text-sm font-medium">
                         <div class="bg-white/50 p-2 rounded">SBP &lt; 90 หรือ &gt; 160</div>
                         <div class="bg-white/50 p-2 rounded">DBP &gt; 100</div>
                         <div class="bg-white/50 p-2 rounded">HR &lt; 50 หรือ &gt; 120</div>
@@ -348,7 +371,7 @@
                 <i data-lucide="file-text" class="w-5 h-5 text-rose-600"></i> แม่แบบการบันทึก Lochia (สำหรับสหสาขา)
             </h3>
             <div class="overflow-x-auto shadow-sm rounded-lg border">
-                <table class="w-full text-sm text-left bg-white">
+                <table class="w-full text-sm text-left bg-white whitespace-nowrap md:whitespace-normal">
                     <thead class="bg-gray-100 text-gray-700">
                         <tr>
                             <th class="px-4 py-3">หมวด</th>
@@ -389,9 +412,9 @@
 
         <!-- SECTION 5: Diagnosis -->
         <div id="tab-diagnosis" class="tab-content animate-fadeIn">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">การวินิจฉัยแยกโรคและการตรวจเพิ่มเติม</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-b pb-4">การวินิจฉัยแยกโรคและการตรวจเพิ่มเติม</h2>
 
-            <p class="mb-4 text-gray-700">
+            <p class="mb-4 text-gray-700 text-sm md:text-base">
                 ถ้าผู้ป่วยมีเลือดออกมากผิดปกติหลัง 24 ชม. เรียกว่า <strong>Secondary Postpartum Hemorrhage (Sec PPH)</strong> 
                 (ช่วง 24 ชม. - 12 สัปดาห์) การส่งตรวจขึ้นกับอาการ ไม่ใช่สั่งเป็นชุดเดียว
             </p>
@@ -431,7 +454,7 @@
             <!-- Info Alert Box -->
             <div class="p-4 rounded-lg border my-4 bg-blue-50 border-blue-200 text-blue-800">
                 <h4 class="font-bold mb-2 flex items-center gap-2">
-                    <i data-lucide="alert-triangle" class="w-[18px] h-[18px]"></i>
+                    <i data-lucide="alert-triangle" class="w-[18px] h-[18px] flex-shrink-0"></i>
                     3 ประเด็นทางวิชาการขั้นสูง (สำหรับแพทย์/พยาบาล APN)
                 </h4>
                 <div class="text-sm space-y-2">
@@ -446,15 +469,15 @@
 
         <!-- SECTION 6: Management -->
         <div id="tab-management" class="tab-content animate-fadeIn">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">การจัดการรักษาและการพยาบาล</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-b pb-4">การจัดการรักษาและการพยาบาล</h2>
 
-            <div class="bg-red-50 border border-red-200 rounded-lg p-5 mb-6">
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4 md:p-5 mb-6">
                 <h3 class="font-bold text-red-800 text-lg mb-2">Algorithm พื้นฐาน: แยก Stable vs Unstable</h3>
                 <p class="text-sm text-red-900 mb-4">ผู้ป่วย Unstable ต้องเข้าสู่ <strong>PPH Pathway ทันที</strong> ไม่ต้องรออัลตราซาวด์</p>
                 
                 <div class="bg-white p-4 rounded border text-sm text-gray-700">
                     <h4 class="font-bold text-black mb-2 text-base">WHO 2025 First-Response Bundle (MOTIVE)</h4>
-                    <ul class="space-y-1 list-disc pl-5">
+                    <ul class="space-y-1 list-disc pl-5 text-xs md:text-sm">
                         <li><strong>M</strong>assage: คลึงมดลูกทันที</li>
                         <li><strong>O</strong>xytocic: IV Oxytocin เป็นอันดับ 1 (ถ้าไม่มีใช้ Ergometrine หรือ Misoprostol 800µg sublingual)</li>
                         <li><strong>T</strong>ranexamic Acid (TXA): ให้ทาง IV ภายใน 3 ชม.</li>
@@ -468,14 +491,14 @@
             <div class="grid md:grid-cols-2 gap-4 mb-6">
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4">
                     <h3 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="thermometer" class="w-[18px] h-[18px] text-amber-500"></i> Postpartum Endometritis</h3>
-                    <p class="text-sm text-gray-600">
+                    <p class="text-xs md:text-sm text-gray-600">
                         Polymicrobial infection. <strong>ยามาตรฐาน: Broad-spectrum IV (Clindamycin + Gentamicin)</strong> จนกว่าจะไม่มีไข้และอาการดีขึ้น
                     </p>
                 </div>
 
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4">
                     <h3 class="font-bold mb-2 text-purple-700">RPOC (เศษรกค้าง)</h3>
-                    <p class="text-sm text-gray-600">
+                    <p class="text-xs md:text-sm text-gray-600">
                         ถ้า Stable/ก้อนเล็ก/Avascular → เฝ้าดูได้.<br>
                         ถ้าเลือดออกมาก/มีอาการ → <strong>Hysteroscopic removal หรือ US-guided vacuum aspiration</strong> ดีกว่า Blind curettage (ลดเสี่ยงผังผืด)
                     </p>
@@ -483,15 +506,15 @@
             </div>
 
             <h3 class="text-xl font-bold text-gray-800 mb-3">บทบาทพยาบาล (Nursing Interventions)</h3>
-            <ul class="list-disc pl-5 mb-6 text-gray-700 space-y-1">
+            <ul class="list-disc pl-5 mb-6 text-gray-700 space-y-1 text-sm md:text-base">
                 <li>ประเมินและแจ้งแพทย์อย่างรวดเร็ว วัดเลือดเชิงปริมาณ (QBL)</li>
                 <li>ดูแลกระเพาะปัสสาวะให้ว่าง ติดตาม Urine output</li>
                 <li>ใช้ <strong>Rapid Response Team / สหสาขา</strong> ในภาวะตกเลือด (แนวทาง RTCOG: ไม่รับมือลำพัง)</li>
             </ul>
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-5 border-l-4 border-l-blue-500 bg-blue-50/30">
-                <h3 class="font-bold text-blue-800 mb-3">คำแนะนำก่อนกลับบ้าน (Discharge Teaching)</h3>
-                <div class="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4 md:p-5 border-l-4 border-l-blue-500 bg-blue-50/30">
+                <h3 class="font-bold text-blue-800 mb-3 text-sm md:text-base">คำแนะนำก่อนกลับบ้าน (Discharge Teaching)</h3>
+                <div class="grid md:grid-cols-2 gap-4 text-xs md:text-sm text-gray-700">
                     <ul class="space-y-2 list-disc pl-4">
                         <li>น้ำคาวปลาจะลดจากแดงเข้ม → ชมพู/น้ำตาล → ขาว (หมดใน 4-6 wk)</li>
                         <li><strong>ใช้ผ้าอนามัยแผ่น (ห้าม Tampon)</strong> เปลี่ยนเมื่อชุ่ม/ทุก 3 ชม.</li>
@@ -512,7 +535,7 @@
             <!-- Info Alert Box -->
             <div class="p-4 rounded-lg border my-4 bg-blue-50 border-blue-200 text-blue-800">
                 <h4 class="font-bold mb-2 flex items-center gap-2">
-                    <i data-lucide="alert-triangle" class="w-[18px] h-[18px]"></i>
+                    <i data-lucide="alert-triangle" class="w-[18px] h-[18px] flex-shrink-0"></i>
                     บริบทวัฒนธรรมไทย (เช่น การอยู่ไฟ, ทานยาสมุนไพร)
                 </h4>
                 <div class="text-sm space-y-2">
@@ -525,9 +548,9 @@
 
         <!-- SECTION 7: Epidemiology & Risks -->
         <div id="tab-epidemiology" class="tab-content animate-fadeIn">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">ระบาดวิทยา ปัจจัยเสี่ยง และการป้องกัน</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-b pb-4">ระบาดวิทยา ปัจจัยเสี่ยง และการป้องกัน</h2>
 
-            <div class="grid md:grid-cols-2 gap-6 mb-8">
+            <div class="grid md:grid-cols-2 gap-4 md:gap-6 mb-8">
                 <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-5 bg-rose-50 border-rose-200">
                     <h3 class="font-bold text-rose-800 mb-2">ระบาดวิทยา</h3>
                     <ul class="text-sm text-gray-700 space-y-1 list-disc pl-4">
@@ -550,7 +573,7 @@
 
             <h3 class="text-xl font-bold text-gray-800 mb-3">เปรียบเทียบแนวทางหลัก (Guideline Comparison)</h3>
             <div class="overflow-x-auto shadow-sm rounded-lg border mb-8">
-                <table class="w-full text-sm text-left">
+                <table class="w-full text-sm text-left whitespace-nowrap md:whitespace-normal">
                     <thead class="bg-gray-100 text-gray-700">
                         <tr>
                             <th class="px-4 py-3 border-b">หน่วยงาน</th>
@@ -586,7 +609,7 @@
             <!-- Warning Alert Box -->
             <div class="p-4 rounded-lg border my-4 bg-amber-50 border-amber-200 text-amber-800">
                 <h4 class="font-bold mb-2 flex items-center gap-2">
-                    <i data-lucide="alert-triangle" class="w-[18px] h-[18px]"></i>
+                    <i data-lucide="alert-triangle" class="w-[18px] h-[18px] flex-shrink-0"></i>
                     ช่องว่างความรู้ & งานวิจัยในอนาคต
                 </h4>
                 <div class="text-sm space-y-2">
@@ -602,31 +625,31 @@
 
         <!-- SECTION 8: Q&A -->
         <div id="tab-qa" class="tab-content animate-fadeIn">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-                <i data-lucide="help-circle" class="w-8 h-8 text-rose-600"></i>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+                <i data-lucide="help-circle" class="w-8 h-8 text-rose-600 flex-shrink-0"></i>
                 คำถามทบทวน (สำหรับอาจารย์พยาบาลถามนักศึกษา)
             </h2>
-            <p class="mb-6 text-gray-700">รวมชุดคำถามเชิงวิเคราะห์ที่มักใช้ในการ Round ward, Simulation หรือการประเมินความรู้ทางคลินิก (คลิกที่คำถามเพื่อดูแนวคำตอบ)</p>
+            <p class="mb-6 text-gray-700 text-sm md:text-base">รวมชุดคำถามเชิงวิเคราะห์ที่มักใช้ในการ Round ward, Simulation หรือการประเมินความรู้ทางคลินิก (คลิกที่คำถามเพื่อดูแนวคำตอบ)</p>
 
             <div class="space-y-6">
                 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-5 border-t-4 border-t-blue-500">
-                    <h3 class="font-bold text-lg mb-4 text-blue-800">หมวดที่ 1: สรีรวิทยาและลักษณะพื้นฐาน</h3>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4 md:p-5 border-t-4 border-t-blue-500">
+                    <h3 class="font-bold text-base md:text-lg mb-4 text-blue-800">หมวดที่ 1: สรีรวิทยาและลักษณะพื้นฐาน</h3>
                     <div class="space-y-3">
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">1. ผู้ป่วยคลอดวันที่ 10 มีเลือดกลับมาเป็นสีแดงสดอีกครั้ง ถือว่าผิดปกติหรือต้องทำ intervention ทันทีหรือไม่?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">1. ผู้ป่วยคลอดวันที่ 10 มีเลือดกลับมาเป็นสีแดงสดอีกครั้ง ถือว่าผิดปกติหรือต้องทำ intervention ทันทีหรือไม่?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> อาจไม่ผิดปกติเสมอไป หากเป็นช่วงสัปดาห์ที่ 1-2 อาจเกิดจาก <strong>Placental-site eschar sloughing</strong> (สะเก็ดแผลรกลอกตัวหลุด) ซึ่งทำให้มีเลือดออกสั้นๆ ได้แบบ Self-limited ต้องซักประวัติเพิ่มว่าเลือดออกมากไหม มีลิ่มเลือดใหญ่ อาการหน้ามืด หรือชีพจรเร็วหรือไม่ หากไม่มีอาการเหล่านี้และเลือดค่อยๆ ลดลง ให้สังเกตอาการต่อได้
                             </div>
                         </details>
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">2. ทำไมขณะที่มารดากำลังให้นมบุตร จึงบ่นว่าปวดท้องมดลูกและรู้สึกมีเลือดไหลออกมามากกว่าปกติ?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">2. ทำไมขณะที่มารดากำลังให้นมบุตร จึงบ่นว่าปวดท้องมดลูกและรู้สึกมีเลือดไหลออกมามากกว่าปกติ?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> การดูดนมของทารกจะกระตุ้นการหลั่งฮอร์โมน <strong>Oxytocin</strong> จาก Posterior pituitary gland ซึ่งมีผลกระตุ้นทั้ง Milk let-down และการหดรัดตัวของมดลูก (Afterpains) ทำให้มดลูกบีบตัวขับน้ำคาวปลาที่ค้างอยู่ออกมา ถือเป็นกลไกสรีรวิทยาปกติที่ช่วยเรื่อง Uterine involution
                             </div>
                         </details>
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">3. ผล CBC ของมารดาหลังคลอด 24 ชั่วโมงแรก พบ WBC 22,000/µL นักศึกษาจะแปลผลว่ามารดาติดเชื้อหรือไม่?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">3. ผล CBC ของมารดาหลังคลอด 24 ชั่วโมงแรก พบ WBC 22,000/µL นักศึกษาจะแปลผลว่ามารดาติดเชื้อหรือไม่?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> ยังสรุปไม่ได้ว่าติดเชื้อ เพราะใน 24 ชั่วโมงแรกหลังคลอด ภาวะ <strong>Leukocytosis (WBC 20,000-30,000/µL) ถือเป็นเรื่องที่พบได้ตามสรีรวิทยาปกติ</strong> (Physiologic response) ต้องประเมินอาการทางคลินิกร่วมด้วย เช่น มีไข้ ปวดกดเจ็บมดลูก หรือน้ำคาวปลามีกลิ่นเหม็นร่วมด้วยหรือไม่
                             </div>
@@ -634,23 +657,23 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-5 border-t-4 border-t-amber-500">
-                    <h3 class="font-bold text-lg mb-4 text-amber-800">หมวดที่ 2: การประเมินและเกณฑ์เฝ้าระวัง</h3>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4 md:p-5 border-t-4 border-t-amber-500">
+                    <h3 class="font-bold text-base md:text-lg mb-4 text-amber-800">หมวดที่ 2: การประเมินและเกณฑ์เฝ้าระวัง</h3>
                     <div class="space-y-3">
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">4. ทำไมแนวทางสูติศาสตร์สมัยใหม่ (รวมถึง WHO และราชวิทยาลัยฯ) จึงไม่สนับสนุนให้ประเมินปริมาณการเสียเลือดด้วย "สายตา" (Visual estimation)?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">4. ทำไมแนวทางสูติศาสตร์สมัยใหม่ (รวมถึง WHO และราชวิทยาลัยฯ) จึงไม่สนับสนุนให้ประเมินปริมาณการเสียเลือดด้วย "สายตา" (Visual estimation)?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> เพราะการประเมินด้วยสายตามักจะได้ค่า <strong>"ต่ำกว่าความเป็นจริง (Underestimation)"</strong> เสมอ ทำให้การวินิจฉัย PPH ล่าช้า ปัจจุบันจึงแนะนำให้ใช้ <strong>Objective blood-loss measurement (QBL)</strong> เช่น การชั่งน้ำหนักผ้าอนามัย การใช้ถุงตวงเลือด ร่วมกับการดู Hemodynamic change
                             </div>
                         </details>
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">5. เกณฑ์ของ WHO 2025 ในการกระตุ้น First-response เพื่อจัดการภาวะตกเลือดหลังคลอด (PPH) คืออะไร?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">5. เกณฑ์ของ WHO 2025 ในการกระตุ้น First-response เพื่อจัดการภาวะตกเลือดหลังคลอด (PPH) คืออะไร?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> ไม่ใช่รอให้เลือดออกเกิน 500/1000 มล. เสมอไป แต่หากตรวจพบเลือด <strong>≥ 300 มล. ร่วมกับความผิดปกติของสัญญาณชีพ (Pulse &gt; 100, SBP &lt; 100, Shock Index &gt; 1)</strong> หรือ เลือด ≥ 500 มล. ใน 24 ชม.แรก ให้เริ่ม Protocol การรักษา PPH ได้ทันที
                             </div>
                         </details>
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">6. อาการสัญญาณเตือนวิกฤต (Maternal Early Warning Criteria) ที่หากพยาบาลพบแล้วต้อง Action/Escalate ทันที มีค่าสัญญาณชีพใดบ้าง?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">6. อาการสัญญาณเตือนวิกฤต (Maternal Early Warning Criteria) ที่หากพยาบาลพบแล้วต้อง Action/Escalate ทันที มีค่าสัญญาณชีพใดบ้าง?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> SBP &lt; 90 หรือ &gt; 160 mmHg, DBP &gt; 100 mmHg, HR &lt; 50 หรือ &gt; 120 /min, RR &lt; 10 หรือ &gt; 30 /min, SpO2 &lt; 95%, Oliguria &lt; 35 mL/h ติดต่อกัน 2 ชม. หรือ Shock index &gt; 1
                             </div>
@@ -658,23 +681,23 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-5 border-t-4 border-t-purple-500">
-                    <h3 class="font-bold text-lg mb-4 text-purple-800">หมวดที่ 3: การวินิจฉัยแยกโรค (Differential Diagnosis)</h3>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4 md:p-5 border-t-4 border-t-purple-500">
+                    <h3 class="font-bold text-base md:text-lg mb-4 text-purple-800">หมวดที่ 3: การวินิจฉัยแยกโรค (Differential Diagnosis)</h3>
                     <div class="space-y-3">
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">7. ผู้ป่วยมีน้ำคาวปลากลิ่นอับค่อนข้างแรง แต่ไม่มีไข้ และมดลูกไม่กดเจ็บ นักศึกษาจะบันทึกว่าสงสัย Endometritis หรือไม่ เพราะเหตุใด?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">7. ผู้ป่วยมีน้ำคาวปลากลิ่นอับค่อนข้างแรง แต่ไม่มีไข้ และมดลูกไม่กดเจ็บ นักศึกษาจะบันทึกว่าสงสัย Endometritis หรือไม่ เพราะเหตุใด?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> ไม่ควรด่วนสรุป เพราะ <strong>"กลิ่นเหม็นอย่างเดียว" โดยไม่มีอาการทางคลินิกอื่น ไม่เพียงพอที่จะสรุปว่าติดเชื้อ</strong> Postpartum Endometritis เป็น Clinical diagnosis ที่ต้องอาศัย <strong>ไข้ + มดลูกกดเจ็บ (Uterine tenderness)</strong> เป็นแกนหลักในการวินิจฉัย
                             </div>
                         </details>
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">8. มารดามาตรวจหลังคลอดที่คลินิกในสัปดาห์ที่ 8 ยังคงมีเลือดออกทางช่องคลอดสีแดงกะปริบกะปรอย อาการนี้ชวนให้ต้องเฝ้าระวังโรคอันตรายใด และควรส่งตรวจอะไร?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">8. มารดามาตรวจหลังคลอดที่คลินิกในสัปดาห์ที่ 8 ยังคงมีเลือดออกทางช่องคลอดสีแดงกะปริบกะปรอย อาการนี้ชวนให้ต้องเฝ้าระวังโรคอันตรายใด และควรส่งตรวจอะไร?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> เลือดออกยืดเยื้อเกินกว่าระยะปกตินานมาก ต้องระวัง <strong>Gestational Trophoblastic Neoplasia (GTN) หรือ Choriocarcinoma</strong> ห้ามมองข้ามเด็ดขาด สิ่งที่ควรทำคือรายงานแพทย์เพื่อพิจารณาส่งตรวจ <strong>Quantitative β-hCG</strong> และ Pelvic Ultrasound
                             </div>
                         </details>
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">9. สาเหตุหลักที่พบบ่อย 3 อันดับแรกของ Secondary PPH (เลือดออกผิดปกติหลัง 24 ชม.) คืออะไร?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">9. สาเหตุหลักที่พบบ่อย 3 อันดับแรกของ Secondary PPH (เลือดออกผิดปกติหลัง 24 ชม.) คืออะไร?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> 1. เศษรกหรือเยื่อหุ้มรกค้าง (Retained Products of Conception - RPOC) 2. การติดเชื้อ (Postpartum Endometritis) 3. การที่มดลูกบริเวณแผลรกลอกตัวไม่หดรัดตัวกลับตามปกติ (Subinvolution of placental site)
                             </div>
@@ -682,29 +705,29 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-5 border-t-4 border-t-emerald-500">
-                    <h3 class="font-bold text-lg mb-4 text-emerald-800">หมวดที่ 4: การพยาบาล การจัดการ และคำแนะนำ</h3>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden p-4 md:p-5 border-t-4 border-t-emerald-500">
+                    <h3 class="font-bold text-base md:text-lg mb-4 text-emerald-800">หมวดที่ 4: การพยาบาล การจัดการ และคำแนะนำ</h3>
                     <div class="space-y-3">
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">10. "MOTIVE bundle" ตามแนวทาง WHO 2025 ย่อมาจากอะไรบ้าง (การจัดการเมื่อพบ PPH)?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">10. "MOTIVE bundle" ตามแนวทาง WHO 2025 ย่อมาจากอะไรบ้าง (การจัดการเมื่อพบ PPH)?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> <strong>M</strong>assage (คลึงมดลูก), <strong>O</strong>xytocic (ให้ยาหดรัดมดลูก เช่น IV Oxytocin), <strong>T</strong>ranexamic acid (ให้ยา TXA ห้ามเลือด), <strong>I</strong>V fluids (สารน้ำ), <strong>V</strong>ital signs & <strong>E</strong>xamination (ตรวจทางคลอดและวัดเลือด)
                             </div>
                         </details>
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">11. หากผู้ป่วยมีกระเพาะปัสสาวะเต็ม (Full bladder) จะส่งผลต่อ Uterine involution และน้ำคาวปลาอย่างไร พยาบาลควรดูแลอย่างไร?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">11. หากผู้ป่วยมีกระเพาะปัสสาวะเต็ม (Full bladder) จะส่งผลต่อ Uterine involution และน้ำคาวปลาอย่างไร พยาบาลควรดูแลอย่างไร?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> Full bladder จะไปเบียดและขัดขวางไม่ให้มดลูกหดรัดตัวได้ดี (มดลูกมักจะลอยสูงและเอียงไปด้านข้าง) ทำให้เกิดภาวะ Uterine atony และตกเลือดได้ พยาบาลต้องกระตุ้นให้มารดาปัสสาวะก่อนคลึงมดลูก หรือสวนปัสสาวะออกหากมารดาถ่ายเองไม่ได้
                             </div>
                         </details>
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">12. เมื่อจะจำหน่ายมารดากลับบ้าน (Discharge) อาการเตือน (Red flags) ใดบ้างที่พยาบาลต้องเน้นย้ำให้มารดากลับมาโรงพยาบาลก่อนวันนัด?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">12. เมื่อจะจำหน่ายมารดากลับบ้าน (Discharge) อาการเตือน (Red flags) ใดบ้างที่พยาบาลต้องเน้นย้ำให้มารดากลับมาโรงพยาบาลก่อนวันนัด?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> เลือดออกมากขึ้นทันทีจนชุ่มผ้าอนามัยภายใน 1 ชั่วโมง, มีลิ่มเลือดก้อนใหญ่จำนวนมาก, มีชิ้นเนื้อคล้ายรกหลุดออกมา, น้ำคาวปลามีกลิ่นเหม็นรุนแรง, หรือมีไข้สูง หนาวสั่น ปวดท้องน้อยอย่างรุนแรง
                             </div>
                         </details>
                         <details class="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all">
-                            <summary class="font-medium cursor-pointer p-4 group-open:border-b">13. มารดาสอบถามเรื่องการทาน "ยาสมุนไพรขับน้ำคาวปลา" ตามความเชื่อดั้งเดิม พยาบาลควรให้คำปรึกษาอย่างไร?</summary>
+                            <summary class="font-medium cursor-pointer p-4 group-open:border-b text-sm md:text-base">13. มารดาสอบถามเรื่องการทาน "ยาสมุนไพรขับน้ำคาวปลา" ตามความเชื่อดั้งเดิม พยาบาลควรให้คำปรึกษาอย่างไร?</summary>
                             <div class="p-4 text-sm text-gray-700 bg-white">
                                 <strong>แนวคำตอบ:</strong> ให้คำปรึกษาด้วยความเคารพในวัฒนธรรม (Culturally sensitive) แต่ต้องให้ข้อมูลด้านความปลอดภัย โดยอธิบายว่าน้ำคาวปลาขับออกมาตามธรรมชาติได้เอง การทานยาสมุนไพรที่ไม่ทราบส่วนผสมแน่ชัดอาจทำให้เลือดออกผิดปกติ หรือตับทำงานหนัก และ <strong>"ห้ามสอดสิ่งใดเข้าไปในช่องคลอด"</strong> รวมถึงหากมีอาการเลือดออกมากหรือมีไข้ ห้ามให้ความเชื่อดั้งเดิมมาทำให้การมารับการรักษาล่าช้าเด็ดขาด
                             </div>
@@ -717,9 +740,9 @@
 
         <!-- SECTION 9: References -->
         <div id="tab-references" class="tab-content animate-fadeIn">
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">เอกสารอ้างอิงหลัก (Core References)</h2>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 border-b pb-4">เอกสารอ้างอิงหลัก (Core References)</h2>
             
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+            <div class="bg-white p-4 md:p-6 rounded-lg shadow-sm border border-gray-200">
                 <ul class="space-y-4 text-gray-700 text-sm">
                     <li class="flex gap-3">
                         <i data-lucide="bookmark" class="text-rose-500 shrink-0 mt-0.5 w-[18px] h-[18px]"></i>
@@ -768,6 +791,30 @@
         // Initialize Lucide Icons
         lucide.createIcons();
 
+        // Track sidebar state on mobile
+        let isSidebarOpen = false;
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            const menuIcon = document.getElementById('menu-icon');
+            const closeIcon = document.getElementById('close-icon');
+
+            isSidebarOpen = !isSidebarOpen;
+
+            if (isSidebarOpen) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                menuIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            }
+        }
+
         // Function to handle tab switching
         function switchTab(tabId) {
             // Hide all tabs
@@ -799,6 +846,14 @@
                     icon.classList.add('text-gray-400');
                 }
             });
+
+            // Automatically close sidebar on mobile after choosing a tab
+            if (window.innerWidth < 768 && isSidebarOpen) {
+                toggleSidebar();
+            }
+
+            // Scroll main content area back to top when tab changes
+            document.querySelector('main').scrollTop = 0;
         }
     </script>
 </body>
