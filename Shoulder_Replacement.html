@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shoulder Arthroplasty Nursing Conference Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background-color: #f8fafc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        .nav-link.active {
+            border-bottom: 4px solid #3b82f6;
+            color: #1e40af;
+        }
+        .info-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+        .warning-border {
+            border-left: 5px solid #ef4444;
+        }
+        .method-badge {
+            background-color: #dbeafe;
+            color: #1e40af;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <div class="text-xl font-bold text-blue-700">Shoulder Arthroplasty Portal</div>
+                <div class="hidden md:flex space-x-6">
+                    <button onclick="showSection('overview')" class="nav-link px-3 py-2 text-sm font-medium">ภาพรวม</button>
+                    <button onclick="showSection('surgery')" class="nav-link px-3 py-2 text-sm font-medium">การผ่าตัด</button>
+                    <button onclick="showSection('perioperative')" class="nav-link px-3 py-2 text-sm font-medium">การพยาบาล</button>
+                    <button onclick="showSection('precautions')" class="nav-link px-3 py-2 text-sm font-medium">ข้อควรระวัง</button>
+                    <button onclick="showSection('discharge')" class="nav-link px-3 py-2 text-sm font-medium">D-M-E-T-H-O-D</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- Header Section -->
+        <header class="mb-10 text-center">
+            <h1 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">การพยาบาลผู้ป่วยผ่าตัดเปลี่ยนข้อไหล่เทียม</h1>
+            <p class="text-lg text-slate-600 max-w-3xl mx-auto">ชุดเครื่องมือเตรียมความพร้อมสำหรับนักศึกษาพยาบาลในการประชุม Case Conference เพื่อความเข้าใจเชิงลึกในพยาธิสภาพและการดูแลแบบบูรณาการ</p>
+        </header>
+
+        <!-- SECTION: Overview & Pathology -->
+        <section id="overview" class="content-section">
+            <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+                <h2 class="text-2xl font-bold text-blue-800 mb-6">พยาธิสภาพและสาเหตุ (Pathophysiology & Etiology)</h2>
+                <p class="mb-6 text-slate-700">ข้อไหล่เป็นข้อต่อที่เคลื่อนไหวได้กว้างที่สุด แต่มีความมั่นคงน้อยที่สุดเมื่อเปรียบเทียบกับข้อสะโพก การผ่าตัดเปลี่ยนข้อไหล่เทียมมีจุดประสงค์หลักเพื่อลดปวดและฟื้นฟูการเคลื่อนไหวในผู้ป่วยที่ผิวข้อถูกทำลาย</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="chart-container">
+                        <canvas id="etiologyChart"></canvas>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                            <h3 class="font-bold text-blue-900">1. Primary Osteoarthritis</h3>
+                            <p class="text-sm">การเสื่อมของกระดูกอ่อนผิวข้อตามอายุ พบมากที่สุดในกลุ่มอายุ 65-84 ปี</p>
+                        </div>
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                            <h3 class="font-bold text-blue-900">2. Rotator Cuff Tear Arthropathy</h3>
+                            <p class="text-sm text-red-600 font-semibold">**จุดเน้น:** เส้นเอ็นฉีกขาดรุนแรงจนหัวกระดูกต้นแขนเลื่อนขึ้นด้านบน</p>
+                        </div>
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                            <h3 class="font-bold text-blue-900">3. Rheumatoid Arthritis</h3>
+                            <p class="text-sm">การอักเสบเรื้อรังจากระบบภูมิคุ้มกันทำลายเยื่อบุข้อ</p>
+                        </div>
+                        <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500">
+                            <h3 class="font-bold text-blue-900">4. AVN & Trauma</h3>
+                            <p class="text-sm">ภาวะหัวกระดูกขาดเลือดหรือกระดูกหักรุนแรงในผู้สูงอายุ</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Surgical Types -->
+        <section id="surgery" class="content-section hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-sm p-6 info-card">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4">Anatomic TSA</h3>
+                    <div class="aspect-square bg-slate-100 mb-4 flex items-center justify-center rounded-lg">
+                        <p class="text-center p-4 text-sm text-slate-500 italic">การเปลี่ยนตามกายวิภาคธรรมชาติ (Metal Ball อยู่ที่แขน, Plastic Socket อยู่ที่สะบัก)<br><strong>ต้องมี Rotator Cuff ที่ดี</strong></p>
+                    </div>
+                    <ul class="text-sm space-y-2">
+                        <li>✅ เหมาะสำหรับ: Primary OA</li>
+                        <li>❌ ข้อห้าม: หมุนแขนออกด้านนอกเกินกำหนด (ดึงรอยเย็บเส้นเอ็น)</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 info-card border-2 border-blue-200">
+                    <h3 class="text-xl font-bold text-blue-700 mb-4">Reverse TSA (rTSA)</h3>
+                    <div class="aspect-square bg-blue-50 mb-4 flex items-center justify-center rounded-lg">
+                        <p class="text-center p-4 text-sm text-blue-600 italic">สลับตำแหน่งกายวิภาค (Ball อยู่ที่สะบัก, Socket อยู่ที่แขน)<br><strong>ใช้กล้ามเนื้อ Deltoid ทำงานแทนเส้นเอ็นที่ขาด</strong></p>
+                    </div>
+                    <ul class="text-sm space-y-2">
+                        <li>✅ เหมาะสำหรับ: Massive Cuff Tear, Revision</li>
+                        <li>❌ ข้อห้าม: การหมุนแขนเข้าใน + หุบแขน + เหยียดไปหลัง (เสี่ยงหลุดสูงสุด)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Perioperative Nursing -->
+        <section id="perioperative" class="content-section hidden">
+            <div class="bg-white rounded-xl shadow-sm p-6">
+                <h2 class="text-2xl font-bold text-slate-900 mb-6">กระบวนการพยาบาล (Perioperative Care)</h2>
+                
+                <!-- Tab sub-navigation -->
+                <div class="flex border-b mb-6">
+                    <button onclick="toggleSubSection('preop')" class="sub-nav-btn px-4 py-2 font-bold text-blue-600 border-b-2 border-blue-600">Pre-operative</button>
+                    <button onclick="toggleSubSection('postop')" class="sub-nav-btn px-4 py-2 font-bold text-slate-500 ml-4">Post-operative</button>
+                    <button onclick="toggleSubSection('devices')" class="sub-nav-btn px-4 py-2 font-bold text-slate-500 ml-4">Medical Devices</button>
+                </div>
+
+                <div id="sub-preop" class="sub-section">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 bg-green-50 rounded-lg">
+                            <h4 class="font-bold text-green-800">Checklist สำคัญ</h4>
+                            <ul class="list-disc ml-5 text-sm space-y-2 mt-2">
+                                <li><strong>Dental Clearance:</strong> กำจัดแหล่งติดเชื้อในช่องปาก</li>
+                                <li><strong>Physiological Optimization:</strong> HbA1c < 8.0%, งดบุหรี่ > 30 วัน</li>
+                                <li><strong>Skin Prep:</strong> อาบน้ำด้วย CHG สองครั้ง (คืนก่อนและเช้าวันผ่าตัด)</li>
+                                <li><strong>NPO:</strong> อย่างน้อย 6-8 ชม. ตามวิสัญญี</li>
+                            </ul>
+                        </div>
+                        <div class="p-4 bg-orange-50 rounded-lg">
+                            <h4 class="font-bold text-orange-800">Home Prep (สอนก่อนผ่าตัด)</h4>
+                            <p class="text-sm mt-2">จัดบ้านให้พร้อมสำหรับการใช้แขนข้างเดียว เช่น เก็บพรมเช็ดเท้า, เตรียมเก้าอี้มีที่เท้าแขน, เตรียมเสื้อผ้ากระดุมหน้า</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sub-postop" class="sub-section hidden">
+                    <div class="space-y-6">
+                        <div class="p-4 bg-blue-50 border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-800">1. Multimodal Analgesia & ISB Block</h4>
+                            <p class="text-sm">เฝ้าระวังภาวะแทรกซ้อนจากการบล็อกประสาท (Interscalene Block): Horner's Syndrome (หนังตาตก), Phrenic Nerve Palsy (เหนื่อยหอบ), และ LAST (พิษยาชา)</p>
+                        </div>
+                        <div class="p-4 bg-yellow-50 border-l-4 border-yellow-500">
+                            <h4 class="font-bold text-yellow-800">2. The "Golden Rule" of Positioning</h4>
+                            <p class="text-sm font-bold text-red-700">ต้องมีหมอนรองใต้ข้อศอกเสมอเมื่อนอนหงาย!</p>
+                            <p class="text-sm">ห้ามปล่อยให้ศอกตกไปด้านหลังลำตัว เพราะจะทำให้ข้อไหล่เทียมด้านหน้าตึงและหลุดได้</p>
+                        </div>
+                        <div class="p-4 bg-purple-50 border-l-4 border-purple-500">
+                            <h4 class="font-bold text-purple-800">3. Neurovascular Monitoring (CMS)</h4>
+                            <p class="text-sm">ประเมินสีผิว, อุณหภูมิ, การคลำชีพจร และการรับความรู้สึกที่นิ้วมือข้างที่ผ่าตัดทุก 1-2 ชม. ในช่วงแรก</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="sub-devices" class="sub-section hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="border p-4 rounded-lg text-center">
+                            <div class="bg-blue-100 h-20 mb-2 flex items-center justify-center rounded">Sling with Pillow</div>
+                            <h5 class="font-bold">Shoulder Immobilizer</h5>
+                            <p class="text-xs">ใส่ตลอด 24 ชม. (4-6 สัปดาห์) ยกเว้นอาบน้ำ/ทำกายภาพ</p>
+                        </div>
+                        <div class="border p-4 rounded-lg text-center">
+                            <div class="bg-blue-100 h-20 mb-2 flex items-center justify-center rounded">Cryotherapy Unit</div>
+                            <h5 class="font-bold">Continuous Cooling</h5>
+                            <p class="text-xs">ประคบเย็นรอบไหล่ 20 นาที พัก 20 นาที เพื่อลดบวมและปวด</p>
+                        </div>
+                        <div class="border p-4 rounded-lg text-center">
+                            <div class="bg-blue-100 h-20 mb-2 flex items-center justify-center rounded">Pain Ball / PCA</div>
+                            <h5 class="font-bold">Nerve Catheter</h5>
+                            <p class="text-xs">ตรวจสอบสายรั่วซึม ประเมินอาการชาบริเวณปาก/เสียงวิ้งในหู</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Precautions -->
+        <section id="precautions" class="content-section hidden">
+            <div class="bg-red-50 rounded-xl p-6 border-2 border-red-200">
+                <h2 class="text-2xl font-bold text-red-800 mb-6 text-center">⚠️ ข้อควรระวังและสัญญาณอันตราย (Red Flags)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <h4 class="font-bold text-red-700 underline mb-2">ห้ามทำโดยเด็ดขาด (First 6 Weeks)</h4>
+                        <ul class="text-sm space-y-3">
+                            <li>🚫 <strong>No Weight Bearing:</strong> ห้ามใช้แขนยันตัวลุกจากเตียงหรือเก้าอี้</li>
+                            <li>🚫 <strong>Lifting Limit:</strong> ห้ามยกของหนักกว่าแก้วกาแฟ</li>
+                            <li>🚫 <strong>rTSA Warning:</strong> ห้ามเอื้อมมือไปล้วงกระเป๋ากางเกงด้านหลัง</li>
+                            <li>🚫 <strong>No Driving:</strong> ห้ามขับรถจนกว่าจะถอด Sling และหยุดยาแก้ปวด</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow-sm">
+                        <h4 class="font-bold text-red-700 underline mb-2">สัญญาณที่ต้องกลับมาพบแพทย์ทันที</h4>
+                        <ul class="text-sm space-y-3">
+                            <li>🚩 ไข้สูง > 38.3°C หรือแผลมีหนอง/บวมแดง</li>
+                            <li>🚩 ปวดรุนแรงฉับพลัน หรือไหล่ผิดรูป (สงสัยข้อหลุด)</li>
+                            <li>🚩 น่องบวมแดง เจ็บ (สงสัย DVT)</li>
+                            <li>🚩 หอบเหนื่อย เจ็บหน้าอก (สงสัย PE)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: Discharge Planning D-M-E-T-H-O-D -->
+        <section id="discharge" class="content-section hidden">
+            <h2 class="text-2xl font-bold text-blue-900 mb-6">แผนการจำหน่ายผู้ป่วย (Discharge Planning - D-M-E-T-H-O-D)</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500">
+                    <span class="method-badge">D</span>
+                    <h4 class="font-bold my-2">Disease</h4>
+                    <p class="text-xs">สอนเรื่องพยาธิสภาพและการฟื้นฟูที่ต้องใช้เวลา 6-12 เดือน ต้องจัดการความคาดหวังว่าช่วงแรกจะลำบากแต่จะค่อยๆ ดีขึ้น</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500">
+                    <span class="method-badge">M</span>
+                    <h4 class="font-bold my-2">Medication</h4>
+                    <p class="text-xs">เน้นการกินยาแก้ปวดตามรอบ, ยาระบายป้องกันท้องผูกจาก Opioids และ Aspirin ป้องกันลิ่มเลือดอุดตัน</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500">
+                    <span class="method-badge">E</span>
+                    <h4 class="font-bold my-2">Environment</h4>
+                    <p class="text-xs">การนอนบน Recliner หรือหนอนหงายโดยมีหมอนรองศอก, การจัดของใช้ให้อยู่ระดับเอวเพื่อเลี่ยงการเอื้อม</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500">
+                    <span class="method-badge">T</span>
+                    <h4 class="font-bold my-2">Treatment</h4>
+                    <p class="text-xs">สาธิตการทำแผล (รักษาให้แห้ง), การใส่ Sling ที่ถูกต้อง และท่ากายภาพบำบัดระยะที่ 1 (Pendulum exercises)</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500">
+                    <span class="method-badge">H</span>
+                    <h4 class="font-bold my-2">Health / ADLs</h4>
+                    <p class="text-xs">เทคนิคการแต่งตัว (สอดแขนข้างผ่าตัดก่อนเสมอ) และการอาบน้ำโดยปล่อยแขนห้อยตามแรงโน้มถ่วง</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border-t-4 border-blue-500">
+                    <span class="method-badge">O / D</span>
+                    <h4 class="font-bold my-2">Outpatient / Diet</h4>
+                    <p class="text-xs">นัดติดตามผล 1-2 สัปดาห์แรก เน้นอาหารโปรตีน แคลเซียม และวิตามินซี เพื่อการสมานแผล</p>
+                </div>
+            </div>
+            
+            <div class="mt-8 bg-white p-6 rounded-xl shadow-sm">
+                <h4 class="font-bold mb-4">ระยะเวลาการทำกายภาพบำบัด (Recovery Timeline)</h4>
+                <div class="chart-container">
+                    <canvas id="recoveryChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-slate-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="text-sm opacity-70">สำหรับการเรียนการสอนพยาบาลวิชาชีพ - Case Conference Support Tool</p>
+            <p class="text-xs mt-2 opacity-50">เนื้อหาอ้างอิงจากรายงานวิชาการการพยาบาลผู้ป่วยผ่าตัดเปลี่ยนข้อไหล่เทียม</p>
+        </div>
+    </footer>
+
+    <script>
+        // Section Navigation Logic
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if(link.getAttribute('onclick').includes(sectionId)) {
+                    link.classList.add('active');
+                }
+            });
+            window.scrollTo(0,0);
+        }
+
+        // Sub-section Toggle for Perioperative
+        function toggleSubSection(id) {
+            document.querySelectorAll('.sub-section').forEach(s => s.classList.add('hidden'));
+            document.getElementById('sub-' + id).classList.remove('hidden');
+            
+            document.querySelectorAll('.sub-nav-btn').forEach(btn => {
+                btn.classList.remove('text-blue-600', 'border-blue-600', 'border-b-2');
+                btn.classList.add('text-slate-500');
+            });
+            event.target.classList.add('text-blue-600', 'border-blue-600', 'border-b-2');
+            event.target.classList.remove('text-slate-500');
+        }
+
+        // Charts initialization
+        window.onload = function() {
+            // Etiology Donut Chart
+            const ctxEtiology = document.getElementById('etiologyChart').getContext('2d');
+            new Chart(ctxEtiology, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Primary OA', 'Cuff Arthropathy', 'Rheumatoid', 'Trauma/AVN'],
+                    datasets: [{
+                        data: [45, 30, 15, 10],
+                        backgroundColor: ['#3b82f6', '#60a5fa', '#93c5fd', '#bfdbfe'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        title: { display: true, text: 'สาเหตุหลักที่นำไปสู่การผ่าตัด (%)' }
+                    }
+                }
+            });
+
+            // Recovery Timeline Bar Chart
+            const ctxRecovery = document.getElementById('recoveryChart').getContext('2d');
+            new Chart(ctxRecovery, {
+                type: 'bar',
+                data: {
+                    labels: ['Phase 1 (0-4wk)', 'Phase 2 (4-6wk)', 'Phase 3 (6-10wk)', 'Phase 4 (10wk+)'],
+                    datasets: [{
+                        label: 'ระดับความเข้มข้นของการบริหาร',
+                        data: [20, 50, 80, 100],
+                        backgroundColor: '#3b82f6'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } }
+                    },
+                    plugins: {
+                        title: { display: true, text: 'ลำดับขั้นตอนการกายภาพบำบัด' }
+                    }
+                }
+            });
+
+            showSection('overview'); // Default view
+        };
+    </script>
+</body>
+</html>
